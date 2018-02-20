@@ -2,9 +2,7 @@ package com.example.raulm.tetris;
 
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,13 +53,17 @@ public class TetrisObject{
     }
 
     public void setAmpladaPantalla(int ampladaPantalla){
-        this.ampladaPantalla = ampladaPantalla;
+        //Dividir sa pantalla per 10 blocs
         Figura.TAMANY_QUADRAT = ampladaPantalla/10;
+
+        //Amplada de pantalla per saber es centre per treure ses figures
+        this.ampladaPantalla = ampladaPantalla;
+
+        //Nou tamany de figures
         totalFigures.clear();
         totalFigures.add(new FiguraO(view));
         totalFigures.add(new FiguraI(view));
-        //totalFigures.add(new FiguraS(view));
-        //totalFigures.add(new FiguraZ(view));
+        totalFigures.add(new FiguraZ(view));
     }
 
     public int getAlturaPantalla() {

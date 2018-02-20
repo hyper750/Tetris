@@ -1,46 +1,68 @@
 package com.example.raulm.tetris;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ScaleDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.PathShape;
-import android.view.Gravity;
 import android.view.View;
 
 /**
- * Created by RaulM on 15/02/2018.
+ * Created by RaulM on 08/02/2018.
  */
 
 public class FiguraZ extends Figura {
-
-    public FiguraZ(View v){
-        super(v);
+    public FiguraZ(View view) {
+        super(view);
     }
 
     @Override
     protected Drawable setDrawable() {
-        /*Path p = new Path();
-        p.moveTo(0f, 0f);*/
+        Path p = new Path();
+        float ampladaTotal = (float) 1/3;
+        float alturaTotal = (float) 1/2;
+        p.moveTo(0f, 0f);
+        p.lineTo((float)(ampladaTotal*2), 0f);
+        p.lineTo((float)(ampladaTotal*2), (float) (alturaTotal*1));
+        p.lineTo((float)(ampladaTotal*3), (float) (alturaTotal*1));
+        p.lineTo((float)(ampladaTotal*3), (float) (alturaTotal*2));
+        p.lineTo((float)(ampladaTotal*1), (float) (alturaTotal*2));
+        p.lineTo((float)(ampladaTotal*1), (float) (alturaTotal*1));
+        p.lineTo(0f, (float) (alturaTotal*1));
+        p.lineTo(0f, 0f);
 
 
-        /*ShapeDrawable drawable = new ShapeDrawable(new PathShape(p, 1, 1));
-        drawable.getPaint().setColor(this.view.getResources().getColor(R.color.figuraZ));
-        drawable.getPaint().setStyle(Paint.Style.FILL);
-        drawable.setIntrinsicHeight(Figura.TAMANY_QUADRAT);
-        drawable.setIntrinsicWidth(Figura.TAMANY_QUADRAT);*/
-        Figura s = new FiguraS(this.view);
-        //Girar i canviar color
-        return s.imatge;
+        ShapeDrawable figuraS = new ShapeDrawable(new PathShape(p, 1, 1));
+        figuraS.getPaint().setColor(this.view.getContext().getResources().getColor(R.color.figuraZ));
+        figuraS.getPaint().setStyle(Paint.Style.FILL);
+        figuraS.setIntrinsicWidth(Figura.TAMANY_QUADRAT*3);
+        figuraS.setIntrinsicHeight(Figura.TAMANY_QUADRAT*2);
+        return figuraS;
     }
 
     @Override
     protected Drawable setContorn() {
-        Figura s = new FiguraS(this.view);
-        return s.contorn;
+        Path p = new Path();
+        float ampladaTotal = (float) 1/3;
+        float alturaTotal = (float) 1/2;
+        p.moveTo(0f, 0f);
+        p.lineTo((float)(ampladaTotal*2), 0f);
+        p.lineTo((float)(ampladaTotal*2), (float) (alturaTotal*1));
+        p.lineTo((float)(ampladaTotal*3), (float) (alturaTotal*1));
+        p.lineTo((float)(ampladaTotal*3), (float) (alturaTotal*2));
+        p.lineTo((float)(ampladaTotal*1), (float) (alturaTotal*2));
+        p.lineTo((float)(ampladaTotal*1), (float) (alturaTotal*1));
+        p.lineTo(0f, (float) (alturaTotal*1));
+        p.lineTo(0f, 0f);
+
+        //Interior
+
+        ShapeDrawable contorn = new ShapeDrawable(new PathShape(p, 1, 1));
+        contorn.getPaint().setColor(Color.BLACK);
+        contorn.getPaint().setStyle(Paint.Style.STROKE);
+        contorn.setIntrinsicWidth(imatge.getIntrinsicWidth());
+        contorn.setIntrinsicHeight(imatge.getIntrinsicHeight());
+        return contorn;
     }
 }

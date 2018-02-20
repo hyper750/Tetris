@@ -20,8 +20,10 @@ public class VistaJoc extends View {
 
     private TetrisObject tetris = new TetrisObject(this);
 
-    //Que cada 50ms s'actualitzi
-    private final static int PERIODE_PROCES = 50;
+    //Que cada Xms s'actualitzi
+    //Reeduit perque feia un afecta com si anigues a tirons quan ses peces avançaven rapidament
+    //Hi ha d'haver alguna relació segons sa velocitat maxima de ses peces i es temps d'actualització
+    private final static int PERIODE_PROCES = 20;
     private final ThreadFisica fil = new ThreadFisica();
     private long darrerProces = 0;
 

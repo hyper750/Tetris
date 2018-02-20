@@ -19,7 +19,7 @@
         <activity android:name=".Joc" android:hardwareAccelerated="false">
 
         </activity>
-        <activity android:name=".JocMultijugador" android:hardwareAccelerated="false">
+        <activity android:name=".JocMultijugador" android:hardwareAccelerated="false" android:screenOrientation="userPortrait">
 
         </activity>
     </application>
