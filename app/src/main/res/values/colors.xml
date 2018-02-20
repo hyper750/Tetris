@@ -3,7 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="FiguraI">#4575D4</color>
-    <color name="FiguraS">#E93D1E</color>
-    <color name="FiguraZ">#7AAF3B</color>
+    <color name="figuraI">#4575D4</color>
+    <color name="figuraS">#E93D1E</color>
+    <color name="figuraZ">#7AAF3B</color>
+    <color name="figuraO">#FFFF00</color>
 </resources>

@@ -23,14 +23,14 @@ public class FiguraI extends Figura {
         Path p = new Path();
         p.moveTo(0f, 0f);
         p.lineTo(1f, 0f);
-        p.lineTo(1f, 4f);
-        p.lineTo(0f, 4f);
+        p.lineTo(1f, 1f);
+        p.lineTo(0f, 1f);
         p.lineTo(0f, 0f);
         ShapeDrawable figurai = new ShapeDrawable(new PathShape(p, 1, 1));
-        figurai.getPaint().setColor(this.view.getContext().getResources().getColor(R.color.FiguraI));
+        figurai.getPaint().setColor(this.view.getContext().getResources().getColor(R.color.figuraI));
         figurai.getPaint().setStyle(Paint.Style.FILL);
         figurai.setIntrinsicWidth(Figura.TAMANY_QUADRAT);
-        figurai.setIntrinsicHeight(Figura.TAMANY_QUADRAT);
+        figurai.setIntrinsicHeight(Figura.TAMANY_QUADRAT*4);
         return figurai;
     }
 
@@ -39,11 +39,11 @@ public class FiguraI extends Figura {
         Path p = new Path();
         p.moveTo(0f, 0f);
         p.lineTo(1f, 0f);
-        p.lineTo(1f, 4f);
-        p.lineTo(0f, 4f);
+        p.lineTo(1f, 1f);
+        p.lineTo(0f, 1f);
         p.lineTo(0f, 0f);
 
-        for(int x = 1; x < 4; x++) {
+        for(float x = 0.25f; x < 1; x+=0.25f) {
             p.moveTo(0f, (float)x);
             p.lineTo(1f, (float)x);
         }
@@ -51,8 +51,8 @@ public class FiguraI extends Figura {
         ShapeDrawable contorn = new ShapeDrawable(new PathShape(p, 1, 1));
         contorn.getPaint().setColor(Color.BLACK);
         contorn.getPaint().setStyle(Paint.Style.STROKE);
-        contorn.setIntrinsicHeight(Figura.TAMANY_QUADRAT);
-        contorn.setIntrinsicWidth(Figura.TAMANY_QUADRAT);
+        contorn.setIntrinsicHeight(imatge.getIntrinsicHeight());
+        contorn.setIntrinsicWidth(imatge.getIntrinsicWidth());
         return contorn;
     }
 }

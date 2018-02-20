@@ -32,7 +32,7 @@ public class FiguraS extends Figura {
 
 
         ShapeDrawable figuraS = new ShapeDrawable(new PathShape(p, 1, 1));
-        figuraS.getPaint().setColor(this.view.getContext().getResources().getColor(R.color.FiguraS));
+        figuraS.getPaint().setColor(this.view.getContext().getResources().getColor(R.color.figuraS));
         figuraS.getPaint().setStyle(Paint.Style.FILL);
         figuraS.setIntrinsicWidth(Figura.TAMANY_QUADRAT);
         figuraS.setIntrinsicHeight(Figura.TAMANY_QUADRAT);

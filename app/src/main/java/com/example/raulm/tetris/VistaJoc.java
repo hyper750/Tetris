@@ -3,6 +3,7 @@ package com.example.raulm.tetris;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -17,7 +18,7 @@ public class VistaJoc extends View {
     //Llista de figures, ja estiguin caiguent o posades
     //Quant faixin una linia s'han d'eliminar
 
-    private final TetrisObject tetris = new TetrisObject(this);
+    private TetrisObject tetris = new TetrisObject(this);
 
     //Que cada 50ms s'actualitzi
     private final static int PERIODE_PROCES = 50;
@@ -89,6 +90,15 @@ public class VistaJoc extends View {
 
         }
     }
+
+    /*Guardar estat?
+    public TetrisObject getTetris(){
+        return tetris;
+    }
+
+    public void setTetris(TetrisObject tetris){
+        this.tetris = tetris;
+    }*/
 
     public ThreadFisica getFil(){
         return this.fil;

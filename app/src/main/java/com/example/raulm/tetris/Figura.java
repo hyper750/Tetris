@@ -15,12 +15,12 @@ import android.widget.Toast;
  */
 
 public abstract class Figura implements Cloneable{
-    protected static final int TAMANY_QUADRAT = 64;
+    protected static int TAMANY_QUADRAT = 64;
 
     protected View view;
     protected Drawable imatge;
     protected Drawable contorn;
-    private int amplada, altura;
+    protected int amplada, altura;
     private int centreX, centreY;
     private double incX, incY;
     private int anteriorX, anteriorY;
@@ -59,16 +59,10 @@ public abstract class Figura implements Cloneable{
         this.contorn.setBounds(x, y, x+amplada, y+altura);
         this.contorn.draw(canvas);
         //Actualitzar quadrant per dibuixar s'imatge actual
-        Rect r = new Rect();
-        r.set(centreX-radiInvalidacio, centreY-radiInvalidacio, centreX+radiInvalidacio, centreY+radiInvalidacio);
-        Paint p = new Paint();
-        p.setStyle(Paint.Style.FILL);
-        p.setColor(Color.BLACK);
-        canvas.drawRect(r, p);
-        view.invalidate();
-        //this.view.invalidate(centreX-radiInvalidacio, centreY-radiInvalidacio, centreX+radiInvalidacio, centreY+radiInvalidacio);
+        this.view.invalidate(centreX-radiInvalidacio, centreY-radiInvalidacio, centreX+radiInvalidacio, centreY+radiInvalidacio);
         //Actualitz es quadrant anterior per llevar sa figura que s'ha mogut i no està en aquella posició
-        //this.view.invalidate(anteriorX-radiInvalidacio, anteriorY-radiInvalidacio, anteriorX+radiInvalidacio, anteriorY+radiInvalidacio);
+        this.view.invalidate(anteriorX-radiInvalidacio, anteriorY-radiInvalidacio, anteriorX+radiInvalidacio, anteriorY+radiInvalidacio);
+        //view.invalidate();
         anteriorX = centreX;
         anteriorY = centreY;
     }
@@ -78,9 +72,8 @@ public abstract class Figura implements Cloneable{
         centreY += incY * retard;
 
         //Si fa contacte amb enterra o amb una altre figura aturar
-        if(centreY+altura > view.getHeight()){
+        if(centreY+(altura/2) > view.getHeight()){
             incY = 0;
-            //O contacte amb una altre figura
         }
     }
 
@@ -122,5 +115,13 @@ public abstract class Figura implements Cloneable{
 
     public void setIncY(double incY) {
         this.incY = incY;
+    }
+
+    public int getAmplada() {
+        return amplada;
+    }
+
+    public int getAltura() {
+        return altura;
     }
 }

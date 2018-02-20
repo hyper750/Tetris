@@ -29,7 +29,7 @@ public class FiguraZ extends Figura {
 
 
         /*ShapeDrawable drawable = new ShapeDrawable(new PathShape(p, 1, 1));
-        drawable.getPaint().setColor(this.view.getResources().getColor(R.color.FiguraZ));
+        drawable.getPaint().setColor(this.view.getResources().getColor(R.color.figuraZ));
         drawable.getPaint().setStyle(Paint.Style.FILL);
         drawable.setIntrinsicHeight(Figura.TAMANY_QUADRAT);
         drawable.setIntrinsicWidth(Figura.TAMANY_QUADRAT);*/

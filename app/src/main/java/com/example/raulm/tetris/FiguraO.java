@@ -29,15 +29,15 @@ public final class FiguraO extends Figura{
         Path path = new Path();
         //Dibuix es tipu en concret de figura
         path.moveTo(0f, 0f);
-        path.lineTo((float)2, 0.0f);
-        path.lineTo((float)2, (float)2);
-        path.lineTo(0.0f, (float)2);
+        path.lineTo(1f, 0.0f);
+        path.lineTo(1f, 1f);
+        path.lineTo(0f, 1f);
         path.lineTo(0f, 0f);
-        ShapeDrawable figura_o = new ShapeDrawable(new PathShape(path, 1, 1));
-        figura_o.getPaint().setColor(Color.YELLOW);
+        ShapeDrawable figura_o = new ShapeDrawable(new PathShape(path, 1f, 1f));
+        figura_o.getPaint().setColor(view.getResources().getColor(R.color.figuraO));
         figura_o.getPaint().setStyle(Paint.Style.FILL);
-        figura_o.setIntrinsicWidth(Figura.TAMANY_QUADRAT);
-        figura_o.setIntrinsicHeight(Figura.TAMANY_QUADRAT);
+        figura_o.setIntrinsicWidth(Figura.TAMANY_QUADRAT*2);
+        figura_o.setIntrinsicHeight(Figura.TAMANY_QUADRAT*2);
         return figura_o;
     }
 
@@ -47,20 +47,20 @@ public final class FiguraO extends Figura{
         Path pathContorn = new Path();
         //Vores
         pathContorn.moveTo(0f, 0f);
-        pathContorn.lineTo((float)2, 0.0f);
-        pathContorn.lineTo((float)2, (float)2);
-        pathContorn.lineTo(0.0f, (float)2);
+        pathContorn.lineTo(1f, 0.0f);
+        pathContorn.lineTo(1f, 1f);
+        pathContorn.lineTo(0.0f, 1f);
         pathContorn.lineTo(0f, 0f);
         //En mitj
-        pathContorn.moveTo((float)1, 0f);
-        pathContorn.lineTo((float)1, (float)2);
-        pathContorn.moveTo(0.0f, (float)1);
-        pathContorn.lineTo((float)2, (float)1);
+        pathContorn.moveTo(0.5f, 0f);
+        pathContorn.lineTo(0.5f, 1f);
+        pathContorn.moveTo(0f, 0.5f);
+        pathContorn.lineTo(1f, 0.5f);
         ShapeDrawable contorn = new ShapeDrawable(new PathShape(pathContorn, 1, 1));
         contorn.getPaint().setColor(Color.BLACK);
         contorn.getPaint().setStyle(Paint.Style.STROKE);
-        contorn.setIntrinsicHeight(Figura.TAMANY_QUADRAT);
-        contorn.setIntrinsicWidth(Figura.TAMANY_QUADRAT);
+        contorn.setIntrinsicHeight(imatge.getIntrinsicHeight());
+        contorn.setIntrinsicWidth(imatge.getIntrinsicWidth());
         return contorn;
     }
 

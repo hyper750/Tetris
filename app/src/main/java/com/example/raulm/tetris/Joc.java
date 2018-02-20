@@ -37,4 +37,17 @@ public class Joc extends Activity{
         super.onDestroy();
         vistaJoc.getFil().aturar();
     }
+
+    /*@Override
+    public void onSaveInstanceState(Bundle save){
+        super.onSaveInstanceState(save);
+        save.putSerializable("joc", vistaJoc.getTetris());
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle load){
+        super.onRestoreInstanceState(load);
+        TetrisObject t = (TetrisObject) load.getSerializable("joc");
+        vistaJoc.setTetris(t);
+    }*/
 }
