@@ -2,12 +2,11 @@ package com.example.raulm.tetris;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,13 +81,13 @@ public class VistaJoc extends View {
             tetris.getFiguraActual().incrementarPosicio(retard);
 
             //Mirar colisio
-            for(int x = 0; x < total; x++){
+            /*for(int x = 0; x < total; x++){
                 Figura seguent = tetris.getFigures().get(x);
                 if(tetris.getFiguraActual().colisio(seguent)){
                     tetris.getFiguraActual().setIncY(0d);
                     tetris.random();
                 }
-            }
+            }*/
 
         }
     }

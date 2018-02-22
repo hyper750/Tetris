@@ -25,19 +25,13 @@ public class TetrisObject{
 
     public void random(){
         int numRandom = (int)(Math.random()*totalFigures.size());
-        try {
-            figuraActual = totalFigures.get(numRandom).clone();
-            figuraActual.setCentreX(this.ampladaPantalla/2);
-            figuraActual.setCentreY(figuraActual.getAltura()/2);
-            figuraActual.setIncY(this.velocitat);
+        if(figuraActual != null){
+            figures.add(figuraActual);
         }
-        catch (CloneNotSupportedException e){
-            Log.e("Clone", "Error no es pot clonar l'objecte figura", e);
-        }
-    }
-
-    public void canviarVelocitat(double velocitat){
-        this.velocitat = velocitat;
+        figuraActual = totalFigures.get(numRandom).clone();
+        figuraActual.setCentreX(this.ampladaPantalla/2);
+        figuraActual.setCentreY(figuraActual.getAltura()/2);
+        figuraActual.setIncY(this.velocitat);
     }
 
     public List<Figura> getFigures(){
@@ -54,16 +48,14 @@ public class TetrisObject{
 
     public void setAmpladaPantalla(int ampladaPantalla){
         //Dividir sa pantalla per 10 blocs
-        Figura.TAMANY_QUADRAT = ampladaPantalla/10;
+        _Figura.TAMANY_QUADRAT = ampladaPantalla/10;
 
         //Amplada de pantalla per saber es centre per treure ses figures
         this.ampladaPantalla = ampladaPantalla;
 
         //Nou tamany de figures
         totalFigures.clear();
-        totalFigures.add(new FiguraO(view));
-        totalFigures.add(new FiguraI(view));
-        totalFigures.add(new FiguraZ(view));
+        totalFigures.add(new FiguraO(view, this));
     }
 
     public int getAlturaPantalla() {

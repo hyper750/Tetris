@@ -12,9 +12,9 @@ import android.view.View;
  * Created by RaulM on 08/02/2018.
  */
 
-public class FiguraZ extends Figura {
-    public FiguraZ(View view) {
-        super(view);
+public class _FiguraZ extends _Figura {
+    public _FiguraZ(View view, TetrisObject tetris) {
+        super(view, tetris);
     }
 
     @Override
@@ -36,8 +36,8 @@ public class FiguraZ extends Figura {
         ShapeDrawable figuraS = new ShapeDrawable(new PathShape(p, 1, 1));
         figuraS.getPaint().setColor(this.view.getContext().getResources().getColor(R.color.figuraZ));
         figuraS.getPaint().setStyle(Paint.Style.FILL);
-        figuraS.setIntrinsicWidth(Figura.TAMANY_QUADRAT*3);
-        figuraS.setIntrinsicHeight(Figura.TAMANY_QUADRAT*2);
+        figuraS.setIntrinsicWidth(_Figura.TAMANY_QUADRAT*3);
+        figuraS.setIntrinsicHeight(_Figura.TAMANY_QUADRAT*2);
         return figuraS;
     }
 
