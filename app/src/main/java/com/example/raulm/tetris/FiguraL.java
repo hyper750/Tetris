@@ -25,8 +25,8 @@ public class FiguraL extends Figura {
         imatge[1][0] = new Cuadro(view, color, this);
         imatge[1][1] = null;
 
-        imatge[2][0] = imatge[0][0] = new Cuadro(view, color, this);
-        imatge[2][1] = imatge[0][0] = new Cuadro(view, color, this);
+        imatge[2][0] = new Cuadro(view, color, this);
+        imatge[2][1] = new Cuadro(view, color, this);
         return imatge;
     }
 }
