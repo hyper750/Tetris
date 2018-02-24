@@ -2,72 +2,69 @@ package com.example.raulm.tetris;
 
 import android.graphics.Canvas;
 import android.util.Log;
+import android.view.View;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by RaulM on 22/02/2018.
  */
 
 public abstract class Figura implements Cloneable{
-    /*void dibuixar(Canvas canvas);
-    void setCentreX(int centreX);
-    void setCentreY(int centreY);
-    void setIncY(double increment);
-    void incrementarPosicio(double increment);
-    Figura clone();
-    int getAltura();
-    boolean colisio(Figura f);
-    int distancia(Figura f);
-    void setAturada(boolean aturada);*/
 
-    protected abstract int getAmpladaArray();
-    protected abstract int getAlturaArray();
     protected abstract Cuadro[][] getImatgeArray();
-    private boolean aturada = false;
+    private Cuadro[][] imatge;
+    private AtomicBoolean aturada = new AtomicBoolean(false);
     private TetrisObject tetrisObject;
+    protected View view;
 
-    public Figura(TetrisObject tetrisObject){
+    public Figura(View view, TetrisObject tetrisObject){
+        this.view = view;
+        this.imatge = getImatgeArray();
         this.tetrisObject = tetrisObject;
     }
 
     public void dibuixar(Canvas canvas){
-        for(int y = 0; y < getAlturaArray(); y++){
-            for(int x = 0; x < getAmpladaArray(); x++){
-                getImatgeArray()[y][x].dibuixar(canvas);
+        for(int y = 0; y < this.imatge.length; y++){
+            for(int x = 0; x < this.imatge[y].length; x++){
+                this.imatge[y][x].dibuixar(canvas);
             }
         }
     }
 
     public void setCentreX(int centreX) {
-        for(int y = 0; y < getAlturaArray(); y++){
+        for(int y = 0; y < this.imatge.length; y++){
             int incremental = centreX;
-            for(int x = 0; x < getAmpladaArray(); x++){
-                getImatgeArray()[y][x].setCentreX(incremental);
+            for(int x = 0; x < this.imatge[y].length; x++){
+                this.imatge[y][x].setCentreX(incremental);
                 incremental += Cuadro.TAMANY_QUADRAT;
             }
         }
     }
 
     public void setCentreY(int centreY) {
-        for(int y = 0; y < getAlturaArray(); y++){
-            for(int x = 0; x < getAmpladaArray(); x++){
-                getImatgeArray()[y][x].setCentreY(centreY);
+        for(int y = 0; y < this.imatge.length; y++){
+            for(int x = 0; x < this.imatge[y].length; x++){
+                this.imatge[y][x].setCentreY(centreY);
             }
             centreY += Cuadro.TAMANY_QUADRAT;
         }
     }
 
     public void setIncY(double increment) {
-        for(int y = 0; y < getAlturaArray(); y++){
-            for(int x = 0; x < getAmpladaArray(); x++){
-                getImatgeArray()[y][x].setIncY(increment);
+        for(int y = 0; y < this.imatge.length; y++){
+            for(int x = 0; x < this.imatge[y].length; x++){
+                this.imatge[y][x].setIncY(increment);
             }
         }
     }
 
     public void incrementarPosicio(double increment) {
-        for(int y = 0; y < getAlturaArray(); y++){
-            for(int x = 0; x < getAmpladaArray(); x++){
-                getImatgeArray()[y][x].incrementarPosicio(increment);
+        if(!this.aturada.get()) {
+            for (int y = this.imatge.length - 1; y >= 0; y--) {
+                for (int x = this.imatge[y].length - 1; x >= 0; x--) {
+                    this.imatge[y][x].incrementarPosicio(increment);
+                }
             }
         }
     }
@@ -80,11 +77,22 @@ public abstract class Figura implements Cloneable{
         catch (CloneNotSupportedException e){
             Log.e("Error clonació", "No s'ha pogut clonar FiguraO", e);
         }
+        //return new FiguraO(this.view, tetrisObject);
         return null;
     }
 
     public int getAltura() {
-        return getAlturaArray()*Cuadro.TAMANY_QUADRAT;
+        return this.imatge.length*Cuadro.TAMANY_QUADRAT;
+    }
+
+    public int getAmplada(){
+        int max = this.imatge[0].length;
+        for(int x = 1; x < this.imatge.length; x++){
+            if(this.imatge[x].length > max){
+                max = this.imatge[x].length;
+            }
+        }
+        return max*Cuadro.TAMANY_QUADRAT;
     }
 
     public boolean colisio(Figura f) {
@@ -95,10 +103,8 @@ public abstract class Figura implements Cloneable{
         return 0;
     }
 
-    public void setAturada(boolean aturat) {
-        if(!this.aturada){
-            this.aturada = aturat;
-            tetrisObject.random();
-        }
+    public void setAturada() {
+        this.aturada.set(true);
+        //tetrisObject.random();
     }
 }

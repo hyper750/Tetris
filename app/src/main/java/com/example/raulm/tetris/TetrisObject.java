@@ -48,14 +48,14 @@ public class TetrisObject{
 
     public void setAmpladaPantalla(int ampladaPantalla){
         //Dividir sa pantalla per 10 blocs
-        _Figura.TAMANY_QUADRAT = ampladaPantalla/10;
+        Cuadro.TAMANY_QUADRAT = ampladaPantalla/10;
 
         //Amplada de pantalla per saber es centre per treure ses figures
         this.ampladaPantalla = ampladaPantalla;
 
         //Nou tamany de figures
         totalFigures.clear();
-        totalFigures.add(new FiguraO(view, this));
+        totalFigures.add(new FiguraO(this.view, this));
     }
 
     public int getAlturaPantalla() {

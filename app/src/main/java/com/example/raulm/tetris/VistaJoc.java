@@ -17,7 +17,7 @@ public class VistaJoc extends View {
     //Llista de figures, ja estiguin caiguent o posades
     //Quant faixin una linia s'han d'eliminar
 
-    private TetrisObject tetris = new TetrisObject(this);
+    private TetrisObject tetris;
 
     //Que cada Xms s'actualitzi
     //Reeduit perque feia un afecta com si anigues a tirons quan ses peces avançaven rapidament
@@ -29,6 +29,7 @@ public class VistaJoc extends View {
     public VistaJoc(Context context, AttributeSet attrs) {
         super(context, attrs);
         //Crear objectes de sa vista
+        this.tetris = new TetrisObject(this);
     }
 
     @Override
@@ -37,9 +38,8 @@ public class VistaJoc extends View {
         //Mostrar objectes de sa vista
         synchronized (this) {
             int tamanyFigures = tetris.getFigures().size();
-            List<Figura> llista = tetris.getFigures();
             for (int x = 0; x < tamanyFigures; x++) {
-                llista.get(x).dibuixar(canvas);
+                tetris.getFigures().get(x).dibuixar(canvas);
             }
 
             tetris.getFiguraActual().dibuixar(canvas);
