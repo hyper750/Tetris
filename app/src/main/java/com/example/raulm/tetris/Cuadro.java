@@ -86,7 +86,7 @@ public class Cuadro{
         centreY += incY * retard;
         //Log.d("Moguent cuadro", "Moguent a " + centreY);
         //Si fa contacte amb enterra o amb una altre figura aturar
-        if(centreY+altura/2 > view.getHeight()){
+        if(centreY+altura/2 >= view.getHeight()){
             incY = 0;
             figura.setAturada();
         }
@@ -97,7 +97,7 @@ public class Cuadro{
     }
 
     public boolean colisio(Cuadro f){
-        return distancia(f) <= 10;
+        return distancia(f) <= 0;
     }
 
     public void setCentreX(int centreX) {

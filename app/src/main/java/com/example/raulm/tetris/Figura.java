@@ -27,7 +27,9 @@ public abstract class Figura implements Cloneable{
     public void dibuixar(Canvas canvas){
         for(int y = 0; y < this.imatge.length; y++){
             for(int x = 0; x < this.imatge[y].length; x++){
-                this.imatge[y][x].dibuixar(canvas);
+                if(this.imatge[y][x] != null) {
+                    this.imatge[y][x].dibuixar(canvas);
+                }
             }
         }
     }
@@ -36,7 +38,9 @@ public abstract class Figura implements Cloneable{
         for(int y = 0; y < this.imatge.length; y++){
             int incremental = centreX;
             for(int x = 0; x < this.imatge[y].length; x++){
-                this.imatge[y][x].setCentreX(incremental);
+                if(this.imatge[y][x] != null) {
+                    this.imatge[y][x].setCentreX(incremental);
+                }
                 incremental += Cuadro.TAMANY_QUADRAT;
             }
         }
@@ -45,7 +49,9 @@ public abstract class Figura implements Cloneable{
     public void setCentreY(int centreY) {
         for(int y = 0; y < this.imatge.length; y++){
             for(int x = 0; x < this.imatge[y].length; x++){
-                this.imatge[y][x].setCentreY(centreY);
+                if(this.imatge[y][x] != null) {
+                    this.imatge[y][x].setCentreY(centreY);
+                }
             }
             centreY += Cuadro.TAMANY_QUADRAT;
         }
@@ -54,7 +60,9 @@ public abstract class Figura implements Cloneable{
     public void setIncY(double increment) {
         for(int y = 0; y < this.imatge.length; y++){
             for(int x = 0; x < this.imatge[y].length; x++){
-                this.imatge[y][x].setIncY(increment);
+                if(this.imatge[y][x] != null) {
+                    this.imatge[y][x].setIncY(increment);
+                }
             }
         }
     }
@@ -63,7 +71,9 @@ public abstract class Figura implements Cloneable{
         if(!this.aturada.get()) {
             for (int y = this.imatge.length - 1; y >= 0; y--) {
                 for (int x = this.imatge[y].length - 1; x >= 0; x--) {
-                    this.imatge[y][x].incrementarPosicio(increment);
+                    if(this.imatge[y][x] != null) {
+                        this.imatge[y][x].incrementarPosicio(increment);
+                    }
                 }
             }
         }
@@ -100,11 +110,15 @@ public abstract class Figura implements Cloneable{
     }
 
     public boolean colisio(Figura f) {
-        return false;
+        return distancia(f) <= 0;
     }
 
     public int distancia(Figura f) {
-        return 0;
+        int max = 0;
+        for(int x = 0; x < imatge.length; x++){
+
+        }
+        return max;
     }
 
     public void setAturada() {

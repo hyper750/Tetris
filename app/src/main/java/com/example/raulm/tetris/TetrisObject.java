@@ -57,6 +57,11 @@ public class TetrisObject{
         totalFigures.clear();
         totalFigures.add(new FiguraO(this.view, this));
         totalFigures.add(new FiguraI(this.view, this));
+        totalFigures.add(new FiguraS(this.view, this));
+        totalFigures.add(new FiguraZ(this.view, this));
+        totalFigures.add(new FiguraL(this.view, this));
+        totalFigures.add(new FiguraJ(this.view, this));
+        totalFigures.add(new FiguraT(this.view, this));
     }
 
     public int getAlturaPantalla() {
