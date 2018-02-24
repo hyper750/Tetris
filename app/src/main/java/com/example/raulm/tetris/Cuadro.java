@@ -16,7 +16,7 @@ import java.util.List;
  * Created by RaulM on 22/02/2018.
  */
 
-public class Cuadro implements Cloneable{
+public class Cuadro{
     protected static int TAMANY_QUADRAT = 64;
 
     protected View view;
@@ -90,17 +90,6 @@ public class Cuadro implements Cloneable{
             incY = 0;
             figura.setAturada();
         }
-    }
-
-    @Override
-    public Cuadro clone(){
-        try {
-            return (Cuadro) super.clone();
-        } catch (CloneNotSupportedException e) {
-            Log.e("CLONE", "No es pot clonar el quadre");
-        }
-        //return new Cuadro(this.view, Color.MAGENTA, this.figura);
-        return null;
     }
 
     public double distancia(Cuadro f){

@@ -56,6 +56,7 @@ public class TetrisObject{
         //Nou tamany de figures
         totalFigures.clear();
         totalFigures.add(new FiguraO(this.view, this));
+        totalFigures.add(new FiguraI(this.view, this));
     }
 
     public int getAlturaPantalla() {

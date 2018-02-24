@@ -72,7 +72,11 @@ public abstract class Figura implements Cloneable{
     @Override
     public Figura clone() {
         try{
-            return (Figura)super.clone();
+            Figura f = (Figura)super.clone();
+            //Es tipus primitius es clonen pero es objectes es donen nomes sa referencia, per tant no es clonen
+            f.imatge = f.getImatgeArray();
+            f.aturada = new AtomicBoolean(false);
+            return f;
         }
         catch (CloneNotSupportedException e){
             Log.e("Error clonació", "No s'ha pogut clonar FiguraO", e);
@@ -104,7 +108,9 @@ public abstract class Figura implements Cloneable{
     }
 
     public void setAturada() {
-        this.aturada.set(true);
-        //tetrisObject.random();
+        if(!this.aturada.get()){
+            this.aturada.set(true);
+            tetrisObject.random();
+        }
     }
 }

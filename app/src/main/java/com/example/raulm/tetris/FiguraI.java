@@ -8,12 +8,24 @@ import android.view.View;
  */
 
 public class FiguraI extends Figura {
+
+    private static final int AMPLADA = 1;
+    private static final int ALTURA = 4;
+
+
     public FiguraI(View view, TetrisObject tetrisObject) {
         super(view, tetrisObject);
     }
 
     @Override
     protected Cuadro[][] getImatgeArray() {
-        return new Cuadro[0][];
+        Cuadro[][] imatge = new Cuadro[ALTURA][AMPLADA];
+        int color = view.getContext().getResources().getColor(R.color.figuraI);
+        for(int y = 0; y < ALTURA; y++){
+            for(int x = 0; x < AMPLADA; x++){
+                imatge[y][x] = new Cuadro(view, color, this);
+            }
+        }
+        return imatge;
     }
 }
