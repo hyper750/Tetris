@@ -22,7 +22,7 @@ public class FiguraL extends Figura {
         imatge[0][0] = new Cuadro(view, color, this);
         imatge[0][1] = null;
 
-        imatge[1][0] = imatge[0][0] = new Cuadro(view, color, this);
+        imatge[1][0] = new Cuadro(view, color, this);
         imatge[1][1] = null;
 
         imatge[2][0] = imatge[0][0] = new Cuadro(view, color, this);

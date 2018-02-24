@@ -23,10 +23,10 @@ public class FiguraJ extends Figura {
         imatge[0][1] = new Cuadro(view, color, this);
 
         imatge[1][0] = null;
-        imatge[1][1] = imatge[0][0] = new Cuadro(view, color, this);
+        imatge[1][1] = new Cuadro(view, color, this);
 
-        imatge[2][0] = imatge[0][0] = new Cuadro(view, color, this);
-        imatge[2][1] = imatge[0][0] = new Cuadro(view, color, this);
+        imatge[2][0] = new Cuadro(view, color, this);
+        imatge[2][1] = new Cuadro(view, color, this);
 
         return imatge;
     }
