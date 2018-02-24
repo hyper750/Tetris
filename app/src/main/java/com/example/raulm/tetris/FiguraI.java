@@ -8,19 +8,8 @@ import android.view.View;
  */
 
 public class FiguraI extends Figura {
-
     public FiguraI(View view, TetrisObject tetrisObject) {
         super(view, tetrisObject);
-    }
-
-    @Override
-    protected int getAmpladaArray() {
-        return 0;
-    }
-
-    @Override
-    protected int getAlturaArray() {
-        return 0;
     }
 
     @Override
