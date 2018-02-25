@@ -71,4 +71,8 @@ public class TetrisObject{
     public int getAmpladaPantalla() {
         return ampladaPantalla;
     }
+
+    public void setFiguraActual(Figura f){
+        this.figuraActual = f;
+    }
 }

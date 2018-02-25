@@ -34,6 +34,66 @@ public abstract class Figura implements Cloneable{
         }
     }
 
+    public void rotar(){
+
+        /*
+        Nomes es canviar de on començ a llegir s'array
+        En aquest cas tenc que canviar es centreX i centreY
+        ja que canviat sa forma de llegir tindria sa mateixa figura
+        ------FiguraI------
+        null cuad null null
+        null cuad null null
+        null cuad null null
+        null cuad null null
+
+        -----Horizontal----
+        null null null null
+        cuad cuad cuad cuad
+        null null null null
+        null null null null
+
+        ------FiguraL------
+        null cuad null
+        null cuad null
+        null cuad cuad
+
+        -----Horizontal----
+        null null null
+        cuad cuad cuad
+        cuad null null
+        */
+        int max = imatge[0].length;
+        for(int x = 1; x < imatge.length; x++){
+            if(imatge[x].length > max){
+                max = imatge[x].length;
+            }
+        }
+        Cuadro primer = null;
+        Cuadro[][] cuad = new Cuadro[imatge.length][max];
+        int contX = 0, contY = 0;
+        for(int x = 0; x < max; x++){
+            for(int y = 0; y < imatge.length; y++){
+                cuad[x][y] = imatge[y][x];
+                //Es primer quadro que et trobis demanali sa posicio a sa que començar
+                if(primer == null && imatge[y][x] != null){
+                    primer = imatge[y][x];
+                    //Tenc que restar a quants de cuadros nulls esta
+                    contX += Cuadro.TAMANY_QUADRAT;
+                }
+            }
+            if(primer == null){
+                contY += Cuadro.TAMANY_QUADRAT;
+                contX = 0;
+            }
+        }
+        this.imatge = cuad;
+        //A nes contador li llev es primer
+        contX -= Cuadro.TAMANY_QUADRAT;
+        //this.setCentreX(primer.getCentreX() - contX);
+        this.setCentreX(primer.getCentreX());
+        this.setCentreY(primer.getCentreY() - contY);
+    }
+
     public void setCentreX(int centreX) {
         for(int y = 0; y < this.imatge.length; y++){
             int incremental = centreX;
@@ -47,13 +107,19 @@ public abstract class Figura implements Cloneable{
     }
 
     public void setCentreY(int centreY) {
+        boolean trobat = false;
         for(int y = 0; y < this.imatge.length; y++){
             for(int x = 0; x < this.imatge[y].length; x++){
                 if(this.imatge[y][x] != null) {
                     this.imatge[y][x].setCentreY(centreY);
+                    trobat = true;
                 }
             }
-            centreY += Cuadro.TAMANY_QUADRAT;
+            //Si tota sa fila es null no contar
+            if(trobat){
+                centreY += Cuadro.TAMANY_QUADRAT;
+            }
+            trobat = false;
         }
     }
 

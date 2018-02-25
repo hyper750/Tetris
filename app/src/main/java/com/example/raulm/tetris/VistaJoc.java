@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -22,9 +23,11 @@ public class VistaJoc extends View {
     //Que cada Xms s'actualitzi
     //Reeduit perque feia un afecta com si anigues a tirons quan ses peces avançaven rapidament
     //Hi ha d'haver alguna relació segons sa velocitat maxima de ses peces i es temps d'actualització
-    private final static int PERIODE_PROCES = 20;
+    private final static int PERIODE_PROCES = 5;
     private final ThreadFisica fil = new ThreadFisica();
     private long darrerProces = 0;
+    private float ditAnteriorX = 0, ditAnteriorY = 0;
+    private boolean rotar = false;
 
     public VistaJoc(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -65,6 +68,31 @@ public class VistaJoc extends View {
         float x = motion.getX();
         float y = motion.getY();
 
+        switch (motion.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                rotar = true;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                float dx = x - ditAnteriorX;
+                if(dx > 0){
+                    //tetris.getFiguraActual().moureDreta();
+                    Log.d("Moure", "DRETA");
+                    rotar = false;
+                }
+                else if(dx < 0){
+                    //tetris.getFiguraActual().moureEsquerra();
+                    Log.d("Moure", "ESQUERRA");
+                    rotar = false;
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                if(rotar){
+                    tetris.getFiguraActual().rotar();
+                }
+                break;
+        }
+        ditAnteriorX = x;
+        ditAnteriorY = y;
         return true;
     }
 
