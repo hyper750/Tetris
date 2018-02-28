@@ -29,7 +29,7 @@ public class TetrisObject{
             figures.add(figuraActual);
         }
         figuraActual = totalFigures.get(numRandom).clone();
-        figuraActual.setCentreX(this.ampladaPantalla/2);
+        figuraActual.setCentreX(Cuadro.TAMANY_QUADRAT*5); //10 cuadros una fila
         figuraActual.setCentreY(figuraActual.getAltura()/2);
         figuraActual.setIncY(this.velocitat);
     }
@@ -74,5 +74,9 @@ public class TetrisObject{
 
     public void setFiguraActual(Figura f){
         this.figuraActual = f;
+    }
+
+    public double getVelocitat(){
+        return this.velocitat;
     }
 }

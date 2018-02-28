@@ -17,6 +17,7 @@ public abstract class Figura implements Cloneable{
     private AtomicBoolean aturada = new AtomicBoolean(false);
     private TetrisObject tetrisObject;
     protected View view;
+    private int centreX, centreY;
 
     public Figura(View view, TetrisObject tetrisObject){
         this.view = view;
@@ -32,6 +33,14 @@ public abstract class Figura implements Cloneable{
                 }
             }
         }
+    }
+
+    public void girarDreta(){
+
+    }
+
+    public void girarEsquerra(){
+
     }
 
     public void rotar(){
@@ -68,33 +77,19 @@ public abstract class Figura implements Cloneable{
                 max = imatge[x].length;
             }
         }
-        Cuadro primer = null;
         Cuadro[][] cuad = new Cuadro[imatge.length][max];
-        int contX = 0, contY = 0;
         for(int x = 0; x < max; x++){
             for(int y = 0; y < imatge.length; y++){
                 cuad[x][y] = imatge[y][x];
-                //Es primer quadro que et trobis demanali sa posicio a sa que començar
-                if(primer == null && imatge[y][x] != null){
-                    primer = imatge[y][x];
-                    //Tenc que restar a quants de cuadros nulls esta
-                    contX += Cuadro.TAMANY_QUADRAT;
-                }
-            }
-            if(primer == null){
-                contY += Cuadro.TAMANY_QUADRAT;
-                contX = 0;
             }
         }
         this.imatge = cuad;
-        //A nes contador li llev es primer
-        contX -= Cuadro.TAMANY_QUADRAT;
-        //this.setCentreX(primer.getCentreX() - contX);
-        this.setCentreX(primer.getCentreX());
-        this.setCentreY(primer.getCentreY() - contY);
+        this.setCentreX(this.centreX);
+        this.setCentreY(this.centreY);
     }
 
     public void setCentreX(int centreX) {
+        this.centreX = centreX;
         for(int y = 0; y < this.imatge.length; y++){
             int incremental = centreX;
             for(int x = 0; x < this.imatge[y].length; x++){
@@ -107,6 +102,7 @@ public abstract class Figura implements Cloneable{
     }
 
     public void setCentreY(int centreY) {
+        this.centreY = centreY;
         boolean trobat = false;
         for(int y = 0; y < this.imatge.length; y++){
             for(int x = 0; x < this.imatge[y].length; x++){
@@ -135,6 +131,7 @@ public abstract class Figura implements Cloneable{
 
     public void incrementarPosicio(double increment) {
         if(!this.aturada.get()) {
+            centreY += tetrisObject.getVelocitat() * increment;
             for (int y = this.imatge.length - 1; y >= 0; y--) {
                 for (int x = this.imatge[y].length - 1; x >= 0; x--) {
                     if(this.imatge[y][x] != null) {

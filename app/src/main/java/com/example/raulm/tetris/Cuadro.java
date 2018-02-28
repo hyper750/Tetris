@@ -84,7 +84,7 @@ public class Cuadro{
     public void incrementarPosicio(double retard){
         //centreX += incX * retard;
         centreY += incY * retard;
-        //Log.d("Moguent cuadro", "Moguent a " + centreY);
+
         //Si fa contacte amb enterra o amb una altre figura aturar
         if(centreY+altura/2 >= view.getHeight()){
             incY = 0;

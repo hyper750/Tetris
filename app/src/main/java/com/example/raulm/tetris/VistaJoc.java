@@ -28,6 +28,8 @@ public class VistaJoc extends View {
     private long darrerProces = 0;
     private float ditAnteriorX = 0, ditAnteriorY = 0;
     private boolean rotar = false;
+    private boolean girarDreta = false;
+    private boolean girarEsquerra = false;
 
     public VistaJoc(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -77,6 +79,7 @@ public class VistaJoc extends View {
                 if(dx > 0){
                     //tetris.getFiguraActual().moureDreta();
                     Log.d("Moure", "DRETA");
+
                     rotar = false;
                 }
                 else if(dx < 0){
