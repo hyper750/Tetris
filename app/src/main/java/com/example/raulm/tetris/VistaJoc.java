@@ -78,19 +78,28 @@ public class VistaJoc extends View {
                 float dx = x - ditAnteriorX;
                 if(dx > 0){
                     //tetris.getFiguraActual().moureDreta();
-                    Log.d("Moure", "DRETA");
-
+                    //Log.d("Moure", "DRETA");
+                    girarDreta = true;
+                    girarEsquerra = false;
                     rotar = false;
                 }
                 else if(dx < 0){
                     //tetris.getFiguraActual().moureEsquerra();
                     Log.d("Moure", "ESQUERRA");
                     rotar = false;
+                    girarDreta = false;
+                    girarEsquerra = true;
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 if(rotar){
                     tetris.getFiguraActual().rotar();
+                }
+                else if(girarDreta){
+                    tetris.getFiguraActual().girarDreta();
+                }
+                else if(girarEsquerra){
+                    tetris.getFiguraActual().girarEsquerra();
                 }
                 break;
         }

@@ -12,6 +12,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class Figura implements Cloneable{
 
+    private int maxAmplada;
+
     protected abstract Cuadro[][] getImatgeArray();
     private Cuadro[][] imatge;
     private AtomicBoolean aturada = new AtomicBoolean(false);
@@ -36,11 +38,11 @@ public abstract class Figura implements Cloneable{
     }
 
     public void girarDreta(){
-
+        setCentreX(this.centreX + Cuadro.TAMANY_QUADRAT);
     }
 
     public void girarEsquerra(){
-
+        setCentreX(this.centreX - Cuadro.TAMANY_QUADRAT);
     }
 
     public void rotar(){
@@ -49,34 +51,16 @@ public abstract class Figura implements Cloneable{
         Nomes es canviar de on començ a llegir s'array
         En aquest cas tenc que canviar es centreX i centreY
         ja que canviat sa forma de llegir tindria sa mateixa figura
-        ------FiguraI------
-        null cuad null null
-        null cuad null null
-        null cuad null null
-        null cuad null null
 
-        -----Horizontal----
-        null null null null
-        cuad cuad cuad cuad
-        null null null null
-        null null null null
-
-        ------FiguraL------
-        null cuad null
-        null cuad null
-        null cuad cuad
-
-        -----Horizontal----
+        -------------------
         null null null
         cuad cuad cuad
-        cuad null null
+        null cuad null
+
+        -------------------
+
         */
-        int max = imatge[0].length;
-        for(int x = 1; x < imatge.length; x++){
-            if(imatge[x].length > max){
-                max = imatge[x].length;
-            }
-        }
+        int max = getMaxAmplada();
         Cuadro[][] cuad = new Cuadro[imatge.length][max];
         for(int x = 0; x < max; x++){
             for(int y = 0; y < imatge.length; y++){
@@ -84,16 +68,24 @@ public abstract class Figura implements Cloneable{
             }
         }
         this.imatge = cuad;
+        //Posicion es quadros de nou
         this.setCentreX(this.centreX);
         this.setCentreY(this.centreY);
     }
 
     public void setCentreX(int centreX) {
-        this.centreX = centreX;
-        for(int y = 0; y < this.imatge.length; y++){
+        if (centreX < 0) {
+            this.centreX = 0;
+        } else if (centreX + getAmplada() > tetrisObject.getAmpladaPantalla()) {
+            this.centreX = tetrisObject.getAmpladaPantalla() - getAmplada();
+        }
+        else{
+            this.centreX = centreX;
+        }
+        for (int y = 0; y < this.imatge.length; y++) {
             int incremental = centreX;
-            for(int x = 0; x < this.imatge[y].length; x++){
-                if(this.imatge[y][x] != null) {
+            for (int x = 0; x < this.imatge[y].length; x++) {
+                if (this.imatge[y][x] != null) {
                     this.imatge[y][x].setCentreX(incremental);
                 }
                 incremental += Cuadro.TAMANY_QUADRAT;
@@ -163,13 +155,7 @@ public abstract class Figura implements Cloneable{
     }
 
     public int getAmplada(){
-        int max = this.imatge[0].length;
-        for(int x = 1; x < this.imatge.length; x++){
-            if(this.imatge[x].length > max){
-                max = this.imatge[x].length;
-            }
-        }
-        return max*Cuadro.TAMANY_QUADRAT;
+        return getMaxAmplada()*Cuadro.TAMANY_QUADRAT;
     }
 
     public boolean colisio(Figura f) {
@@ -189,5 +175,15 @@ public abstract class Figura implements Cloneable{
             this.aturada.set(true);
             tetrisObject.random();
         }
+    }
+
+    public int getMaxAmplada() {
+        int max = imatge[0].length;
+        for(int x = 1; x < imatge.length; x++){
+            if(imatge[x].length > max){
+                max = imatge[x].length;
+            }
+        }
+        return max;
     }
 }

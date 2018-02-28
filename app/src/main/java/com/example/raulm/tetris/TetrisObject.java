@@ -14,7 +14,7 @@ public class TetrisObject{
     private static List<Figura> totalFigures = new ArrayList<Figura>();
     private List<Figura> figures;
     private int alturaPantalla, ampladaPantalla;
-    private double velocitat = 0.5d;
+    private double velocitat = 0.2d;
     private Figura figuraActual;
     private View view;
 
