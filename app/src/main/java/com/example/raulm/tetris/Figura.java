@@ -99,19 +99,13 @@ public abstract class Figura implements Cloneable{
 
     public void setCentreY(int centreY) {
         this.centreY = centreY;
-        boolean trobat = false;
         for(int y = 0; y < this.imatge.length; y++){
             for(int x = 0; x < this.imatge[y].length; x++){
                 if(this.imatge[y][x] != null) {
                     this.imatge[y][x].setCentreY(centreY);
-                    trobat = true;
                 }
             }
-            //Si tota sa fila es null no contar
-            //if(trobat){
-                centreY += Cuadro.TAMANY_QUADRAT;
-            //}
-            trobat = false;
+            centreY += Cuadro.TAMANY_QUADRAT;
         }
     }
 
