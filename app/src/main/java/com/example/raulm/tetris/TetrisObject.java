@@ -79,4 +79,16 @@ public class TetrisObject{
     public double getVelocitat(){
         return this.velocitat;
     }
+
+    public void setVelocitat(double velocitat) {
+        if(figuraActual != null){
+            figuraActual.setIncY(velocitat);
+        }
+    }
+
+    public void restaurarVelocitat() {
+        if(figuraActual != null){
+            figuraActual.setIncY(velocitat);
+        }
+    }
 }

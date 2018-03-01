@@ -30,6 +30,7 @@ public class VistaJoc extends View {
     private boolean rotar = false;
     private boolean girarDreta = false;
     private boolean girarEsquerra = false;
+    private static double VELOCITAT_TURBO = 2d;
 
     public VistaJoc(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -76,6 +77,7 @@ public class VistaJoc extends View {
                 break;
             case MotionEvent.ACTION_MOVE:
                 float dx = x - ditAnteriorX;
+                float dy = y - ditAnteriorY;
                 if(dx > 0){
                     //tetris.getFiguraActual().moureDreta();
                     //Log.d("Moure", "DRETA");
@@ -85,10 +87,16 @@ public class VistaJoc extends View {
                 }
                 else if(dx < 0){
                     //tetris.getFiguraActual().moureEsquerra();
-                    Log.d("Moure", "ESQUERRA");
+                    //Log.d("Moure", "ESQUERRA");
                     rotar = false;
                     girarDreta = false;
                     girarEsquerra = true;
+                }
+                else if(dy > 0){
+                    rotar = false;
+                    girarDreta = false;
+                    girarEsquerra = false;
+                    tetris.setVelocitat(VELOCITAT_TURBO);
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -101,6 +109,7 @@ public class VistaJoc extends View {
                 else if(girarEsquerra){
                     tetris.getFiguraActual().girarEsquerra();
                 }
+                tetris.restaurarVelocitat();
                 break;
         }
         ditAnteriorX = x;

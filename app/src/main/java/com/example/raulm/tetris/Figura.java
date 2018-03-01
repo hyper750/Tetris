@@ -12,14 +12,18 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class Figura implements Cloneable{
 
-    private int maxAmplada;
-
     protected abstract Cuadro[][] getImatgeArray();
     private Cuadro[][] imatge;
     private AtomicBoolean aturada = new AtomicBoolean(false);
     private TetrisObject tetrisObject;
     protected View view;
     private int centreX, centreY;
+    private byte rotacio = 0;
+
+    private static byte NORMAL = 0;
+    private static byte DRETA = 1;
+    private static byte ABAIX = 2;
+    private static byte ESQUERRA = 3;
 
     public Figura(View view, TetrisObject tetrisObject){
         this.view = view;
@@ -45,39 +49,59 @@ public abstract class Figura implements Cloneable{
         setCentreX(this.centreX - Cuadro.TAMANY_QUADRAT);
     }
 
-    public void rotar(){
-
+    public void rotar() {
         /*
-        Nomes es canviar de on començ a llegir s'array
-        En aquest cas tenc que canviar es centreX i centreY
-        ja que canviat sa forma de llegir tindria sa mateixa figura
+        null cuad null
+        null cuad null
+        null cuad cuad
 
-        -------------------
+        ----------------
         null null null
         cuad cuad cuad
+        cuad null null
+
+        ----------------
+        cuad cuad null
+        null cuad null
         null cuad null
 
-        -------------------
+        ----------------
+        null null cuad
+        cuad cuad cuad
+        null null null
 
-        */
-        int max = getMaxAmplada();
-        Cuadro[][] cuad = new Cuadro[imatge.length][max];
-        for(int x = 0; x < max; x++){
-            for(int y = 0; y < imatge.length; y++){
+         */
+        /*if(rotacio == NORMAL || rotacio == ABAIX){
+            //TENC SA FIGURA NORMAL ROTAR A LA DRETA
+
+        }
+        else if(rotacio == DRETA || rotacio == ESQUERRA){
+            //tenc sa figura a la dreta rotar a abaix
+
+        }*/
+
+        int amplada = getMaxAmpladaAmbNull();
+        Cuadro[][] cuad = new Cuadro[amplada][imatge.length];
+        //Rotar, mesclar una columna i una fila
+        for (int y = 0; y < imatge.length; y++) {
+            for (int x = 0; x < amplada; x++) {
                 cuad[x][y] = imatge[y][x];
             }
         }
+
+
         this.imatge = cuad;
+        this.rotacio = (byte) ((this.rotacio + 1) % 4);
         //Posicion es quadros de nou
         this.setCentreX(this.centreX);
         this.setCentreY(this.centreY);
     }
 
     public void setCentreX(int centreX) {
-        if (centreX < 0) {
-            this.centreX = 0;
-        } else if (centreX + getAmplada() > tetrisObject.getAmpladaPantalla()) {
-            this.centreX = tetrisObject.getAmpladaPantalla() - getAmplada();
+        if (centreX-getMaxAmplada()*Cuadro.TAMANY_QUADRAT/2 < 0) {
+            //this.centreX = 0;
+        } else if (centreX + getMaxAmpladaAmbNull()*Cuadro.TAMANY_QUADRAT > tetrisObject.getAmpladaPantalla()) {
+            //this.centreX = tetrisObject.getAmpladaPantalla() - getAmplada();
         }
         else{
             this.centreX = centreX;
@@ -104,9 +128,9 @@ public abstract class Figura implements Cloneable{
                 }
             }
             //Si tota sa fila es null no contar
-            if(trobat){
+            //if(trobat){
                 centreY += Cuadro.TAMANY_QUADRAT;
-            }
+            //}
             trobat = false;
         }
     }
@@ -154,10 +178,6 @@ public abstract class Figura implements Cloneable{
         return this.imatge.length*Cuadro.TAMANY_QUADRAT;
     }
 
-    public int getAmplada(){
-        return getMaxAmplada()*Cuadro.TAMANY_QUADRAT;
-    }
-
     public boolean colisio(Figura f) {
         return distancia(f) <= 0;
     }
@@ -178,12 +198,28 @@ public abstract class Figura implements Cloneable{
     }
 
     public int getMaxAmplada() {
-        int max = imatge[0].length;
-        for(int x = 1; x < imatge.length; x++){
-            if(imatge[x].length > max){
-                max = imatge[x].length;
+        int max = -1;
+        for(int y = 0; y < imatge.length; y++) {
+            int cont = 0;
+            for (int x = 1; x < imatge[y].length; x++) {
+                if(imatge[y][x] != null){
+                    cont++;
+                }
+            }
+            if(cont > max){
+                max = cont;
             }
         }
         return max;
+    }
+
+    public int getMaxAmpladaAmbNull() {
+        int maxAmpladaAmbNull = imatge[0].length;
+        for(int x = 1; x < imatge.length; x++){
+            if(imatge[x].length > maxAmpladaAmbNull){
+                maxAmpladaAmbNull = imatge[x].length;
+            }
+        }
+        return maxAmpladaAmbNull;
     }
 }
