@@ -14,7 +14,7 @@ public abstract class Figura implements Cloneable{
 
     protected abstract Cuadro[][] getImatgeArray();
     private Cuadro[][] imatge;
-    private AtomicBoolean aturada = new AtomicBoolean(false);
+    private boolean aturada = false;
     private TetrisObject tetrisObject;
     protected View view;
     private int centreX, centreY;
@@ -82,12 +82,13 @@ public abstract class Figura implements Cloneable{
 
     public void setCentreX(int centreX) {
         //Si no ha arribat a nes mínim ni màxim de sa pantalla
-        if(!(centreX - (getMaxAmplada()*Cuadro.TAMANY_QUADRAT/2 + getMaxAmplada()*Cuadro.TAMANY_QUADRAT) < 0) &&
-                !(centreX + (getMaxAmplada()*Cuadro.TAMANY_QUADRAT/2 + getMaxAmplada()*Cuadro.TAMANY_QUADRAT) > tetrisObject.getAmpladaPantalla())){
+        int totalX = (centreX-getMaxAmplada()*Cuadro.TAMANY_QUADRAT/2);
+        if(!(totalX < 0) &&
+                !(totalX+getMaxAmplada()*Cuadro.TAMANY_QUADRAT > tetrisObject.getAmpladaPantalla())){
             this.centreX = centreX;
         }
         for (int y = 0; y < this.imatge.length; y++) {
-            int incremental = centreX;
+            int incremental = this.centreX;
             for (int x = 0; x < this.imatge[y].length; x++) {
                 if (this.imatge[y][x] != null) {
                     this.imatge[y][x].setCentreX(incremental);
@@ -120,7 +121,7 @@ public abstract class Figura implements Cloneable{
     }
 
     public void incrementarPosicio(double increment) {
-        if(!this.aturada.get()) {
+        if(!this.aturada) {
             centreY += tetrisObject.getVelocitat() * increment;
             for (int y = this.imatge.length - 1; y >= 0; y--) {
                 for (int x = this.imatge[y].length - 1; x >= 0; x--) {
@@ -138,7 +139,7 @@ public abstract class Figura implements Cloneable{
             Figura f = (Figura)super.clone();
             //Es tipus primitius es clonen pero es objectes es donen nomes sa referencia, per tant no es clonen
             f.imatge = f.getImatgeArray();
-            f.aturada = new AtomicBoolean(false);
+            f.aturada = false;
             return f;
         }
         catch (CloneNotSupportedException e){
@@ -165,8 +166,8 @@ public abstract class Figura implements Cloneable{
     }
 
     public void setAturada() {
-        if(!this.aturada.get()){
-            this.aturada.set(true);
+        if(!this.aturada){
+            this.aturada = true;
             tetrisObject.random();
         }
     }
@@ -175,7 +176,7 @@ public abstract class Figura implements Cloneable{
         int max = -1;
         for(int y = 0; y < imatge.length; y++) {
             int cont = 0;
-            for (int x = 1; x < imatge[y].length; x++) {
+            for (int x = 0; x < imatge[y].length; x++) {
                 if(imatge[y][x] != null){
                     cont++;
                 }
