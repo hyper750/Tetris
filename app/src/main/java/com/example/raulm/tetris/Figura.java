@@ -18,12 +18,6 @@ public abstract class Figura implements Cloneable{
     private TetrisObject tetrisObject;
     protected View view;
     private int centreX, centreY;
-    private byte rotacio = 0;
-
-    private static byte NORMAL = 0;
-    private static byte DRETA = 1;
-    private static byte ABAIX = 2;
-    private static byte ESQUERRA = 3;
 
     public Figura(View view, TetrisObject tetrisObject){
         this.view = view;
@@ -58,52 +52,38 @@ public abstract class Figura implements Cloneable{
         ----------------
         null null null
         cuad cuad cuad
-        cuad null null
-
-        ----------------
-        cuad cuad null
-        null cuad null
-        null cuad null
-
-        ----------------
         null null cuad
-        cuad cuad cuad
-        null null null
 
+        -----------------
+        null cuad null
+        null cuad null
+        null cuad cuad
          */
-        /*if(rotacio == NORMAL || rotacio == ABAIX){
-            //TENC SA FIGURA NORMAL ROTAR A LA DRETA
-
-        }
-        else if(rotacio == DRETA || rotacio == ESQUERRA){
-            //tenc sa figura a la dreta rotar a abaix
-
-        }*/
 
         int amplada = getMaxAmpladaAmbNull();
         Cuadro[][] cuad = new Cuadro[amplada][imatge.length];
         //Rotar, mesclar una columna i una fila
+        int col = 0;
         for (int y = 0; y < imatge.length; y++) {
+            int fila = imatge.length-1;
             for (int x = 0; x < amplada; x++) {
-                cuad[x][y] = imatge[y][x];
+                cuad[col][fila] = imatge[x][y];
+                fila--;
             }
+            col++;
         }
 
 
         this.imatge = cuad;
-        this.rotacio = (byte) ((this.rotacio + 1) % 4);
         //Posicion es quadros de nou
         this.setCentreX(this.centreX);
         this.setCentreY(this.centreY);
     }
 
     public void setCentreX(int centreX) {
-        if (centreX-getMaxAmplada()*Cuadro.TAMANY_QUADRAT/2 < 0) {
-            //this.centreX = 0;
-        } else if (centreX + getMaxAmpladaAmbNull()*Cuadro.TAMANY_QUADRAT > tetrisObject.getAmpladaPantalla()) {
-            //this.centreX = tetrisObject.getAmpladaPantalla() - getAmplada();
-        }
-        else{
+        //Si no ha arribat a nes mínim ni màxim de sa pantalla
+        if(!(centreX - (getMaxAmplada()*Cuadro.TAMANY_QUADRAT/2 + getMaxAmplada()*Cuadro.TAMANY_QUADRAT) < 0) &&
+                !(centreX + (getMaxAmplada()*Cuadro.TAMANY_QUADRAT/2 + getMaxAmplada()*Cuadro.TAMANY_QUADRAT) > tetrisObject.getAmpladaPantalla())){
             this.centreX = centreX;
         }
         for (int y = 0; y < this.imatge.length; y++) {
