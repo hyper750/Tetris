@@ -35,11 +35,16 @@ public abstract class Figura implements Cloneable{
     }
 
     public void girarDreta(){
-        setCentreX(this.centreX + Cuadro.TAMANY_QUADRAT);
+        int primerX = getUltimCentreX();
+        if(primerX != -1 && primerX + Cuadro.TAMANY_QUADRAT <= tetrisObject.getAmpladaPantalla()){
+            setCentreX(this.centreX + Cuadro.TAMANY_QUADRAT);
+        }
     }
 
     public void girarEsquerra(){
-        setCentreX(this.centreX - Cuadro.TAMANY_QUADRAT);
+        if(getPrimerCentreX() - Cuadro.TAMANY_QUADRAT >= 0){
+            setCentreX(this.centreX - Cuadro.TAMANY_QUADRAT);
+        }
     }
 
     public void rotar() {
@@ -75,25 +80,45 @@ public abstract class Figura implements Cloneable{
 
 
         this.imatge = cuad;
-        //Posicion es quadros de nou
+        //Posicionar es cuadros de nou
         this.setCentreX(this.centreX);
         this.setCentreY(this.centreY);
     }
 
     public void setCentreX(int centreX) {
         //Si no ha arribat a nes mínim ni màxim de sa pantalla
-        int totalX = (centreX-getMaxAmplada()*Cuadro.TAMANY_QUADRAT/2);
-        if(!(totalX < 0) &&
-                !(totalX+getMaxAmplada()*Cuadro.TAMANY_QUADRAT > tetrisObject.getAmpladaPantalla())){
-            this.centreX = centreX;
-            for (int y = 0; y < this.imatge.length; y++) {
-                int incremental = this.centreX;
-                for (int x = 0; x < this.imatge[y].length; x++) {
-                    this.imatge[y][x].setCentreX(incremental);
-                    incremental += Cuadro.TAMANY_QUADRAT;
+        this.centreX = centreX;
+        for (int y = 0; y < this.imatge.length; y++) {
+            int incremental = this.centreX;
+            for (int x = 0; x < this.imatge[y].length; x++) {
+                this.imatge[y][x].setCentreX(incremental);
+                incremental += Cuadro.TAMANY_QUADRAT;
+            }
+        }
+    }
+
+    public int getPrimerCentreX(){
+        for(int x = 0; x < imatge.length; x++){
+            for(int y = 0; y < imatge[x].length; y++){
+                //Mirar fila 0 i cada col
+                if(!(imatge[y][x] instanceof CuadroNull)){
+                    return imatge[y][x].getCentreX();
                 }
             }
         }
+        return -1;
+    }
+
+    public int getUltimCentreX(){
+        for(int x = imatge.length-1; x >= 0; x--){
+            for(int y = imatge[x].length-1; y >= 0; y--){
+                //Mirar fila 0 i cada col
+                if(!(imatge[y][x] instanceof CuadroNull)){
+                    return imatge[y][x].getCentreX();
+                }
+            }
+        }
+        return -1;
     }
 
     public void setCentreY(int centreY) {

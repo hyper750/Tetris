@@ -28,7 +28,7 @@ public class TetrisObject{
             figuresEnPantalla.add(figuraActual);
         }
         figuraActual = figuraFactory.getFigura(numRandom).clone();
-        figuraActual.setCentreX(Cuadro.TAMANY_QUADRAT*5); //10 cuadros en pantalla per fila
+        figuraActual.setCentreX((int)(Cuadro.TAMANY_QUADRAT/2 + figuraActual.getMaxAmplada()*Cuadro.TAMANY_QUADRAT*2)); //10 cuadros en pantalla per fila
         figuraActual.setCentreY(figuraActual.getAltura()/2);
         figuraActual.setIncY(this.velocitat);
     }
@@ -51,7 +51,7 @@ public class TetrisObject{
 
         //Amplada de pantalla per saber es centre per treure ses figures
         this.ampladaPantalla = ampladaPantalla;
-
+        //Generar de nou ses figures segons es nou tamany de pantalla
         figuraFactory.generate();
     }
 
