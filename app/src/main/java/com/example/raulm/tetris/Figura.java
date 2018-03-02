@@ -49,7 +49,6 @@ public abstract class Figura implements Cloneable{
 
     public void rotar() {
         /*
-        MIRAR SI HI HA PUESTOS ANTES DE GIRAR SI NO RESTAR X O SUMAR X SEGONS ES MARGES
         null cuad null
         null cuad null
         null cuad cuad
@@ -78,11 +77,20 @@ public abstract class Figura implements Cloneable{
             col++;
         }
 
-
         this.imatge = cuad;
-        //Posicionar es cuadros de nou
+        //Si no està a nes borde actualitzar x
         this.setCentreX(this.centreX);
         this.setCentreY(this.centreY);
+        //Si està a nes borde esquerra sumar una posició i actualitzar
+        while(getPrimerCentreX()-Cuadro.TAMANY_QUADRAT/2 < 0){
+            setCentreX(this.centreX+Cuadro.TAMANY_QUADRAT);
+        }
+        //Si està a nes borde dret sumar una posició i actualitzar
+        int ultim;
+        while ((ultim = getUltimCentreX()) != -1 && ultim+Cuadro.TAMANY_QUADRAT/2 > tetrisObject.getAmpladaPantalla()){
+            Log.d("Ultim", "Ultim: " +ultim);
+            setCentreX(this.centreX-Cuadro.TAMANY_QUADRAT);
+        }
     }
 
     public void setCentreX(int centreX) {
