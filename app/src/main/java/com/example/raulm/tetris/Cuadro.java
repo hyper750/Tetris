@@ -16,7 +16,7 @@ import java.util.List;
  * Created by RaulM on 22/02/2018.
  */
 
-public class Cuadro{
+public class Cuadro implements ICuadro{
     protected static int TAMANY_QUADRAT = 64;
 
     protected View view;
@@ -65,6 +65,7 @@ public class Cuadro{
         this.radiInvalidacio = (int)Math.hypot(this.amplada/2, this.altura/2);
     }
 
+    @Override
     public void dibuixar(Canvas canvas){
         int x = centreX-amplada/2;
         int y = centreY-altura/2;
@@ -81,61 +82,73 @@ public class Cuadro{
         anteriorY = centreY;
     }
 
+    @Override
     public void incrementarPosicio(double retard){
         //centreX += incX * retard;
         centreY += incY * retard;
 
         //Si fa contacte amb enterra o amb una altre figura aturar
         if(centreY+altura/2 >= view.getHeight()){
-            incY = 0;
             figura.setAturada();
         }
     }
 
-    public double distancia(Cuadro f){
-        return (f.centreY+f.altura/2) - centreY;
+    @Override
+    public double distancia(ICuadro f){
+        return f.getCentreY() - (centreY+altura/2);
     }
 
-    public boolean colisio(Cuadro f){
+    @Override
+    public boolean colisio(ICuadro f){
         return distancia(f) <= 0;
     }
 
+    @Override
     public void setCentreX(int centreX) {
         this.centreX = centreX;
     }
 
+    @Override
     public void setCentreY(int centreY) {
         this.centreY = centreY;
     }
 
+    @Override
     public int getCentreX() {
         return centreX;
     }
 
+    @Override
     public int getCentreY() {
         return centreY;
     }
 
+    @Override
     public double getIncX() {
         return incX;
     }
 
+    @Override
     public void setIncX(double incX) {
         this.incX = incX;
     }
 
+    @Override
     public double getIncY() {
         return incY;
     }
 
+    @Override
     public void setIncY(double incY) {
         this.incY = incY;
     }
 
+    @Override
     public int getAmplada() {
         return amplada;
     }
 
+    @Override
     public int getAltura() {
         return altura;
     }

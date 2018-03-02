@@ -12,8 +12,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class Figura implements Cloneable{
 
-    protected abstract Cuadro[][] getImatgeArray();
-    private Cuadro[][] imatge;
+    private ICuadro[][] imatge;
     private boolean aturada = false;
     private TetrisObject tetrisObject;
     protected View view;
@@ -25,12 +24,12 @@ public abstract class Figura implements Cloneable{
         this.tetrisObject = tetrisObject;
     }
 
+    protected abstract ICuadro[][] getImatgeArray();
+
     public void dibuixar(Canvas canvas){
         for(int y = 0; y < this.imatge.length; y++){
             for(int x = 0; x < this.imatge[y].length; x++){
-                if(this.imatge[y][x] != null) {
-                    this.imatge[y][x].dibuixar(canvas);
-                }
+                this.imatge[y][x].dibuixar(canvas);
             }
         }
     }
@@ -45,6 +44,7 @@ public abstract class Figura implements Cloneable{
 
     public void rotar() {
         /*
+        MIRAR SI HI HA PUESTOS ANTES DE GIRAR SI NO RESTAR X O SUMAR X SEGONS ES MARGES
         null cuad null
         null cuad null
         null cuad cuad
@@ -61,7 +61,7 @@ public abstract class Figura implements Cloneable{
          */
 
         int amplada = getMaxAmpladaAmbNull();
-        Cuadro[][] cuad = new Cuadro[amplada][imatge.length];
+        ICuadro[][] cuad = new ICuadro[amplada][imatge.length];
         //Rotar, mesclar una columna i una fila
         int col = 0;
         for (int y = 0; y < imatge.length; y++) {
@@ -86,14 +86,12 @@ public abstract class Figura implements Cloneable{
         if(!(totalX < 0) &&
                 !(totalX+getMaxAmplada()*Cuadro.TAMANY_QUADRAT > tetrisObject.getAmpladaPantalla())){
             this.centreX = centreX;
-        }
-        for (int y = 0; y < this.imatge.length; y++) {
-            int incremental = this.centreX;
-            for (int x = 0; x < this.imatge[y].length; x++) {
-                if (this.imatge[y][x] != null) {
+            for (int y = 0; y < this.imatge.length; y++) {
+                int incremental = this.centreX;
+                for (int x = 0; x < this.imatge[y].length; x++) {
                     this.imatge[y][x].setCentreX(incremental);
+                    incremental += Cuadro.TAMANY_QUADRAT;
                 }
-                incremental += Cuadro.TAMANY_QUADRAT;
             }
         }
     }
@@ -102,9 +100,7 @@ public abstract class Figura implements Cloneable{
         this.centreY = centreY;
         for(int y = 0; y < this.imatge.length; y++){
             for(int x = 0; x < this.imatge[y].length; x++){
-                if(this.imatge[y][x] != null) {
-                    this.imatge[y][x].setCentreY(centreY);
-                }
+                this.imatge[y][x].setCentreY(centreY);
             }
             centreY += Cuadro.TAMANY_QUADRAT;
         }
@@ -113,23 +109,29 @@ public abstract class Figura implements Cloneable{
     public void setIncY(double increment) {
         for(int y = 0; y < this.imatge.length; y++){
             for(int x = 0; x < this.imatge[y].length; x++){
-                if(this.imatge[y][x] != null) {
-                    this.imatge[y][x].setIncY(increment);
-                }
+                this.imatge[y][x].setIncY(increment);
             }
         }
     }
 
     public void incrementarPosicio(double increment) {
+        //Si no està aturada incrementar Y
         if(!this.aturada) {
             centreY += tetrisObject.getVelocitat() * increment;
             for (int y = this.imatge.length - 1; y >= 0; y--) {
                 for (int x = this.imatge[y].length - 1; x >= 0; x--) {
-                    if(this.imatge[y][x] != null) {
-                        this.imatge[y][x].incrementarPosicio(increment);
-                    }
+                    this.imatge[y][x].incrementarPosicio(increment);
                 }
             }
+            //Mirar colisió amb altres figures
+            int totalFigures = tetrisObject.getFigures().size();
+            /*for(int x = 0; x < totalFigures && !this.aturada; x++){
+                this.aturada = this.colisio(tetrisObject.getFigures().get(x));
+            }
+
+            if(this.aturada){
+                tetrisObject.random();
+            }*/
         }
     }
 
@@ -154,20 +156,33 @@ public abstract class Figura implements Cloneable{
     }
 
     public boolean colisio(Figura f) {
-        return distancia(f) <= 0;
-    }
-
-    public int distancia(Figura f) {
-        int max = 0;
-        for(int x = 0; x < imatge.length; x++){
-
+        boolean trobat = false;
+        for(int y = 0; y < this.imatge.length; y++){
+            for(int x = 0; x < this.imatge[y].length; x++){
+                //Per cada cuadro de sa figura invocada
+                //if(!(this.imatge[y][x] instanceof CuadroNull)) {
+                    for (int q = 0; q < f.imatge.length; q++) {
+                        for (int z = 0; z < f.imatge[q].length; z++) {
+                            //Per cada cuadro de sa figura pasada per parametre
+                            //if (!(f.imatge[y][x] instanceof CuadroNull)) {
+                            //Segueix mirant col·lisions si no té col·lisió aquest cuadro
+                                trobat = this.imatge[y][x].colisio(f.imatge[q][z]);
+                                if(trobat){
+                                    return true;
+                                }
+                            //}
+                        }
+                    }
+                //}
+            }
         }
-        return max;
+        return false;
     }
 
     public void setAturada() {
         if(!this.aturada){
             this.aturada = true;
+            //setIncY(0d);
             tetrisObject.random();
         }
     }
@@ -177,7 +192,7 @@ public abstract class Figura implements Cloneable{
         for(int y = 0; y < imatge.length; y++) {
             int cont = 0;
             for (int x = 0; x < imatge[y].length; x++) {
-                if(imatge[y][x] != null){
+                if(!(imatge[y][x] instanceof CuadroNull)){
                     cont++;
                 }
             }
@@ -197,4 +212,5 @@ public abstract class Figura implements Cloneable{
         }
         return maxAmpladaAmbNull;
     }
+
 }

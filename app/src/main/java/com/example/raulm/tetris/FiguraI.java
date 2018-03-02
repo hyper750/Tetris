@@ -18,14 +18,14 @@ public class FiguraI extends Figura {
     }
 
     @Override
-    protected Cuadro[][] getImatgeArray() {
-        Cuadro[][] imatge = new Cuadro[ALTURA][AMPLADA];
+    protected ICuadro[][] getImatgeArray() {
+        ICuadro[][] imatge = new ICuadro[ALTURA][AMPLADA];
         int color = view.getContext().getResources().getColor(R.color.figuraI);
         for(int y = 0; y < ALTURA; y++){
-            imatge[y][0] = null;
+            imatge[y][0] = new CuadroNull();
             imatge[y][1] = new Cuadro(view, color, this);
-            imatge[y][2] = null;
-            imatge[y][3] = null;
+            imatge[y][2] = new CuadroNull();
+            imatge[y][3] = new CuadroNull();
         }
         return imatge;
     }

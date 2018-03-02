@@ -18,8 +18,8 @@ public class FiguraO extends Figura{
     }
 
     @Override
-    protected Cuadro[][] getImatgeArray() {
-        Cuadro[][] imatge = new Cuadro[ALTURA][AMPLADA];
+    protected ICuadro[][] getImatgeArray() {
+        ICuadro[][] imatge = new ICuadro[ALTURA][AMPLADA];
         int color = view.getContext().getResources().getColor(R.color.figuraO);
         for(int y = 0; y < ALTURA; y++){
             for(int x = 0; x < AMPLADA; x++){

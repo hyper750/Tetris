@@ -11,31 +11,30 @@ import java.util.List;
  */
 
 public class TetrisObject{
-    private static List<Figura> totalFigures = new ArrayList<Figura>();
-    private List<Figura> figures;
+    private List<Figura> figuresEnPantalla;
     private int alturaPantalla, ampladaPantalla;
     private double velocitat = 0.2d;
     private Figura figuraActual;
-    private View view;
+    private FiguraFactory figuraFactory;
 
     public TetrisObject(View view){
-        this.view = view;
-        figures = new ArrayList<Figura>();
+        figuresEnPantalla = new ArrayList<Figura>();
+        this.figuraFactory = new FiguraFactory(view, this);
     }
 
     public void random(){
-        int numRandom = (int)(Math.random()*totalFigures.size());
+        int numRandom = (int)(Math.random()*FiguraFactory.TAMANY);
         if(figuraActual != null){
-            figures.add(figuraActual);
+            figuresEnPantalla.add(figuraActual);
         }
-        figuraActual = totalFigures.get(numRandom).clone();
+        figuraActual = figuraFactory.getFigura(numRandom).clone();
         figuraActual.setCentreX(Cuadro.TAMANY_QUADRAT*5); //10 cuadros en pantalla per fila
         figuraActual.setCentreY(figuraActual.getAltura()/2);
         figuraActual.setIncY(this.velocitat);
     }
 
     public List<Figura> getFigures(){
-        return this.figures;
+        return this.figuresEnPantalla;
     }
 
     public void setalturaPantalla(int alturaPantalla){
@@ -53,15 +52,7 @@ public class TetrisObject{
         //Amplada de pantalla per saber es centre per treure ses figures
         this.ampladaPantalla = ampladaPantalla;
 
-        //Nou tamany de figures
-        totalFigures.clear();
-        totalFigures.add(new FiguraO(this.view, this));
-        totalFigures.add(new FiguraI(this.view, this));
-        totalFigures.add(new FiguraS(this.view, this));
-        totalFigures.add(new FiguraZ(this.view, this));
-        totalFigures.add(new FiguraL(this.view, this));
-        totalFigures.add(new FiguraJ(this.view, this));
-        totalFigures.add(new FiguraT(this.view, this));
+        figuraFactory.generate();
     }
 
     public int getAlturaPantalla() {
