@@ -95,7 +95,7 @@ public class Cuadro implements ICuadro{
 
     @Override
     public double distancia(ICuadro f){
-        return f.getCentreY() - (centreY+altura/2);
+        return (f.getCentreY()-f.getAltura()/2) - (centreY + altura/2);
     }
 
     @Override

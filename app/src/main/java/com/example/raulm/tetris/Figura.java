@@ -88,7 +88,6 @@ public abstract class Figura implements Cloneable{
         //Si està a nes borde dret sumar una posició i actualitzar
         int ultim;
         while ((ultim = getUltimCentreX()) != -1 && ultim+Cuadro.TAMANY_QUADRAT/2 > tetrisObject.getAmpladaPantalla()){
-            Log.d("Ultim", "Ultim: " +ultim);
             setCentreX(this.centreX-Cuadro.TAMANY_QUADRAT);
         }
     }
@@ -156,15 +155,18 @@ public abstract class Figura implements Cloneable{
                     this.imatge[y][x].incrementarPosicio(increment);
                 }
             }
+
             //Mirar colisió amb altres figures
             int totalFigures = tetrisObject.getFigures().size();
-            /*for(int x = 0; x < totalFigures && !this.aturada; x++){
-                this.aturada = this.colisio(tetrisObject.getFigures().get(x));
+            boolean colisio = false;
+            for(int x = 0; x < totalFigures && !colisio; x++){
+                colisio = this.colisio(tetrisObject.getFigures().get(x));
             }
 
-            if(this.aturada){
-                tetrisObject.random();
-            }*/
+            if(colisio){
+                this.setAturada();
+            }
+
         }
     }
 
@@ -189,30 +191,28 @@ public abstract class Figura implements Cloneable{
     }
 
     public boolean colisio(Figura f) {
-        boolean trobat = false;
         for(int y = 0; y < this.imatge.length; y++){
             for(int x = 0; x < this.imatge[y].length; x++){
                 //Per cada cuadro de sa figura invocada
-                //if(!(this.imatge[y][x] instanceof CuadroNull)) {
+                if(!(this.imatge[y][x] instanceof CuadroNull)) {
                     for (int q = 0; q < f.imatge.length; q++) {
                         for (int z = 0; z < f.imatge[q].length; z++) {
                             //Per cada cuadro de sa figura pasada per parametre
-                            //if (!(f.imatge[y][x] instanceof CuadroNull)) {
+                            if (!(f.imatge[q][z] instanceof CuadroNull)) {
                             //Segueix mirant col·lisions si no té col·lisió aquest cuadro
-                                trobat = this.imatge[y][x].colisio(f.imatge[q][z]);
-                                if(trobat){
+                                if(this.imatge[y][x].colisio(f.imatge[q][z])){
                                     return true;
                                 }
-                            //}
+                            }
                         }
                     }
-                //}
+                }
             }
         }
         return false;
     }
 
-    public void setAturada() {
+    public synchronized void setAturada() {
         if(!this.aturada){
             this.aturada = true;
             //setIncY(0d);
