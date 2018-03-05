@@ -17,6 +17,7 @@ public abstract class Figura implements Cloneable{
     private TetrisObject tetrisObject;
     protected View view;
     private int centreX, centreY;
+    private double incY;
 
     public Figura(View view, TetrisObject tetrisObject){
         this.view = view;
@@ -139,6 +140,7 @@ public abstract class Figura implements Cloneable{
     }
 
     public void setIncY(double increment) {
+        this.incY = increment;
         for(int y = 0; y < this.imatge.length; y++){
             for(int x = 0; x < this.imatge[y].length; x++){
                 this.imatge[y][x].setIncY(increment);
@@ -170,8 +172,9 @@ public abstract class Figura implements Cloneable{
         catch (CloneNotSupportedException e){
             Log.e("Error clonació", "No s'ha pogut clonar FiguraO", e);
         }
-        //return new FiguraO(this.view, tetrisObject);
-        return null;
+        /*Figura per defecte millor?*/
+        return new FiguraO(this.view, tetrisObject);
+        //return null;
     }
 
     public int getAltura() {
