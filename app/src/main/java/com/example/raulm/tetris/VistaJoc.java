@@ -124,19 +124,20 @@ public class VistaJoc extends View {
         }
         double retard = (ara - darrerProces);
         darrerProces = ara;
+        boolean colisio = false;
         synchronized (this) {
-            int total = tetris.getFigures().size();
             //Moure figura, només es mou una figura a l'hora
-            tetris.getFiguraActual().incrementarPosicio(retard);
+            Figura factual = tetris.getFiguraActual();
+            factual.incrementarPosicio(retard);
+            int totalFigures = tetris.getFigures().size();
+            for(int x = 0; x < totalFigures && !colisio; x++){
+                colisio = factual.colisio(tetris.getFigures().get(x));
+            }
 
-            //Mirar colisio
-            /*for(int x = 0; x < total; x++){
-                Figura seguent = tetris.getFigures().get(x);
-                if(tetris.getFiguraActual().colisio(seguent)){
-                    tetris.getFiguraActual().setIncY(0d);
-                    tetris.random();
-                }
-            }*/
+            if(colisio){
+                factual.setAturada();
+            }
+
 
         }
     }

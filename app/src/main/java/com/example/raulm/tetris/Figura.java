@@ -155,18 +155,6 @@ public abstract class Figura implements Cloneable{
                     this.imatge[y][x].incrementarPosicio(increment);
                 }
             }
-
-            //Mirar colisió amb altres figures
-            int totalFigures = tetrisObject.getFigures().size();
-            boolean colisio = false;
-            for(int x = 0; x < totalFigures && !colisio; x++){
-                colisio = this.colisio(tetrisObject.getFigures().get(x));
-            }
-
-            if(colisio){
-                this.setAturada();
-            }
-
         }
     }
 
@@ -212,9 +200,10 @@ public abstract class Figura implements Cloneable{
         return false;
     }
 
-    public synchronized void setAturada() {
+    public void setAturada() {
         if(!this.aturada){
             this.aturada = true;
+            //Amb setIncY hi ha un retard a sa última figura
             //setIncY(0d);
             tetrisObject.random();
         }

@@ -100,7 +100,7 @@ public class Cuadro implements ICuadro{
 
     @Override
     public boolean colisio(ICuadro f){
-        return distancia(f) <= 0;
+        return centreX == f.getCentreX() && distancia(f) <= 0;
     }
 
     @Override
