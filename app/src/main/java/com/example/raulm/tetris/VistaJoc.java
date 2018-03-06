@@ -137,8 +137,6 @@ public class VistaJoc extends View {
             if(colisio){
                 factual.setAturada();
             }
-
-
         }
     }
 

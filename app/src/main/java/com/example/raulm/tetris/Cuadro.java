@@ -95,13 +95,13 @@ public class Cuadro implements ICuadro{
 
     @Override
     public double distancia(ICuadro f){
-        return (f.getCentreY()-f.getAltura()/2) - (centreY + altura/2);
+        return Math.hypot(centreX - f.getCentreX(), centreY - f.getCentreY());
     }
 
     @Override
     public boolean colisio(ICuadro f){
-        double distancia = distancia(f);
-        return centreX == f.getCentreX() && distancia <= 0 && distancia >= -1 * Cuadro.TAMANY_QUADRAT;
+        //Només tengui col·lisió vertical i no horizontal, i hypotenusa menor que mitj quadrat de cada quadrat
+        return centreX == f.getCentreX() && distancia(f) <= Cuadro.TAMANY_QUADRAT;
     }
 
     @Override
