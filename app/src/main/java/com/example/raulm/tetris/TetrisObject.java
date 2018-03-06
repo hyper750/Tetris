@@ -29,6 +29,7 @@ public class TetrisObject{
         if(figuraActual != null){
             figuresEnPantalla.add(figuraActual);
         }
+        puntuacio += 100;
         figuraActual = figuraFactory.getFigura(numRandom);
         //figuraActual.setCentreX((int)(Cuadro.TAMANY_QUADRAT/2 + figuraActual.getMaxAmplada()*Cuadro.TAMANY_QUADRAT*2)); //10 cuadros en pantalla per fila
         figuraActual.setCentreX((Cuadro.TAMANY_QUADRAT/2 + Cuadro.TAMANY_QUADRAT*5 - Math.round(figuraActual.getMaxAmplada()/2)*Cuadro.TAMANY_QUADRAT)); //10 cuadros en pantalla per fila

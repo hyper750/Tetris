@@ -11,14 +11,14 @@ import android.widget.TextView;
 public class Joc extends Activity implements ModificarPuntuacio{
 
     private VistaJoc vistaJoc;
-    private ButoAmbFont puntuacio;
+    private TextAmbFont puntuacio;
 
     @Override
     protected void onCreate(Bundle save){
         super.onCreate(save);
         setContentView(R.layout.layoutjoc);
 
-        puntuacio = (ButoAmbFont)findViewById(R.id.puntuacio);
+        puntuacio = (TextAmbFont)findViewById(R.id.puntuacio);
         vistaJoc = (VistaJoc) findViewById(R.id.VistaJoc);
         vistaJoc.setParePuntuacio(this);
     }
