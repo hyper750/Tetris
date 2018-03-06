@@ -16,6 +16,7 @@ public class TetrisObject{
     private double velocitat = 0.2d;
     private Figura figuraActual;
     private FiguraFactory figuraFactory;
+    //Modificar per linia feta
     private int puntuacio;
 
     public TetrisObject(View view){
