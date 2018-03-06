@@ -8,16 +8,19 @@ import android.widget.TextView;
  * Created by RaulM on 11/01/2018.
  */
 
-public class Joc extends Activity{
+public class Joc extends Activity implements ModificarPuntuacio{
 
     private VistaJoc vistaJoc;
+    private ButoAmbFont puntuacio;
 
     @Override
     protected void onCreate(Bundle save){
         super.onCreate(save);
         setContentView(R.layout.layoutjoc);
 
+        puntuacio = (ButoAmbFont)findViewById(R.id.puntuacio);
         vistaJoc = (VistaJoc) findViewById(R.id.VistaJoc);
+        vistaJoc.setParePuntuacio(this);
     }
 
     @Override
@@ -36,6 +39,11 @@ public class Joc extends Activity{
     protected void onDestroy(){
         super.onDestroy();
         vistaJoc.getFil().aturar();
+    }
+
+    @Override
+    public void setPuntuacio(int puntuacio){
+        this.puntuacio.setText(getResources().getString(R.string.puntuacio) + " " + puntuacio);
     }
 
     /*@Override

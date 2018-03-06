@@ -1,5 +1,6 @@
 package com.example.raulm.tetris;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -31,6 +32,7 @@ public class VistaJoc extends View {
     private boolean girarDreta = false;
     private boolean girarEsquerra = false;
     private static double VELOCITAT_TURBO = 2d;
+    private ModificarPuntuacio campPuntuacio;
 
     public VistaJoc(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -49,6 +51,7 @@ public class VistaJoc extends View {
             }
 
             tetris.getFiguraActual().dibuixar(canvas);
+            campPuntuacio.setPuntuacio(tetris.getPuntuacio());
         }
     }
 
@@ -188,5 +191,9 @@ public class VistaJoc extends View {
                 }
             }
         }
+    }
+
+    protected void setParePuntuacio(ModificarPuntuacio puntuacio){
+        this.campPuntuacio = puntuacio;
     }
 }

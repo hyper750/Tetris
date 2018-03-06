@@ -16,6 +16,7 @@ public class TetrisObject{
     private double velocitat = 0.2d;
     private Figura figuraActual;
     private FiguraFactory figuraFactory;
+    private int puntuacio;
 
     public TetrisObject(View view){
         figuresEnPantalla = new ArrayList<Figura>();
@@ -82,5 +83,9 @@ public class TetrisObject{
         if(figuraActual != null){
             figuraActual.setIncY(velocitat);
         }
+    }
+
+    public int getPuntuacio(){
+        return puntuacio;
     }
 }
