@@ -38,7 +38,20 @@ public abstract class Figura implements Cloneable{
         ICuadro ultim = getUltimCentreX();
         int ultimX = ultim.getCentreX();
         if(ultimX != -1 && ultimX + Cuadro.TAMANY_QUADRAT <= tetrisObject.getAmpladaPantalla()){
-            if(!possibleColisio(ultim.getCentreX()+Cuadro.TAMANY_QUADRAT, ultim.getCentreY())){
+            ICuadro c = new Cuadro(view, Color.WHITE, this);
+            boolean colisio = false;
+            boolean trobat = false;
+            for(int y = imatge[0].length-1; !trobat && y >= 0; y--) {
+                for (int x = imatge.length - 1; x >= 0 && !colisio; x--) {
+                    if (!(imatge[x][y] instanceof CuadroNull)) {
+                        trobat = true;
+                        c.setCentreX(imatge[x][y].getCentreX() + Cuadro.TAMANY_QUADRAT);
+                        c.setCentreY(imatge[x][y].getCentreY());
+                        colisio = possibleColisio(c);
+                    }
+                }
+            }
+            if(!colisio){
                 setCentreX(this.centreX + Cuadro.TAMANY_QUADRAT);
             }
         }
@@ -46,17 +59,26 @@ public abstract class Figura implements Cloneable{
 
     public void girarEsquerra(){
         if(getPrimerCentreX() - Cuadro.TAMANY_QUADRAT >= 0){
-            ICuadro ultim = getUltimCentreX();
-            if(!possibleColisio(ultim.getCentreX()+Cuadro.TAMANY_QUADRAT, ultim.getCentreY())){
+            ICuadro c = new Cuadro(view, Color.WHITE, this);
+            boolean colisio = false;
+            boolean trobat = false;
+            for(int y = 0; !trobat && y < imatge[0].length; y++) {
+                for (int x = imatge.length - 1; x >= 0 && !colisio; x--) {
+                    if (!(imatge[x][y] instanceof CuadroNull)) {
+                        trobat = true;
+                        c.setCentreX(imatge[x][y].getCentreX() - Cuadro.TAMANY_QUADRAT);
+                        c.setCentreY(imatge[x][y].getCentreY());
+                        colisio = possibleColisio(c);
+                    }
+                }
+            }
+            if(!colisio){
                 setCentreX(this.centreX - Cuadro.TAMANY_QUADRAT);
             }
         }
     }
 
-    public boolean possibleColisio(int centreX, int centreY){
-        Cuadro c = new Cuadro(view, Color.BLACK, this);
-        c.setCentreY(centreY);
-        c.setCentreX(centreX);
+    public boolean possibleColisio(ICuadro c){
         int totalFigures = tetrisObject.getFigures().size();
         boolean colisio = false;
         for(int x = 0; x < totalFigures && !colisio; x++){
