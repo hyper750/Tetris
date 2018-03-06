@@ -228,6 +228,7 @@ public abstract class Figura implements Cloneable{
     }
 
     public boolean colisio(Figura f) {
+        //Mir si tots es cuadros meus colisionen amb algun d'una altre figura
         for(int y = 0; y < this.imatge.length; y++){
             for(int x = 0; x < this.imatge[y].length; x++){
                 //Per cada cuadro de sa figura invocada

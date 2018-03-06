@@ -2,4 +2,5 @@
     <string name="app_name">Tetris</string>
     <string name="player1">1 PLAYER</string>
     <string name="player2">2 PLAYER</string>
+    <string name="puntuacio">Score: </string>
 </resources>

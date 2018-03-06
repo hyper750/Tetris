@@ -15,5 +15,7 @@
     <dimen name="MainActivity_paddingEnd320swland">5dp</dimen>
     <dimen name="MainActivity_marginEnd320swland">40dp</dimen>
 
+    <dimen name="Joc_MargePuntuacio">20dp</dimen>
+
 
 </resources>
