@@ -14,6 +14,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Botons
         Button player1 = (Button)findViewById(R.id.player1);
         player1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,6 +30,9 @@ public class MainActivity extends Activity {
                 llancarJocMultijugador();
             }
         });
+
+        //Musica fondu
+        startService(new Intent(this, MusicaFondu.class));
     }
 
     private void llancarJoc(){
@@ -39,5 +43,11 @@ public class MainActivity extends Activity {
     private void llancarJocMultijugador(){
         Intent i = new Intent(this, JocMultijugador.class);
         startActivity(i);
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        stopService(new Intent(this, MusicaFondu.class));
     }
 }

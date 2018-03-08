@@ -285,4 +285,32 @@ public abstract class Figura implements Cloneable{
         return maxAmpladaAmbNull;
     }
 
+    public void cuadroPerLinia() {
+        //S'encarregarà de posar a CuadroNull si té se nova linia
+        int numFigures = tetrisObject.getFigures().size();
+        for(int p = 0; p < imatge.length; p++) {
+            for(int j = 0; j < imatge[p].length; j++){
+                //Si es cuadro no es null d'aquesta figura mirar quants cuadros hi ha a sa mateixa linia
+                if(!(imatge[p][j] instanceof CuadroNull)) {
+                    //1 Que es s'actual i vagi sumant per cada cuadro de ses altres figures trobades
+                    int num = 1;
+                    for (int x = 0; x < numFigures; x++) {
+                        //Per cada figura
+                        Figura f = tetrisObject.getFigures().get(x);
+                        //Mirar si es cuadros estàn a sa mateixa Y
+                        for (int z = 0; z < f.imatge.length; z++) {
+                            for (int w = 0; w < f.imatge[z].length; w++) {
+                                if(!(f.imatge[z][w] instanceof CuadroNull) && imatge[p][j].getCentreY() == f.imatge[z][w].getCentreY()) {
+                                    //Per cada cuadro de sa figura actual mirar es cuadros de totes ses altres figures
+                                    num++;
+                                }
+                            }
+                        }
+                    }
+                    //Mirar es numero de cuadros per fila després de calcular
+                    Log.d("Num Cuadros", "Cuadros per fila " + num);
+                }
+            }
+        }
+    }
 }

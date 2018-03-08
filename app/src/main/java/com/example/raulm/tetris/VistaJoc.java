@@ -132,25 +132,22 @@ public class VistaJoc extends View {
             //Moure figura, només es mou una figura a l'hora
             Figura factual = tetris.getFiguraActual();
             factual.incrementarPosicio(retard);
+            //Mirar si aquesta figura té colisio amb altres figures
             int totalFigures = tetris.getFigures().size();
             for(int x = 0; x < totalFigures && !colisio; x++){
                 colisio = factual.colisio(tetris.getFigures().get(x));
             }
 
+            //Si té colisio s'atura
             if(colisio){
+                //Aturar sa figura si ha colisio
+                tetris.liniaCompleta();
                 factual.setAturada();
+                //Mirar si ha format una nova fila
+                //Antes que generar una figura nova
             }
         }
     }
-
-    /*Guardar estat?
-    public TetrisObject getTetris(){
-        return tetris;
-    }
-
-    public void setTetris(TetrisObject tetris){
-        this.tetris = tetris;
-    }*/
 
     public ThreadFisica getFil(){
         return this.fil;

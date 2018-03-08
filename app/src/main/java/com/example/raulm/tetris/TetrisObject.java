@@ -90,4 +90,10 @@ public class TetrisObject{
     public int getPuntuacio(){
         return puntuacio;
     }
+
+    public void liniaCompleta(){
+        //Mirar si sa figura actual ha format una nova linia
+        figuraActual.cuadroPerLinia();
+
+    }
 }
