@@ -30,9 +30,6 @@ public class MainActivity extends Activity {
                 llancarJocMultijugador();
             }
         });
-
-        //Musica fondu
-        startService(new Intent(this, MusicaFondu.class));
     }
 
     private void llancarJoc(){
@@ -46,8 +43,23 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    protected void onResume(){
+        super.onResume();
+        //Musica fondu
+        startService(new Intent(this, MusicaFondu.class));
+    }
+
+    //Quan es tanca es llevi sa musica
+    @Override
     protected void onDestroy(){
         super.onDestroy();
+        stopService(new Intent(this, MusicaFondu.class));
+    }
+
+    //Quan es pitji es boto de home es llevi sa musica tambe
+    @Override
+    protected void onUserLeaveHint(){
+        super.onUserLeaveHint();
         stopService(new Intent(this, MusicaFondu.class));
     }
 }
