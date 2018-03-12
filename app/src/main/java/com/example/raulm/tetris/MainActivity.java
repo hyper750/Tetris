@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
+
+    private HomeListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,15 @@ public class MainActivity extends Activity {
                 llancarJocMultijugador();
             }
         });
+
+        //Aturar sa musica quan pitji es boto home
+        listener = new HomeListener(this);
+        listener.setOnHomePressedListener(new HomeListener.onHomeListener() {
+            @Override
+            public void onHomePress() {
+                stopService(new Intent(MainActivity.this, MusicaFondu.class));
+            }
+        });
     }
 
     private void llancarJoc(){
@@ -47,19 +59,15 @@ public class MainActivity extends Activity {
         super.onResume();
         //Musica fondu
         startService(new Intent(this, MusicaFondu.class));
+        listener.iniciar();
     }
 
-    //Quan es tanca es llevi sa musica
+    //Quan es tanqui s'aplicacio aturi sa musica
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        stopService(new Intent(this, MusicaFondu.class));
-    }
-
-    //Quan es pitji es boto de home es llevi sa musica tambe
-    @Override
-    protected void onUserLeaveHint(){
-        super.onUserLeaveHint();
+        //No aturar es listener a onStop, perque si no estaria a s'activitat de joc i quan minimitzes no s'aturaria sa musica
+        listener.aturar();
         stopService(new Intent(this, MusicaFondu.class));
     }
 }
