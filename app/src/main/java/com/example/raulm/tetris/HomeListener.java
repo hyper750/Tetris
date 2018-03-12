@@ -54,7 +54,7 @@ public class HomeListener {
             if(accio.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)){
                 String reason = intent.getStringExtra(SYSTEM_DIALOG_REASON_KEY);
                 if(listener != null && reason != null){
-                    Log.d("Reason", "Rao >> " + reason);
+                    //Log.d("Reason", "Rao >> " + reason);
                     if(reason.equals(SYSTEM_DIALOG_REASON_HOME_KEY) || reason.equals(SYSTEM_DIALOG_REASON_RECENTAPPS)){
                         listener.onHomePress();
                     }

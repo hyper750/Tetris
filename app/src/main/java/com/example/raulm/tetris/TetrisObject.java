@@ -94,6 +94,5 @@ public class TetrisObject{
     public void liniaCompleta(){
         //Mirar si sa figura actual ha format una nova linia
         figuraActual.cuadroPerLinia();
-
     }
 }

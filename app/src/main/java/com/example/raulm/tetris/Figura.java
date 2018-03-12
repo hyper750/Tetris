@@ -123,19 +123,39 @@ public abstract class Figura implements Cloneable{
             }
             col++;
         }
-
-        this.imatge = cuad;
+        boolean colisio = false;
+        Figura copia = this.clone();
+        copia.imatge = cuad;
         //Si no està a nes borde actualitzar x
-        this.setCentreX(this.centreX);
-        this.setCentreY(this.centreY);
+        copia.colocarRotacio();
+        int totalF = tetrisObject.getFigures().size();
+        for(int x = 0; x < totalF; x++){
+            Figura fi = tetrisObject.getFigures().get(x);
+            if(copia.colisio(fi)){
+                Log.d("Colisio Rotacio", "Hi ha colisio");
+                colisio = true;
+               break;
+            }
+        }
+        if(!colisio) {
+            this.imatge = cuad;
+        }
+        //Colocar de nou, perque modific sa posicio des cuadros
+        this.colocarRotacio();
+
+    }
+
+    private void colocarRotacio(){
+        setCentreY(this.centreY);
+        setCentreX(this.centreX);
         //Si està a nes borde esquerra sumar una posició i actualitzar
-        while(getPrimerCentreX()-Cuadro.TAMANY_QUADRAT/2 < 0){
-            setCentreX(this.centreX+Cuadro.TAMANY_QUADRAT);
+        while (getPrimerCentreX() - Cuadro.TAMANY_QUADRAT / 2 < 0) {
+            setCentreX(centreX + Cuadro.TAMANY_QUADRAT);
         }
         //Si està a nes borde dret sumar una posició i actualitzar
         int ultim;
-        while ((ultim = getUltimCentreX().getCentreX()) != -1 && ultim+Cuadro.TAMANY_QUADRAT/2 > tetrisObject.getAmpladaPantalla()){
-            setCentreX(this.centreX-Cuadro.TAMANY_QUADRAT);
+        while ((ultim = getUltimCentreX().getCentreX()) != -1 && ultim + Cuadro.TAMANY_QUADRAT / 2 > tetrisObject.getAmpladaPantalla()) {
+            setCentreX(centreX - Cuadro.TAMANY_QUADRAT);
         }
     }
 
