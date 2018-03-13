@@ -1,15 +1,11 @@
 package com.example.raulm.tetris;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-
-import java.util.List;
+import android.widget.FrameLayout;
 
 /**
  * Created by RaulM on 20/01/2018.
@@ -32,7 +28,9 @@ public class VistaJoc extends View {
     private boolean girarDreta = false;
     private boolean girarEsquerra = false;
     private static double VELOCITAT_TURBO = 2d;
-    private ModificarPuntuacio campPuntuacio;
+
+    //Camp puntuacio
+    private TextAmbFont puntuacio;
 
     public VistaJoc(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -51,7 +49,7 @@ public class VistaJoc extends View {
             }
 
             tetris.getFiguraActual().dibuixar(canvas);
-            campPuntuacio.setPuntuacio(tetris.getPuntuacio());
+            setPuntuacio(tetris.getPuntuacio());
         }
     }
 
@@ -60,6 +58,13 @@ public class VistaJoc extends View {
         super.onSizeChanged(width, height, old_width, old_height);
         //Crear es drawable a partir des tamany de sa vista
         //Canviar tamany objectes de sa vista
+
+        //Necesit cercar sa vista de puntuacions després de haver-la creat
+        FrameLayout layout = (FrameLayout) getParent();
+        if(layout != null) {
+            puntuacio = layout.findViewById(R.id.puntuacio);
+        }
+
         synchronized (this){
             tetris.setalturaPantalla(height);
             tetris.setAmpladaPantalla(width);
@@ -127,24 +132,27 @@ public class VistaJoc extends View {
         }
         double retard = (ara - darrerProces);
         darrerProces = ara;
-        boolean colisio = false;
         synchronized (this) {
             //Moure figura, només es mou una figura a l'hora
             Figura factual = tetris.getFiguraActual();
             factual.incrementarPosicio(retard);
+            //Mirar si colisiona amb enterra
+            if(factual.colisioEnterra()){
+                factual.setAturada();
+            }
             //Mirar si aquesta figura té colisio amb altres figures
             int totalFigures = tetris.getFigures().size();
-            for(int x = 0; x < totalFigures && !colisio; x++){
-                colisio = factual.colisio(tetris.getFigures().get(x));
+            for(int x = 0; x < totalFigures; x++){
+                if(factual.colisio(tetris.getFigures().get(x))){
+                    factual.setAturada();
+                    break;
+                }
             }
 
-            //Si té colisio s'atura
-            if(colisio){
-                //Aturar sa figura si ha colisio
-                tetris.liniaCompleta();
-                factual.setAturada();
-                //Mirar si ha format una nova fila
-                //Antes que generar una figura nova
+            //Pot estar colisionant per una altre figura o quan incrementes sa posicio amb enterra
+            if(factual.getAturada()){
+                tetris.liniesCompletes();
+                tetris.random();
             }
         }
     }
@@ -190,7 +198,7 @@ public class VistaJoc extends View {
         }
     }
 
-    protected void setParePuntuacio(ModificarPuntuacio puntuacio){
-        this.campPuntuacio = puntuacio;
+    private void setPuntuacio(int puntuacio){
+        this.puntuacio.setText("Score: " + puntuacio);
     }
 }

@@ -23,7 +23,7 @@ public class FiguraO extends Figura{
         int color = view.getContext().getResources().getColor(R.color.figuraO);
         for(int y = 0; y < ALTURA; y++){
             for(int x = 0; x < AMPLADA; x++){
-                imatge[y][x] = new Cuadro(view, color, this);
+                imatge[y][x] = new Cuadro(view, color);
             }
         }
         return imatge;

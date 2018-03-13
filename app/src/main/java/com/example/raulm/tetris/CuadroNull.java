@@ -39,12 +39,12 @@ public class CuadroNull implements ICuadro {
 
     @Override
     public int getCentreX() {
-        return 0;
+        return -1000;
     }
 
     @Override
     public int getCentreY() {
-        return 0;
+        return -1000;
     }
 
     @Override

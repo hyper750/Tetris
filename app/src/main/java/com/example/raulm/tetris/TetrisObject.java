@@ -11,6 +11,8 @@ import java.util.List;
  */
 
 public class TetrisObject{
+    public static final int MAXIM_CUADROS_PER_FILA = 10;
+    private static final double TOLERANCIA_ENTRE_FILES = 5;
     private List<Figura> figuresEnPantalla;
     private int alturaPantalla, ampladaPantalla;
     private double velocitat = 0.2d;
@@ -51,7 +53,7 @@ public class TetrisObject{
 
     public void setAmpladaPantalla(int ampladaPantalla){
         //Dividir sa pantalla per 10 blocs
-        Cuadro.TAMANY_QUADRAT = ampladaPantalla/10;
+        Cuadro.TAMANY_QUADRAT = ampladaPantalla/MAXIM_CUADROS_PER_FILA;
 
         //Amplada de pantalla per saber es centre per treure ses figures
         this.ampladaPantalla = ampladaPantalla;
@@ -91,8 +93,62 @@ public class TetrisObject{
         return puntuacio;
     }
 
-    public void liniaCompleta(){
+    public void liniesCompletes(){
+        int numFigures = getFigures().size();
+        Linia[] linies = contarLinies();
+        for(int x = 0; x < linies.length; x++){
+
+            if(linies[x].numeroCuadros == MAXIM_CUADROS_PER_FILA){
+                //Llevar es cuadros que toca de sa figura actual
+                int llevats = getFiguraActual().llevarCuadros(linies[x].centreY);
+                    //Posicionar un cuadro cap avall si ha llevat cuadros de sa linia
+                if(llevats > 0) {
+                    getFiguraActual().setCentreY(getFiguraActual().getCentreY() + (Cuadro.TAMANY_QUADRAT * llevats));
+                }
+
+                //Llevar es cuadros que toca de cada figura
+                for(int p = 0; p < numFigures; p++){
+                    Figura f = getFigures().get(p);
+                    int figuraLlevats = f.llevarCuadros(linies[x].centreY);
+                    if(figuraLlevats > 0){
+                        f.setCentreY(f.getCentreY() + (Cuadro.TAMANY_QUADRAT * figuraLlevats));
+                    }
+                }
+                //No només necessit baixar ses figures que els hi he llevat es cuadros si no també a totes ses altres
+                
+            }
+        }
+
+    }
+
+    private Linia[] contarLinies(){
         //Mirar si sa figura actual ha format una nova linia
-        figuraActual.cuadroPerLinia();
+        //S'encarregarà de posar a CuadroNull si té se nova linia
+
+        int numFigures = getFigures().size();
+        int incremental = figuraActual.getCentreY();
+        Linia[] result = new Linia[figuraActual.getAlturaArray()];
+        double tolerancia = 2;//+-2%
+        for(int p = 0; p < figuraActual.getAlturaArray(); p++) {
+            //Contar de sa figura actual ses linies
+            result[p] = new Linia();
+            result[p].centreY = incremental;
+            result[p].numeroCuadros = figuraActual.getNumeroCentreY(incremental, TOLERANCIA_ENTRE_FILES);
+
+
+            //Mir totes ses files de totes ses figures
+            for(int k = 0; k < numFigures; k++){
+                Figura f = getFigures().get(k);
+                result[p].numeroCuadros += f.getNumeroCentreY(incremental, TOLERANCIA_ENTRE_FILES);
+            }
+            Log.d("Numero cuadros", "Cuadros per linia " + result[p].numeroCuadros);
+            incremental += Cuadro.TAMANY_QUADRAT;
+        }
+        return result;
+    }
+
+    private class Linia{
+        private int centreY;
+        private int numeroCuadros;
     }
 }

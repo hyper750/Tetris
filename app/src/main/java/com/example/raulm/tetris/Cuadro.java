@@ -28,11 +28,9 @@ public class Cuadro implements ICuadro{
     private int anteriorX, anteriorY;
     //Invalidacio anterior
     private int radiInvalidacio;
-    private Figura figura;
 
-    public Cuadro(View view, int colorCuadro, Figura f){
+    public Cuadro(View view, int colorCuadro){
         this.view = view;
-        this.figura = f;
         //Cuadro
         Path p = new Path();
         p.moveTo(0f, 0f);
@@ -86,11 +84,6 @@ public class Cuadro implements ICuadro{
     public void incrementarPosicio(double retard){
         //centreX += incX * retard;
         centreY += incY * retard;
-
-        //Si fa contacte amb enterra o amb una altre figura aturar
-        if(centreY+altura/2 >= view.getHeight()){
-            figura.setAturada();
-        }
     }
 
     @Override

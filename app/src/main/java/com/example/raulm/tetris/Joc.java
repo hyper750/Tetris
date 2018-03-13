@@ -1,26 +1,23 @@
 package com.example.raulm.tetris;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
 
 /**
  * Created by RaulM on 11/01/2018.
  */
 
-public class Joc extends Activity implements ModificarPuntuacio{
+public class Joc extends Activity{
 
     private VistaJoc vistaJoc;
-    private TextAmbFont puntuacio;
 
     @Override
     protected void onCreate(Bundle save){
         super.onCreate(save);
         setContentView(R.layout.layoutjoc);
 
-        puntuacio = (TextAmbFont)findViewById(R.id.puntuacio);
         vistaJoc = (VistaJoc) findViewById(R.id.VistaJoc);
-        vistaJoc.setParePuntuacio(this);
     }
 
     @Override
@@ -33,6 +30,8 @@ public class Joc extends Activity implements ModificarPuntuacio{
     protected void onResume(){
         super.onResume();
         vistaJoc.getFil().reanudar();
+        //Per si pitj home i torn entrar estarà a sa mateixa activitat però sa musica aturada, te que seguir
+        startService(new Intent(this, MusicaFondu.class));
     }
 
     @Override
@@ -40,22 +39,4 @@ public class Joc extends Activity implements ModificarPuntuacio{
         super.onDestroy();
         vistaJoc.getFil().aturar();
     }
-
-    @Override
-    public void setPuntuacio(int puntuacio){
-        this.puntuacio.setText(getResources().getString(R.string.puntuacio) + " " + puntuacio);
-    }
-
-    /*@Override
-    public void onSaveInstanceState(Bundle save){
-        super.onSaveInstanceState(save);
-        save.putSerializable("joc", vistaJoc.getTetris());
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle load){
-        super.onRestoreInstanceState(load);
-        TetrisObject t = (TetrisObject) load.getSerializable("joc");
-        vistaJoc.setTetris(t);
-    }*/
 }
