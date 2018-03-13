@@ -119,6 +119,17 @@ public abstract class Figura implements Cloneable{
         }
     }
 
+    public void ferCorre(int centreY){
+        for(int x = 0; x < imatge.length; x++){
+            for(int y = 0; y < imatge[x].length; y++){
+                //Fer corre un quadrat totes ses figures que estiguin damunt sa zona
+                if(imatge[x][y].getCentreY() < centreY){
+                    imatge[x][y].setCentreY(imatge[x][y].getCentreY() + Cuadro.TAMANY_QUADRAT);
+                }
+            }
+        }
+    }
+
     public void girarEsquerra(){
         if(getPrimerCentreX() - Cuadro.TAMANY_QUADRAT >= 0){
             ICuadro c = new Cuadro(view, Color.WHITE);

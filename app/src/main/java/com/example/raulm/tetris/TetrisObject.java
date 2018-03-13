@@ -17,7 +17,7 @@ public class TetrisObject{
 
     private List<Figura> figuresEnPantalla;
     private int alturaPantalla, ampladaPantalla;
-    private double velocitat = 0.2d;
+    private double velocitat = 0.199d;
     private Figura figuraActual;
     private FiguraFactory figuraFactory;
     //Modificar per linia feta
@@ -114,7 +114,12 @@ public class TetrisObject{
 
                 //No només necessit baixar ses figures que els hi he llevat es cuadros si no també a totes ses altres
                 //Fer corre totes ses figures que hi hagi per damunt
-                
+                getFiguraActual().ferCorre(linies[x].centreY);
+
+                for(int p = 0; p < numFigures; p++){
+                    Figura f = getFigures().get(p);
+                    f.ferCorre(linies[x].centreY);
+                }
 
             }
         }
