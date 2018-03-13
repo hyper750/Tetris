@@ -78,6 +78,23 @@ public class TetrisObject{
         return this.velocitat;
     }
 
+    public boolean pucGirarDreta(Figura f){
+        //Mir primer de tot si pot
+        int ultimX = f.getUltimCentreX();
+        if(ultimX != -1 && ultimX + Cuadro.TAMANY_QUADRAT <= getAmpladaPantalla()) {
+            return !(f.girAmbColisio(Cuadro.TAMANY_QUADRAT));
+        }
+
+        return false;
+    }
+
+    public boolean pucGirarEsquerra(Figura f){
+        if(f.getPrimerCentreX() - Cuadro.TAMANY_QUADRAT >= 0) {
+            return !(f.girAmbColisio(-1 * Cuadro.TAMANY_QUADRAT));
+        }
+
+        return false;
+    }
 
     public void restaurarVelocitat() {
         if(figuraActual != null){
@@ -141,7 +158,7 @@ public class TetrisObject{
                 Figura f = getFigures().get(k);
                 result[p].numeroCuadros += f.getNumeroCentreY(incremental, TOLERANCIA_ENTRE_FILES);
             }
-            Log.d("Numero cuadros", "Cuadros per linia " + result[p].numeroCuadros);
+            //Log.d("Numero cuadros", "Cuadros per linia " + result[p].numeroCuadros);
             incremental += Cuadro.TAMANY_QUADRAT;
         }
         return result;
@@ -153,6 +170,6 @@ public class TetrisObject{
     }
 
     public void activarTurbo(){
-        figuraActual.setIncY(2d);
+        figuraActual.setIncY(0.8d);
     }
 }

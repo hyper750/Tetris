@@ -109,7 +109,7 @@ public class VistaJoc extends View {
                     girarEsquerra = false;
                     //Desactivat perque me descoloca ses figures un poc per sa velocitat
                     //Tindria que cercar es temps de periode de procesa i sa velocitat de que du
-                    tetris.activarTurbo();
+                    //tetris.activarTurbo();
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -117,12 +117,16 @@ public class VistaJoc extends View {
                     tetris.getFiguraActual().rotar();
                 }
                 else if(girarDreta){
-                    tetris.getFiguraActual().girarDreta();
+                    if(tetris.pucGirarDreta(tetris.getFiguraActual())){
+                        tetris.getFiguraActual().girarDreta();
+                    }
                 }
                 else if(girarEsquerra){
-                    tetris.getFiguraActual().girarEsquerra();
+                    if(tetris.pucGirarEsquerra(tetris.getFiguraActual())) {
+                        tetris.getFiguraActual().girarEsquerra();
+                    }
                 }
-                tetris.restaurarVelocitat();
+                //tetris.restaurarVelocitat();
                 break;
         }
         ditAnteriorX = x;
@@ -137,6 +141,7 @@ public class VistaJoc extends View {
         }
         double retard = (ara - darrerProces);
         darrerProces = ara;
+        //Tarda un poc en veure ses oolisions
         synchronized (this) {
             //Moure figura, només es mou una figura a l'hora
             Figura factual = tetris.getFiguraActual();

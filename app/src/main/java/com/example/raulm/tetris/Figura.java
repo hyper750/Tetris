@@ -91,47 +91,28 @@ public abstract class Figura implements Cloneable{
     }
 
     public void girarDreta(){
-        ICuadro ultim = getUltimCentreX();
-        int ultimX = ultim.getCentreX();
-        if(ultimX != -1 && ultimX + Cuadro.TAMANY_QUADRAT <= tetrisObject.getAmpladaPantalla()){
-            ICuadro c = new Cuadro(view, Color.WHITE);
-            boolean colisio = false;
-            boolean trobat = false;
-            for(int y = imatge[0].length-1; !trobat && y >= 0; y--) {
-                for (int x = imatge.length - 1; x >= 0 && !colisio; x--) {
-                    if (!(imatge[x][y] instanceof CuadroNull)) {
-                        trobat = true;
-                        c.setCentreX(imatge[x][y].getCentreX() + Cuadro.TAMANY_QUADRAT);
-                        c.setCentreY(imatge[x][y].getCentreY());
-                        colisio = possibleColisio(c);
-                    }
-                }
-            }
-            if(!colisio){
-                setCentreX(this.centreX + Cuadro.TAMANY_QUADRAT);
-            }
-        }
+        setCentreX(this.centreX + Cuadro.TAMANY_QUADRAT);
     }
 
     public void girarEsquerra(){
-        if(getPrimerCentreX() - Cuadro.TAMANY_QUADRAT >= 0){
-            ICuadro c = new Cuadro(view, Color.WHITE);
-            boolean colisio = false;
-            boolean trobat = false;
-            for(int y = 0; !trobat && y < imatge[0].length; y++) {
-                for (int x = imatge.length - 1; x >= 0 && !colisio; x--) {
-                    if (!(imatge[x][y] instanceof CuadroNull)) {
-                        trobat = true;
-                        c.setCentreX(imatge[x][y].getCentreX() - Cuadro.TAMANY_QUADRAT);
-                        c.setCentreY(imatge[x][y].getCentreY());
-                        colisio = possibleColisio(c);
+        setCentreX(this.centreX - Cuadro.TAMANY_QUADRAT);
+    }
+
+    public boolean girAmbColisio(int diferenciaX){
+        ICuadro c = new Cuadro(view, Color.WHITE);
+        for(int y = 0; y < imatge[0].length; y++) {
+            for (int x = imatge.length - 1; x >= 0; x--) {
+                if (!(imatge[x][y] instanceof CuadroNull)) {
+                    c.setCentreX(imatge[x][y].getCentreX() + diferenciaX);
+                    c.setCentreY(imatge[x][y].getCentreY());
+                    if(possibleColisio(c)){
+                        return  true;
                     }
                 }
             }
-            if(!colisio){
-                setCentreX(this.centreX - Cuadro.TAMANY_QUADRAT);
-            }
         }
+
+        return false;
     }
 
     public void llevarCuadros(int centreY){
@@ -180,7 +161,7 @@ public abstract class Figura implements Cloneable{
         }
         //Si està a nes borde dret sumar una posició i actualitzar
         int ultim;
-        while ((ultim = getUltimCentreX().getCentreX()) != -1 && ultim + Cuadro.TAMANY_QUADRAT / 2 > tetrisObject.getAmpladaPantalla()) {
+        while ((ultim = getUltimCentreX()) != -1 && ultim + Cuadro.TAMANY_QUADRAT / 2 > tetrisObject.getAmpladaPantalla()) {
             setCentreX(centreX - Cuadro.TAMANY_QUADRAT);
         }
     }
@@ -237,7 +218,7 @@ public abstract class Figura implements Cloneable{
     }
 
 
-    private int getPrimerCentreX(){
+    public int getPrimerCentreX(){
         for(int x = 0; x < imatge.length; x++){
             for(int y = 0; y < imatge[x].length; y++){
                 //Mirar fila 0 i cada col
@@ -249,27 +230,27 @@ public abstract class Figura implements Cloneable{
         return -1;
     }
 
-    private ICuadro getUltimCentreX(){
+    public int getUltimCentreX(){
         for(int x = imatge.length-1; x >= 0; x--){
             for(int y = imatge[x].length-1; y >= 0; y--){
                 //Mirar fila 0 i cada col
                 if(!(imatge[y][x] instanceof CuadroNull)){
-                    return imatge[y][x];
+                    return imatge[y][x].getCentreX();
                 }
             }
         }
-        return null;
+        return -100;
     }
 
     public void incrementarPosicio(double increment) {
         //Si no està aturada incrementar Y
         //if(!this.aturada) {
-            centreY += incY * increment;
-            for (int y = this.imatge.length - 1; y >= 0; y--) {
-                for (int x = this.imatge[y].length - 1; x >= 0; x--) {
-                    this.imatge[y][x].incrementarPosicio(increment);
-                }
+        centreY += incY * increment;
+        for (int y = this.imatge.length - 1; y >= 0; y--) {
+            for (int x = this.imatge[y].length - 1; x >= 0; x--) {
+                this.imatge[y][x].incrementarPosicio(increment);
             }
+        }
         //}
     }
 
@@ -317,7 +298,7 @@ public abstract class Figura implements Cloneable{
                         for (int z = 0; z < f.imatge[q].length; z++) {
                             //Per cada cuadro de sa figura pasada per parametre
                             if (!(f.imatge[q][z] instanceof CuadroNull)) {
-                            //Segueix mirant col·lisions si no té col·lisió aquest cuadro
+                                //Segueix mirant col·lisions si no té col·lisió aquest cuadro
                                 if(this.imatge[y][x].colisio(f.imatge[q][z])){
                                     return true;
                                 }
