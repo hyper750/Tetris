@@ -16,10 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Joc" android:hardwareAccelerated="false">
+        <activity android:name=".Joc" android:hardwareAccelerated="false" android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".JocMultijugador" android:hardwareAccelerated="false" android:screenOrientation="userPortrait">
+        <activity android:name=".JocMultijugador" android:hardwareAccelerated="false" android:screenOrientation="portrait">
 
         </activity>
         <service android:name=".MusicaFondu"/>

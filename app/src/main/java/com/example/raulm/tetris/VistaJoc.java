@@ -59,7 +59,8 @@ public class VistaJoc extends View {
         //Canviar tamany objectes de sa vista
 
         //Necesit cercar sa vista de puntuacions després de haver-la creat
-        FrameLayout layout = (FrameLayout) getParent();
+        View layout = (View) getParent();
+        //Frame layout pare
         if(layout != null) {
             puntuacio = layout.findViewById(R.id.puntuacio);
         }
@@ -108,7 +109,7 @@ public class VistaJoc extends View {
                     girarEsquerra = false;
                     //Desactivat perque me descoloca ses figures un poc per sa velocitat
                     //Tindria que cercar es temps de periode de procesa i sa velocitat de que du
-                    //tetris.activarTurbo();
+                    tetris.activarTurbo();
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -121,7 +122,7 @@ public class VistaJoc extends View {
                 else if(girarEsquerra){
                     tetris.getFiguraActual().girarEsquerra();
                 }
-                //tetris.restaurarVelocitat();
+                tetris.restaurarVelocitat();
                 break;
         }
         ditAnteriorX = x;
