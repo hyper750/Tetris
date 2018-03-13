@@ -109,18 +109,14 @@ public abstract class Figura implements Cloneable{
         }
     }
 
-    public int llevarCuadros(int centreY){
-        int quantsllevats = 0;
+    public void llevarCuadros(int centreY){
         for(int x = 0; x < imatge.length; x++){
             for(int y = 0; y < imatge[x].length; y++){
                 if(imatge[x][y].getCentreY() == centreY){
                     imatge[x][y] = new CuadroNull();
-                    quantsllevats++;
                 }
             }
         }
-
-        return quantsllevats;
     }
 
     public void girarEsquerra(){

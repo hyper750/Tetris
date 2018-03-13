@@ -86,21 +86,24 @@ public class VistaJoc extends View {
             case MotionEvent.ACTION_MOVE:
                 float dx = x - ditAnteriorX;
                 float dy = y - ditAnteriorY;
-                if(dx > 0){
-                    //tetris.getFiguraActual().moureDreta();
-                    //Log.d("Moure", "DRETA");
-                    girarDreta = true;
-                    girarEsquerra = false;
-                    rotar = false;
+                float diferenciaX = Math.abs(x - ditAnteriorX);
+                float diferenciaY = Math.abs(y - ditAnteriorY);
+                if(diferenciaX > 3) {
+                    if (dx > 0) {
+                        //tetris.getFiguraActual().moureDreta();
+                        //Log.d("Moure", "DRETA");
+                        girarDreta = true;
+                        girarEsquerra = false;
+                        rotar = false;
+                    } else if (dx < 0) {
+                        //tetris.getFiguraActual().moureEsquerra();
+                        //Log.d("Moure", "ESQUERRA");
+                        rotar = false;
+                        girarDreta = false;
+                        girarEsquerra = true;
+                    }
                 }
-                else if(dx < 0){
-                    //tetris.getFiguraActual().moureEsquerra();
-                    //Log.d("Moure", "ESQUERRA");
-                    rotar = false;
-                    girarDreta = false;
-                    girarEsquerra = true;
-                }
-                else if(dy > 0){
+                else if(diferenciaY > 3 && dy > 0){
                     rotar = false;
                     girarDreta = false;
                     girarEsquerra = false;

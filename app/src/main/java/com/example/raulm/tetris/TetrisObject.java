@@ -13,6 +13,8 @@ import java.util.List;
 public class TetrisObject{
     public static final int MAXIM_CUADROS_PER_FILA = 10;
     private static final double TOLERANCIA_ENTRE_FILES = 5;
+    private static final int PUNTUACIO_PER_FILA = 100;
+
     private List<Figura> figuresEnPantalla;
     private int alturaPantalla, ampladaPantalla;
     private double velocitat = 0.2d;
@@ -31,7 +33,6 @@ public class TetrisObject{
         if(figuraActual != null){
             figuresEnPantalla.add(figuraActual);
         }
-        puntuacio += 100;
         figuraActual = figuraFactory.getFigura(numRandom);
         //figuraActual.setCentreX((int)(Cuadro.TAMANY_QUADRAT/2 + figuraActual.getMaxAmplada()*Cuadro.TAMANY_QUADRAT*2)); //10 cuadros en pantalla per fila
         figuraActual.setCentreX((Cuadro.TAMANY_QUADRAT/2 + Cuadro.TAMANY_QUADRAT*5 - Math.round(figuraActual.getMaxAmplada()/2)*Cuadro.TAMANY_QUADRAT)); //10 cuadros en pantalla per fila
@@ -99,23 +100,22 @@ public class TetrisObject{
         for(int x = 0; x < linies.length; x++){
 
             if(linies[x].numeroCuadros == MAXIM_CUADROS_PER_FILA){
+                puntuacio += PUNTUACIO_PER_FILA;
                 //Llevar es cuadros que toca de sa figura actual
-                int llevats = getFiguraActual().llevarCuadros(linies[x].centreY);
-                    //Posicionar un cuadro cap avall si ha llevat cuadros de sa linia
-                if(llevats > 0) {
-                    getFiguraActual().setCentreY(getFiguraActual().getCentreY() + (Cuadro.TAMANY_QUADRAT * llevats));
-                }
+                getFiguraActual().llevarCuadros(linies[x].centreY);
+                //Posicionar un cuadro cap avall si ha llevat cuadros de sa linia
 
                 //Llevar es cuadros que toca de cada figura
                 for(int p = 0; p < numFigures; p++){
                     Figura f = getFigures().get(p);
-                    int figuraLlevats = f.llevarCuadros(linies[x].centreY);
-                    if(figuraLlevats > 0){
-                        f.setCentreY(f.getCentreY() + (Cuadro.TAMANY_QUADRAT * figuraLlevats));
-                    }
+                    f.llevarCuadros(linies[x].centreY);
                 }
+
+
                 //No només necessit baixar ses figures que els hi he llevat es cuadros si no també a totes ses altres
+                //Fer corre totes ses figures que hi hagi per damunt
                 
+
             }
         }
 
