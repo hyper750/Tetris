@@ -78,11 +78,6 @@ public class TetrisObject{
         return this.velocitat;
     }
 
-    public void setVelocitat(double velocitat) {
-        if(figuraActual != null){
-            figuraActual.setIncY(velocitat);
-        }
-    }
 
     public void restaurarVelocitat() {
         if(figuraActual != null){
@@ -155,5 +150,9 @@ public class TetrisObject{
     private class Linia{
         private int centreY;
         private int numeroCuadros;
+    }
+
+    public void activarTurbo(){
+        figuraActual.setIncY(2d);
     }
 }

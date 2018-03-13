@@ -12,7 +12,7 @@ import android.view.View;
 public abstract class Figura implements Cloneable{
 
     private ICuadro[][] imatge;
-    private boolean aturada = false;
+    //private boolean aturada = false;
     private TetrisObject tetrisObject;
     protected View view;
     private int centreX, centreY;
@@ -65,6 +65,10 @@ public abstract class Figura implements Cloneable{
         }
     }
 
+    public double getIncY() {
+        return incY;
+    }
+
     public int getCentreY() {
         return centreY;
     }
@@ -109,27 +113,6 @@ public abstract class Figura implements Cloneable{
         }
     }
 
-    public void llevarCuadros(int centreY){
-        for(int x = 0; x < imatge.length; x++){
-            for(int y = 0; y < imatge[x].length; y++){
-                if(imatge[x][y].getCentreY() == centreY){
-                    imatge[x][y] = new CuadroNull();
-                }
-            }
-        }
-    }
-
-    public void ferCorre(int centreY){
-        for(int x = 0; x < imatge.length; x++){
-            for(int y = 0; y < imatge[x].length; y++){
-                //Fer corre un quadrat totes ses figures que estiguin damunt sa zona
-                if(imatge[x][y].getCentreY() < centreY){
-                    imatge[x][y].setCentreY(imatge[x][y].getCentreY() + Cuadro.TAMANY_QUADRAT);
-                }
-            }
-        }
-    }
-
     public void girarEsquerra(){
         if(getPrimerCentreX() - Cuadro.TAMANY_QUADRAT >= 0){
             ICuadro c = new Cuadro(view, Color.WHITE);
@@ -151,6 +134,27 @@ public abstract class Figura implements Cloneable{
         }
     }
 
+    public void llevarCuadros(int centreY){
+        for(int x = 0; x < imatge.length; x++){
+            for(int y = 0; y < imatge[x].length; y++){
+                if(imatge[x][y].getCentreY() == centreY){
+                    imatge[x][y] = new CuadroNull();
+                }
+            }
+        }
+    }
+
+    public void ferCorre(int centreY){
+        for(int x = 0; x < imatge.length; x++){
+            for(int y = 0; y < imatge[x].length; y++){
+                //Fer corre un quadrat totes ses figures que estiguin damunt sa zona
+                if(imatge[x][y].getCentreY() < centreY){
+                    imatge[x][y].setCentreY(imatge[x][y].getCentreY() + Cuadro.TAMANY_QUADRAT);
+                }
+            }
+        }
+    }
+
     public boolean possibleColisio(ICuadro c){
         int totalFigures = tetrisObject.getFigures().size();
         boolean colisio = false;
@@ -165,6 +169,20 @@ public abstract class Figura implements Cloneable{
             }
         }
         return false;
+    }
+
+    private void colocarRotacio(){
+        setCentreY(this.centreY);
+        setCentreX(this.centreX);
+        //Si està a nes borde esquerra sumar una posició i actualitzar
+        while (getPrimerCentreX() - Cuadro.TAMANY_QUADRAT / 2 < 0) {
+            setCentreX(centreX + Cuadro.TAMANY_QUADRAT);
+        }
+        //Si està a nes borde dret sumar una posició i actualitzar
+        int ultim;
+        while ((ultim = getUltimCentreX().getCentreX()) != -1 && ultim + Cuadro.TAMANY_QUADRAT / 2 > tetrisObject.getAmpladaPantalla()) {
+            setCentreX(centreX - Cuadro.TAMANY_QUADRAT);
+        }
     }
 
     public void rotar() {
@@ -207,7 +225,7 @@ public abstract class Figura implements Cloneable{
             if(copia.colisio(fi)){
                 Log.d("Colisio Rotacio", "Hi ha colisio");
                 colisio = true;
-               break;
+                break;
             }
         }
         if(!colisio) {
@@ -218,19 +236,6 @@ public abstract class Figura implements Cloneable{
 
     }
 
-    private void colocarRotacio(){
-        setCentreY(this.centreY);
-        setCentreX(this.centreX);
-        //Si està a nes borde esquerra sumar una posició i actualitzar
-        while (getPrimerCentreX() - Cuadro.TAMANY_QUADRAT / 2 < 0) {
-            setCentreX(centreX + Cuadro.TAMANY_QUADRAT);
-        }
-        //Si està a nes borde dret sumar una posició i actualitzar
-        int ultim;
-        while ((ultim = getUltimCentreX().getCentreX()) != -1 && ultim + Cuadro.TAMANY_QUADRAT / 2 > tetrisObject.getAmpladaPantalla()) {
-            setCentreX(centreX - Cuadro.TAMANY_QUADRAT);
-        }
-    }
 
     private int getPrimerCentreX(){
         for(int x = 0; x < imatge.length; x++){
@@ -258,14 +263,14 @@ public abstract class Figura implements Cloneable{
 
     public void incrementarPosicio(double increment) {
         //Si no està aturada incrementar Y
-        if(!this.aturada) {
-            centreY += tetrisObject.getVelocitat() * increment;
+        //if(!this.aturada) {
+            centreY += incY * increment;
             for (int y = this.imatge.length - 1; y >= 0; y--) {
                 for (int x = this.imatge[y].length - 1; x >= 0; x--) {
                     this.imatge[y][x].incrementarPosicio(increment);
                 }
             }
-        }
+        //}
     }
 
     public boolean colisioEnterra(){
@@ -288,7 +293,6 @@ public abstract class Figura implements Cloneable{
             Figura f = (Figura)super.clone();
             //Es tipus primitius es clonen pero es objectes es donen nomes sa referencia, per tant no es clonen
             f.imatge = f.getImatgeArray();
-            f.aturada = false;
             return f;
         }
         catch (CloneNotSupportedException e){
@@ -326,7 +330,7 @@ public abstract class Figura implements Cloneable{
         return false;
     }
 
-    public void setAturada() {
+    /*public void setAturada() {
         if(!this.aturada){
             this.aturada = true;
             //Amb setIncY hi ha un retard a sa última figura
@@ -336,7 +340,7 @@ public abstract class Figura implements Cloneable{
 
     public boolean getAturada(){
         return aturada;
-    }
+    }*/
 
     public int getMaxAmplada() {
         int max = -1;

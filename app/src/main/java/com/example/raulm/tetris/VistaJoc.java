@@ -20,14 +20,13 @@ public class VistaJoc extends View {
     //Que cada Xms s'actualitzi
     //Reeduit perque feia un afecta com si anigues a tirons quan ses peces avançaven rapidament
     //Hi ha d'haver alguna relació segons sa velocitat maxima de ses peces i es temps d'actualització
-    private final static int PERIODE_PROCES = 10;
+    private final static int PERIODE_PROCES = 20;
     private final ThreadFisica fil = new ThreadFisica();
     private long darrerProces = 0;
     private float ditAnteriorX = 0, ditAnteriorY = 0;
     private boolean rotar = false;
     private boolean girarDreta = false;
     private boolean girarEsquerra = false;
-    private static double VELOCITAT_TURBO = 2d;
 
     //Camp puntuacio
     private TextAmbFont puntuacio;
@@ -65,11 +64,11 @@ public class VistaJoc extends View {
             puntuacio = layout.findViewById(R.id.puntuacio);
         }
 
-        synchronized (this){
-            tetris.setalturaPantalla(height);
-            tetris.setAmpladaPantalla(width);
-            tetris.random();
-        }
+        tetris.setalturaPantalla(height);
+        tetris.setAmpladaPantalla(width);
+        tetris.random();
+
+
         darrerProces = System.currentTimeMillis();
         fil.start();
     }
@@ -107,7 +106,9 @@ public class VistaJoc extends View {
                     rotar = false;
                     girarDreta = false;
                     girarEsquerra = false;
-                    tetris.setVelocitat(VELOCITAT_TURBO);
+                    //Desactivat perque me descoloca ses figures un poc per sa velocitat
+                    //Tindria que cercar es temps de periode de procesa i sa velocitat de que du
+                    //tetris.activarTurbo();
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -120,7 +121,7 @@ public class VistaJoc extends View {
                 else if(girarEsquerra){
                     tetris.getFiguraActual().girarEsquerra();
                 }
-                tetris.restaurarVelocitat();
+                //tetris.restaurarVelocitat();
                 break;
         }
         ditAnteriorX = x;
@@ -141,19 +142,19 @@ public class VistaJoc extends View {
             factual.incrementarPosicio(retard);
             //Mirar si colisiona amb enterra
             if(factual.colisioEnterra()){
-                factual.setAturada();
+                factual.setIncY(0d);
             }
             //Mirar si aquesta figura té colisio amb altres figures
             int totalFigures = tetris.getFigures().size();
             for(int x = 0; x < totalFigures; x++){
                 if(factual.colisio(tetris.getFigures().get(x))){
-                    factual.setAturada();
+                    factual.setIncY(0d);
                     break;
                 }
             }
 
             //Pot estar colisionant per una altre figura o quan incrementes sa posicio amb enterra
-            if(factual.getAturada()){
+            if(factual.getIncY() == 0d){
                 tetris.liniesCompletes();
                 tetris.random();
             }
