@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tetris</string>
+    <string name="player1">1 JUGADOR</string>
+    <string name="player2">2 JUGADORS</string>
+    <string name="player2Destruccio">DESTRUCCIÓ</string>
+    <string name="puntuacio">Puntuació:</string>
+</resources>

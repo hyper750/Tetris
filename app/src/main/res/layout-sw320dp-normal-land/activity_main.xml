@@ -28,13 +28,13 @@
         android:stretchColumns="*">
 
         <TableRow
-            android:layout_marginBottom="@dimen/MainActivity_MarginBottom"
-            android:layout_marginStart="@dimen/MainActivity_MarginStartTable320">
+            android:layout_marginBottom="@dimen/MainActivity_MarginBottom">
 
             <com.example.raulm.tetris.ButoAmbFont
                 android:id="@+id/player1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 android:background="@android:color/transparent"
                 android:text="@string/player1"
                 android:textSize="@dimen/font_MainActivity" />
@@ -43,6 +43,7 @@
                 android:id="@+id/player2Temps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 android:background="@android:color/transparent"
                 android:text="@string/player2"
                 android:textSize="@dimen/font_MainActivity" />
@@ -57,6 +58,7 @@
                 android:id="@+id/player2Destruccio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 android:background="@android:color/transparent"
                 android:text="@string/player2Destruccio"
                 android:textSize="@dimen/font_MainActivity" />

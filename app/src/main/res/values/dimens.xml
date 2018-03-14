@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="font_MainActivity">26sp</dimen>
+    <dimen name="font_MainActivity">24sp</dimen>
     <dimen name="font_MainActivity_small">24sp</dimen>
     <dimen name="Joc_MargePuntuacio">20dp</dimen>
 
@@ -14,8 +14,22 @@
 
     <!-- Landscape sw320 normal MainActivity layout-->
     <dimen name="MainActivity_GearMargin320">10dp</dimen>
-    <dimen name="MainActivity_MarginStartTable320">60dp</dimen>
-    <dimen name="MainActivity_marginStartRow320">190dp</dimen>
+    <dimen name="MainActivity_marginStartRow320">135dp</dimen>
+
+    <!--Portrait sw600-->
+    <dimen name="MainActivity_GearMargin600">20dp</dimen>
+    <dimen name="MainActivity_MarginBottom600">60dp</dimen>
+    <dimen name="font_MainActivity600">40</dimen>
+    <dimen name="MainActivity_marginStartRow600">130</dimen>
+
+    <!--Land sw600-->
+    <dimen name="MainActivity_GearMargin600land">40</dimen>
+    <dimen name="MainActivity_marginStartRow600land">220</dimen>
+
+    <!--Portratit 700-->
+    <dimen name="MainActivity_GearMargin720">30</dimen>
+    <dimen name="font_MainActivity720">50</dimen>
+    <dimen name="MainActivity_marginStartRow720">160</dimen>
 
 
 

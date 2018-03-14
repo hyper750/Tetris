@@ -27,6 +27,7 @@ public class VistaJoc extends View {
     private boolean rotar = false;
     private boolean girarDreta = false;
     private boolean girarEsquerra = false;
+    private String scoreIdioma = "";
 
     //Camp puntuacio
     private TextAmbFont puntuacio;
@@ -35,6 +36,7 @@ public class VistaJoc extends View {
         super(context, attrs);
         //Crear objectes de sa vista
         this.tetris = new TetrisObject(this);
+        scoreIdioma = context.getResources().getString(R.string.puntuacio);
     }
 
     @Override
@@ -209,6 +211,6 @@ public class VistaJoc extends View {
     }
 
     private void setPuntuacio(int puntuacio){
-        this.puntuacio.setText("Score: " + puntuacio);
+        this.puntuacio.setText(scoreIdioma + " " + puntuacio);
     }
 }

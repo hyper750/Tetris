@@ -34,6 +34,14 @@ public class MainActivity extends Activity {
             }
         });
 
+        Button player2Destruccio = (Button)findViewById(R.id.player2Destruccio);
+        player2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                llancarJocMultijugadorDestruccio();
+            }
+        });
+
         //Aturar sa musica quan pitji es boto home
         listener = new HomeListener(this);
         listener.setOnHomePressedListener(new HomeListener.onHomeListener() {
@@ -51,6 +59,11 @@ public class MainActivity extends Activity {
 
     private void llancarJocMultijugador(){
         Intent i = new Intent(this, JocMultijugador.class);
+        startActivity(i);
+    }
+
+    private void llancarJocMultijugadorDestruccio(){
+        Intent i = new Intent(this, JocMultijugadorDestruccio.class);
         startActivity(i);
     }
 
