@@ -14,6 +14,9 @@ public class TetrisObject{
     public static final int MAXIM_CUADROS_PER_FILA = 10;
     private static final double TOLERANCIA_ENTRE_FILES = 5;
     private static final int PUNTUACIO_PER_FILA = 100;
+    //Per exemple cada 500 augmenta 0.1d de velocitat
+    private static final int AUGMENTAR_VELOCITAT_CADA_PUNTUACIO = 500;
+    private static final double AUGMENT_DE_VELOCITAT = 0.01d;
 
     private List<Figura> figuresEnPantalla;
     private int alturaPantalla, ampladaPantalla;
@@ -113,6 +116,10 @@ public class TetrisObject{
 
             if(linies[x].numeroCuadros == MAXIM_CUADROS_PER_FILA){
                 puntuacio += PUNTUACIO_PER_FILA;
+                //Augmentar velocitat modul de sa constant
+                if(puntuacio % AUGMENTAR_VELOCITAT_CADA_PUNTUACIO == 0){
+                    this.velocitat += AUGMENT_DE_VELOCITAT;
+                }
                 //Llevar es cuadros que toca de sa figura actual
                 getFiguraActual().llevarCuadros(linies[x].centreY);
                 //Posicionar un cuadro cap avall si ha llevat cuadros de sa linia
@@ -135,7 +142,6 @@ public class TetrisObject{
 
             }
         }
-
     }
 
     private Linia[] contarLinies(){
@@ -145,7 +151,6 @@ public class TetrisObject{
         int numFigures = getFigures().size();
         int incremental = figuraActual.getCentreY();
         Linia[] result = new Linia[figuraActual.getAlturaArray()];
-        double tolerancia = 2;//+-2%
         for(int p = 0; p < figuraActual.getAlturaArray(); p++) {
             //Contar de sa figura actual ses linies
             result[p] = new Linia();
@@ -170,6 +175,7 @@ public class TetrisObject{
     }
 
     public void activarTurbo(){
+        //Llevat perque se me descoloquen es cuadros
         figuraActual.setIncY(0.8d);
     }
 }
