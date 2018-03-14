@@ -8,34 +8,60 @@
     tools:context="com.example.raulm.tetris.MainActivity"
     android:background="@drawable/main">
 
-    <LinearLayout
+    <Button
+        android:id="@+id/button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="@dimen/MainActivity_GearMargin320"
+        android:background="@drawable/gear"/>
+
+    <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/MainActivity_paddingBottom320swland"
-        android:paddingStart="@dimen/MainActivity_paddingStart320swland"
-        android:paddingEnd="@dimen/MainActivity_paddingEnd320swland">
+        android:layout_alignParentStart="true"
+        android:paddingEnd="@dimen/MainActivity_paddingEnd"
+        android:paddingStart="@dimen/MainActivity_paddingStart"
+        android:stretchColumns="*">
 
-        <com.example.raulm.tetris.ButoAmbFont
-            android:id="@+id/player1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="@string/player1"
-            android:layout_marginEnd="@dimen/MainActivity_marginEnd320swland"
-            android:textSize="@dimen/font_MainActivity"/>
+        <TableRow
+            android:layout_marginBottom="@dimen/MainActivity_MarginBottom"
+            android:layout_marginStart="@dimen/MainActivity_MarginStartTable320">
 
-        <com.example.raulm.tetris.ButoAmbFont
-            android:id="@+id/player2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="@string/player2"
-            android:textSize="@dimen/font_MainActivity"/>
-    </LinearLayout>
+            <com.example.raulm.tetris.ButoAmbFont
+                android:id="@+id/player1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/player1"
+                android:textSize="@dimen/font_MainActivity" />
 
+            <com.example.raulm.tetris.ButoAmbFont
+                android:id="@+id/player2Temps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/player2"
+                android:textSize="@dimen/font_MainActivity" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/MainActivity_marginStartRow320">
+
+            <com.example.raulm.tetris.ButoAmbFont
+                android:id="@+id/player2Destruccio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/player2Destruccio"
+                android:textSize="@dimen/font_MainActivity" />
+        </TableRow>
+    </TableLayout>
 
 
 </RelativeLayout>

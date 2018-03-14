@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="font_MainActivity">32sp</dimen>
+    <dimen name="font_MainActivity">26sp</dimen>
     <dimen name="font_MainActivity_small">24sp</dimen>
+    <dimen name="Joc_MargePuntuacio">20dp</dimen>
+
     <!--Default MainActivity layout-->
-    <dimen name="MainActivity_paddingBottom">80dp</dimen>
+    <dimen name="MainActivity_MarginBottom">20dp</dimen>
     <dimen name="MainActivity_paddingStart">10dp</dimen>
     <dimen name="MainActivity_paddingEnd">5dp</dimen>
-    <dimen name="MainActivity_marginEnd">25dp</dimen>
+    <dimen name="MainActivity_marginEnd">35dp</dimen>
+    <dimen name="MainActivity_marginStartRow">90dp</dimen>
 
 
     <!-- Landscape sw320 normal MainActivity layout-->
-    <dimen name="MainActivity_paddingBottom320swland">40dp</dimen>
-    <dimen name="MainActivity_paddingStart320swland">150dp</dimen>
-    <dimen name="MainActivity_paddingEnd320swland">5dp</dimen>
-    <dimen name="MainActivity_marginEnd320swland">40dp</dimen>
+    <dimen name="MainActivity_GearMargin320">10dp</dimen>
+    <dimen name="MainActivity_MarginStartTable320">60dp</dimen>
+    <dimen name="MainActivity_marginStartRow320">190dp</dimen>
 
-    <dimen name="Joc_MargePuntuacio">20dp</dimen>
+
 
 
 </resources>

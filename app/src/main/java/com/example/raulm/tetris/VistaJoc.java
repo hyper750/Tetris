@@ -20,7 +20,7 @@ public class VistaJoc extends View {
     //Que cada Xms s'actualitzi
     //Reeduit perque feia un afecta com si anigues a tirons quan ses peces avançaven rapidament
     //Hi ha d'haver alguna relació segons sa velocitat maxima de ses peces i es temps d'actualització
-    private final static int PERIODE_PROCES = 20;
+    private final static int PERIODE_PROCES = 10;
     private final ThreadFisica fil = new ThreadFisica();
     private long darrerProces = 0;
     private float ditAnteriorX = 0, ditAnteriorY = 0;

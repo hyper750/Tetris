@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        Button player2 = (Button)findViewById(R.id.player2);
+        Button player2 = (Button)findViewById(R.id.player2Temps);
         player2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
