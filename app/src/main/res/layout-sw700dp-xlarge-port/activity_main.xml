@@ -9,7 +9,7 @@
     android:background="@drawable/main">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/opcions"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentEnd="true"

@@ -25,6 +25,7 @@
         </activity>
         <activity android:name=".JocMultijugadorDestruccio" android:hardwareAccelerated="false" android:screenOrientation="portrait"/>
         <service android:name=".MusicaFondu"/>
+        <activity android:name=".Preferencies"/>
     </application>
 
 </manifest>

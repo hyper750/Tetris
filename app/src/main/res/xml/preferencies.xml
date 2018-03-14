@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/preferenciesGenerals">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="musicaActivada"
+            android:title="@string/preferencies_musicaActivada"
+            android:summary="@string/preferencies_musicaActivadaDescripcio"/>
+    </PreferenceCategory>
+</PreferenceScreen>

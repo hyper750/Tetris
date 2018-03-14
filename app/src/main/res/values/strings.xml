@@ -2,7 +2,11 @@
 <resources>
     <string name="app_name">Tetris</string>
     <string name="player1">1 PLAYER</string>
-    <string name="player2">2 PLAYERS</string>
+    <string name="player2">Time trial</string>
     <string name="player2Destruccio">DESTRUCTION</string>
     <string name="puntuacio">Score:</string>
+
+    <string name="preferencies_musicaActivada">Reproduce music</string>
+    <string name="preferencies_musicaActivadaDescripcio">Classic tetris music in background</string>
+    <string name="preferenciesGenerals">General</string>
 </resources>

@@ -1,14 +1,19 @@
 package com.example.raulm.tetris;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
+
 
     private HomeListener listener;
 
@@ -42,6 +47,14 @@ public class MainActivity extends Activity {
             }
         });
 
+        Button opcions = (Button)findViewById(R.id.opcions);
+        opcions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                llancarOpcions();
+            }
+        });
+
         //Aturar sa musica quan pitji es boto home
         listener = new HomeListener(this);
         listener.setOnHomePressedListener(new HomeListener.onHomeListener() {
@@ -67,11 +80,17 @@ public class MainActivity extends Activity {
         startActivity(i);
     }
 
+    private void llancarOpcions(){
+        Intent i = new Intent(this, Preferencies.class);
+        startActivity(i);
+    }
+
     @Override
     protected void onResume(){
         super.onResume();
-        //Musica fondu
+        //Iniciar musica de fondu, principi comença des de 0
         startService(new Intent(this, MusicaFondu.class));
+
         listener.iniciar();
     }
 
@@ -79,8 +98,10 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy(){
         super.onDestroy();
+        //Atur es servei rellenant temps musica
+        stopService(new Intent(this, MusicaFondu.class));
         //No aturar es listener a onStop, perque si no estaria a s'activitat de joc i quan minimitzes no s'aturaria sa musica
         listener.aturar();
-        stopService(new Intent(this, MusicaFondu.class));
     }
+
 }
