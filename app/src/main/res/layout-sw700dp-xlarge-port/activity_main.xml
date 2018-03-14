@@ -54,7 +54,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/MainActivity_marginStartRow720">
 
-            <Button
+            <com.example.raulm.tetris.ButoAmbFont
                 android:id="@+id/player2Destruccio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

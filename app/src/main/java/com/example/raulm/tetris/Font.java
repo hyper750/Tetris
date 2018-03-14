@@ -8,7 +8,11 @@ import android.graphics.Typeface;
  */
 
 public class Font {
-    public Typeface getFontPixelada(Context context){
+    private Context context;
+    public Font(Context context){
+        this.context = context;
+    }
+    public Typeface getFontPixelada(){
         return Typeface.createFromAsset(context.getAssets(), "fonts/Pixel.ttf");
     }
 }

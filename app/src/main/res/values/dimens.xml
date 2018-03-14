@@ -19,17 +19,17 @@
     <!--Portrait sw600-->
     <dimen name="MainActivity_GearMargin600">20dp</dimen>
     <dimen name="MainActivity_MarginBottom600">60dp</dimen>
-    <dimen name="font_MainActivity600">40</dimen>
-    <dimen name="MainActivity_marginStartRow600">130</dimen>
+    <dimen name="font_MainActivity600">40dp</dimen>
+    <dimen name="MainActivity_marginStartRow600">130dp</dimen>
 
     <!--Land sw600-->
-    <dimen name="MainActivity_GearMargin600land">40</dimen>
-    <dimen name="MainActivity_marginStartRow600land">220</dimen>
+    <dimen name="MainActivity_GearMargin600land">40dp</dimen>
+    <dimen name="MainActivity_marginStartRow600land">220dp</dimen>
 
     <!--Portratit 700-->
-    <dimen name="MainActivity_GearMargin720">30</dimen>
-    <dimen name="font_MainActivity720">50</dimen>
-    <dimen name="MainActivity_marginStartRow720">160</dimen>
+    <dimen name="MainActivity_GearMargin720">30dp</dimen>
+    <dimen name="font_MainActivity720">50dp</dimen>
+    <dimen name="MainActivity_marginStartRow720">160dp</dimen>
 
 
 

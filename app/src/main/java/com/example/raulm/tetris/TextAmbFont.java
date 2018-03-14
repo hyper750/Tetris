@@ -16,11 +16,11 @@ public class TextAmbFont extends android.support.v7.widget.AppCompatTextView {
 
     public TextAmbFont(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setTypeface(new Font().getFontPixelada(context));
+        setTypeface(new Font(context).getFontPixelada());
     }
 
     public TextAmbFont(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setTypeface(new Font().getFontPixelada(context));
+        setTypeface(new Font(context).getFontPixelada());
     }
 }
