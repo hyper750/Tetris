@@ -9,4 +9,5 @@
     <string name="preferencies_musicaActivada">Reproduir musica</string>
     <string name="preferencies_musicaActivadaDescripcio">Reproduir música classic del tetris en segon pla</string>
     <string name="preferenciesGenerals">General</string>
+    <string name="titolMusica">Tipus de musica</string>
 </resources>

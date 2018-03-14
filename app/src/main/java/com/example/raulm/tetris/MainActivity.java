@@ -18,6 +18,7 @@ public class MainActivity extends Activity {
 
 
     private HomeListener listener;
+    public static SeleccioMusica seleccioMusica;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +63,11 @@ public class MainActivity extends Activity {
         listener.setOnHomePressedListener(new HomeListener.onHomeListener() {
             @Override
             public void onHomePress() {
-                stopService(new Intent(MainActivity.this, MusicaFondu.class));
+                seleccioMusica.aturar();
             }
         });
+
+        seleccioMusica = new SeleccioMusica(this);
     }
 
     private void llancarJoc(){
@@ -90,16 +93,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume(){
         super.onResume();
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean activarMusica = pref.getBoolean("musicaActivada", true);
-        if(activarMusica) {
-            //Iniciar musica de fondu, principi comença des de 0
-            startService(new Intent(this, MusicaFondu.class));
-        }
-        else{
-            stopService(new Intent(this, MusicaFondu.class));
-        }
-
+        seleccioMusica.iniciarMusica(seleccioMusica.musicaActivable());
         listener.iniciar();
     }
 
@@ -108,7 +102,7 @@ public class MainActivity extends Activity {
     protected void onDestroy(){
         super.onDestroy();
         //Atur es servei rellenant temps musica
-        stopService(new Intent(this, MusicaFondu.class));
+        seleccioMusica.aturar();
         //No aturar es listener a onStop, perque si no estaria a s'activitat de joc i quan minimitzes no s'aturaria sa musica
         listener.aturar();
     }

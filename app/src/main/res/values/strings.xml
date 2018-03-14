@@ -9,4 +9,5 @@
     <string name="preferencies_musicaActivada">Reproduce music</string>
     <string name="preferencies_musicaActivadaDescripcio">Classic tetris music in background</string>
     <string name="preferenciesGenerals">General</string>
+    <string name="titolMusica">Tipus de musica</string>
 </resources>

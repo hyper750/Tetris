@@ -12,6 +12,7 @@ import android.preference.PreferenceManager;
 
 public class Joc extends Activity{
 
+
     private VistaJoc vistaJoc;
 
     @Override
@@ -33,16 +34,7 @@ public class Joc extends Activity{
         super.onResume();
         vistaJoc.getFil().reanudar();
         //Per si pitj home i torn entrar estarà a sa mateixa activitat però sa musica aturada, te que seguir
-        startService(new Intent(this, MusicaFondu.class));
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean activarMusica = pref.getBoolean("musicaActivada", true);
-        if(activarMusica) {
-            //Iniciar musica de fondu, principi comença des de 0
-            startService(new Intent(this, MusicaFondu.class));
-        }
-        else{
-            stopService(new Intent(this, MusicaFondu.class));
-        }
+        MainActivity.seleccioMusica.iniciarMusica(MainActivity.seleccioMusica.musicaActivable());
     }
 
     @Override

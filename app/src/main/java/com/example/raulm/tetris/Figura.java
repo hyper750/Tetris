@@ -12,7 +12,6 @@ import android.view.View;
 public abstract class Figura implements Cloneable{
 
     private ICuadro[][] imatge;
-    //private boolean aturada = false;
     private TetrisObject tetrisObject;
     protected View view;
     private int centreX, centreY;

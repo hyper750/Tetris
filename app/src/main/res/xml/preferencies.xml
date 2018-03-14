@@ -8,5 +8,11 @@
             android:key="musicaActivada"
             android:title="@string/preferencies_musicaActivada"
             android:summary="@string/preferencies_musicaActivadaDescripcio"/>
+        <ListPreference
+            android:defaultValue="0"
+            android:key="tipusMusica"
+            android:title="@string/titolMusica"
+            android:entries="@array/nomMusica"
+            android:entryValues="@array/tipusMusica"/>
     </PreferenceCategory>
 </PreferenceScreen>

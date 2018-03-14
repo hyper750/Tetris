@@ -3,8 +3,10 @@ package com.example.raulm.tetris;
 import android.app.IntentService;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
@@ -18,12 +20,13 @@ public class MusicaFondu extends Service {
     @Override
     public void onCreate(){
         super.onCreate();
-        reproductor = MediaPlayer.create(this, R.raw.tetrisoriginal);
-        reproductor.setLooping(true);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int idArranc){
+        int id = intent.getExtras().getInt("idMusica", R.raw.tetrisoriginal);
+        reproductor = MediaPlayer.create(this, id);
+        reproductor.setLooping(true);
         reproductor.start();
         return START_STICKY;
     }
