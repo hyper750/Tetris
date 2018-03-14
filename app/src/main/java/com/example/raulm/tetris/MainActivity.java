@@ -5,8 +5,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -88,8 +90,15 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume(){
         super.onResume();
-        //Iniciar musica de fondu, principi comença des de 0
-        startService(new Intent(this, MusicaFondu.class));
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean activarMusica = pref.getBoolean("musicaActivada", true);
+        if(activarMusica) {
+            //Iniciar musica de fondu, principi comença des de 0
+            startService(new Intent(this, MusicaFondu.class));
+        }
+        else{
+            stopService(new Intent(this, MusicaFondu.class));
+        }
 
         listener.iniciar();
     }
