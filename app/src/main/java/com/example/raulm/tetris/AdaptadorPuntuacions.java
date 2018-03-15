@@ -7,20 +7,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.List;
 
 /**
  * Created by RaulM on 15/03/2018.
  */
 
-public class AdaptadorPuntuacions extends RecyclerView.Adapter<AdaptadorPuntuacions.ViewHolder> {
+public class AdaptadorPuntuacions extends FirebaseRecyclerAdapter<Puntuacio, AdaptadorPuntuacions.ViewHolder> {
     private LayoutInflater inflador;
-    private List<Puntuacio> arrayPuntuacions;
     private Context context;
 
-    public AdaptadorPuntuacions(Context context, List<Puntuacio> arrayPuntuacions){
+    public AdaptadorPuntuacions(Context context, DatabaseReference reference){
+        super(Puntuacio.class, R.layout.element_puntuacio, AdaptadorPuntuacions.ViewHolder.class, reference);
         inflador = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.arrayPuntuacions = arrayPuntuacions;
         this.context = context;
     }
 
@@ -39,12 +41,7 @@ public class AdaptadorPuntuacions extends RecyclerView.Adapter<AdaptadorPuntuaci
     }
 
     @Override
-    public void onBindViewHolder(AdaptadorPuntuacions.ViewHolder holder, int position) {
-        holder.contingut.setText(arrayPuntuacions.get(position).toString());
-    }
-
-    @Override
-    public int getItemCount() {
-        return arrayPuntuacions.size();
+    protected void populateViewHolder(ViewHolder viewHolder, Puntuacio model, int position) {
+        viewHolder.contingut.setText(model.toString());
     }
 }

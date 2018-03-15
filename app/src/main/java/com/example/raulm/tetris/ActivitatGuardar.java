@@ -28,7 +28,8 @@ public class ActivitatGuardar extends Activity {
             public void onClick(View v) {
                 //Toast.makeText(ActivitatGuardar.this, "Nom " + nom.getText().toString() + " >> " + puntuacio, Toast.LENGTH_SHORT).show();
                 ActivitatGuardar.this.finish();
-
+                PuntuacionsSingleton.getInstance(ActivitatGuardar.this).getPuntsReference().push()
+                        .setValue(new Puntuacio(puntuacio, nom.getText().toString(), System.currentTimeMillis()));
             }
         });
     }

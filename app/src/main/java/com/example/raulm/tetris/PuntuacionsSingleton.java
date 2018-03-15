@@ -2,6 +2,9 @@ package com.example.raulm.tetris;
 
 import android.content.Context;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,13 +13,21 @@ import java.util.List;
  */
 
 public class PuntuacionsSingleton {
-    private List<Puntuacio> arrayPuntuacions;
     private AdaptadorPuntuacions adaptador;
     private static PuntuacionsSingleton instancia;
+    private DatabaseReference puntsReference;
+
+    private final static String _PUNTS_NODE = "puntuacions";
 
     private PuntuacionsSingleton(Context context){
-        arrayPuntuacions = Puntuacio.exemple();
-        adaptador = new AdaptadorPuntuacions(context, arrayPuntuacions);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        database.setPersistenceEnabled(true);
+        puntsReference = database.getReference().child(_PUNTS_NODE);
+        adaptador = new AdaptadorPuntuacions(context, puntsReference);
+    }
+
+    public DatabaseReference getPuntsReference(){
+        return puntsReference;
     }
 
     public static PuntuacionsSingleton getInstance(Context context){
