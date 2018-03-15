@@ -253,20 +253,6 @@ public abstract class Figura implements Cloneable{
         //}
     }
 
-    public boolean colisioEnterra(){
-        //Si fa contacte amb enterra o amb una altre figura aturar
-        for(int y = this.imatge.length-1; y >= 0; y--){
-            for(int x = 0; x < this.imatge[y].length; x++){
-                ICuadro cuad = imatge[y][x];
-                if(cuad.getCentreY()+cuad.getAltura()/2 >= view.getHeight()){
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
     @Override
     public Figura clone() {
         try{
@@ -310,18 +296,6 @@ public abstract class Figura implements Cloneable{
         return false;
     }
 
-    /*public void setAturada() {
-        if(!this.aturada){
-            this.aturada = true;
-            //Amb setIncY hi ha un retard a sa última figura
-            //setIncY(0d);
-        }
-    }
-
-    public boolean getAturada(){
-        return aturada;
-    }*/
-
     public int getMaxAmplada() {
         int max = -1;
         for(int y = 0; y < imatge.length; y++) {
@@ -346,5 +320,29 @@ public abstract class Figura implements Cloneable{
             }
         }
         return maxAmpladaAmbNull;
+    }
+
+    public boolean colisioCentreYInferior(int col){
+        for(int y = this.imatge.length-1; y >= 0; y--){
+            for(int x = 0; x < this.imatge[y].length; x++){
+                ICuadro cuad = imatge[y][x];
+                if(cuad.getCentreY()+cuad.getAltura()/2 >= col){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean colisioCentreYSuperior(int col){
+        for(int x = 0; x < imatge.length; x++){
+            for(int y = 0; y < imatge[x].length; y++){
+                ICuadro cuad = imatge[x][y];
+                if(!(cuad instanceof CuadroNull) && cuad.getCentreY() - cuad.getAltura()/2 <= col){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

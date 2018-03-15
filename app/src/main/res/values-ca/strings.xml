@@ -2,12 +2,18 @@
 <resources>
     <string name="app_name">Tetris</string>
     <string name="player1">1 JUGADOR</string>
-    <string name="player2">Contrarrelotge</string>
+    <string name="player2">CONTRARRELLOTGE</string>
     <string name="player2Destruccio">DESTRUCCIÓ</string>
+    <string name="llistarPuntuacions">PUNTUACIONES</string>
     <string name="puntuacio">Puntuació:</string>
 
     <string name="preferencies_musicaActivada">Reproduir musica</string>
     <string name="preferencies_musicaActivadaDescripcio">Reproduir música classic del tetris en segon pla</string>
     <string name="preferenciesGenerals">General</string>
     <string name="titolMusica">Tipus de musica</string>
+
+    <!--Guardar puntuacions-->
+    <string name="nomPuntuacio">Nom</string>
+    <string name="nomPuntuacioHint">Introdueix el teu nom</string>
+    <string name="buttoGuardar">Desar</string>
 </resources>

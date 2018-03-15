@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="font_MainActivity">24sp</dimen>
-    <dimen name="font_MainActivity_small">24sp</dimen>
+    <dimen name="font_MainActivity_small">20sp</dimen>
     <dimen name="Joc_MargePuntuacio">20dp</dimen>
 
     <!--Default MainActivity layout-->
     <dimen name="MainActivity_MarginBottom">20dp</dimen>
     <dimen name="MainActivity_paddingStart">10dp</dimen>
     <dimen name="MainActivity_paddingEnd">5dp</dimen>
-    <dimen name="MainActivity_marginEnd">35dp</dimen>
+    <dimen name="MainActivity_marginEnd">20dp</dimen>
     <dimen name="MainActivity_marginStartRow">90dp</dimen>
 
 
@@ -19,7 +19,7 @@
     <!--Portrait sw600-->
     <dimen name="MainActivity_GearMargin600">20dp</dimen>
     <dimen name="MainActivity_MarginBottom600">60dp</dimen>
-    <dimen name="font_MainActivity600">40dp</dimen>
+    <dimen name="font_MainActivity600">30sp</dimen>
     <dimen name="MainActivity_marginStartRow600">130dp</dimen>
 
     <!--Land sw600-->

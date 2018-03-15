@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1070537254784",
+    "firebase_url": "https://tetris-e8062.firebaseio.com",
+    "project_id": "tetris-e8062",
+    "storage_bucket": "tetris-e8062.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070537254784:android:b2b0e6256c8ec040",
+        "android_client_info": {
+          "package_name": "com.example.raulm.tetris"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070537254784-9odj4pplei4mnn8hvlpe0m3r0cn9mftn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.raulm.tetris",
+            "certificate_hash": "13964b3f9bc8cf96f0c5d65963bed971c2272208"
+          }
+        },
+        {
+          "client_id": "1070537254784-q1ohaoqvu5up6fs0970fhk20mu9tuj92.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIX_wi32FGOw9uUalM8Ev21JI7k00r1OM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070537254784-q1ohaoqvu5up6fs0970fhk20mu9tuj92.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

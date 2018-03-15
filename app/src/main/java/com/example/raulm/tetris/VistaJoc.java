@@ -1,11 +1,15 @@
 package com.example.raulm.tetris;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 /**
  * Created by RaulM on 20/01/2018.
@@ -16,6 +20,7 @@ public class VistaJoc extends View {
     //Quant faixin una linia s'han d'eliminar
 
     private TetrisObject tetris;
+    private Activity activity;
 
     //Que cada Xms s'actualitzi
     //Reeduit perque feia un afecta com si anigues a tirons quan ses peces avançaven rapidament
@@ -80,6 +85,10 @@ public class VistaJoc extends View {
     public boolean onTouchEvent(MotionEvent motion){
         float x = motion.getX();
         float y = motion.getY();
+
+        if(tetris.getAcabat()){
+            return true;
+        }
 
         switch (motion.getAction()){
             case MotionEvent.ACTION_DOWN:
@@ -148,25 +157,48 @@ public class VistaJoc extends View {
             //Moure figura, només es mou una figura a l'hora
             Figura factual = tetris.getFiguraActual();
             factual.incrementarPosicio(retard);
+
+
+
+            //Seguir si no ha acabat
+
             //Mirar si colisiona amb enterra
-            if(factual.colisioEnterra()){
+            if (tetris.colisioEnterra(factual)) {
                 factual.setIncY(0d);
             }
+
             //Mirar si aquesta figura té colisio amb altres figures
-            int totalFigures = tetris.getFigures().size();
-            for(int x = 0; x < totalFigures; x++){
-                if(factual.colisio(tetris.getFigures().get(x))){
-                    factual.setIncY(0d);
-                    break;
+            if(factual.getIncY() != 0) {
+                int totalFigures = tetris.getFigures().size();
+                for (int x = 0; x < totalFigures; x++) {
+                    if (factual.colisio(tetris.getFigures().get(x))) {
+                        factual.setIncY(0d);
+                        break;
+                    }
                 }
             }
 
             //Pot estar colisionant per una altre figura o quan incrementes sa posicio amb enterra
-            if(factual.getIncY() == 0d){
-                tetris.liniesCompletes();
-                tetris.random();
+            if (factual.getIncY() == 0d) {
+                if(!tetris.getAcabat()) {
+                    tetris.liniesCompletes();
+                    tetris.random();
+                    //Si colisiona amb adalt acaba es joc
+                    if(tetris.tocaAdaltSaPantalla(factual)){
+                        acabar();
+                    }
+                }
             }
         }
+    }
+
+    private void acabar(){
+        tetris.setAcabat();
+        fil.aturar();
+        Intent i = new Intent(activity, ActivitatGuardar.class);
+        i.putExtra("puntuacio", tetris.getPuntuacio());
+        activity.startActivity(i);
+        activity.finish();
     }
 
     public ThreadFisica getFil(){
@@ -212,5 +244,9 @@ public class VistaJoc extends View {
 
     private void setPuntuacio(int puntuacio){
         this.puntuacio.setText(scoreIdioma + " " + puntuacio);
+    }
+
+    public void setActivity(Activity activity){
+        this.activity = activity;
     }
 }

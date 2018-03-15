@@ -58,6 +58,14 @@ public class MainActivity extends Activity {
             }
         });
 
+        Button llistar = (Button)findViewById(R.id.llistarPuntuacions);
+        llistar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ActivitatPuntuacions.class));
+            }
+        });
+
         //Aturar sa musica quan pitji es boto home
         listener = new HomeListener(this);
         listener.setOnHomePressedListener(new HomeListener.onHomeListener() {

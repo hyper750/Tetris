@@ -23,7 +23,6 @@ public class SeleccioMusica {
         int id = Integer.parseInt(pref.getString("tipusMusica", "0"));
         if(comprovacio) {
             if(this.id != id){
-                Toast.makeText(activity, "Ecendre", Toast.LENGTH_SHORT).show();
                 aturar();
                 iniciarMusica(id);
             }

@@ -35,7 +35,7 @@
                 android:background="@android:color/transparent"
                 android:textAlignment="center"
                 android:text="@string/player1"
-                android:textSize="@dimen/font_MainActivity" />
+                android:textSize="@dimen/font_MainActivity_small" />
 
             <com.example.raulm.tetris.ButoAmbFont
                 android:id="@+id/player2Temps"
@@ -44,13 +44,12 @@
                 android:textAlignment="center"
                 android:background="@android:color/transparent"
                 android:text="@string/player2"
-                android:textSize="@dimen/font_MainActivity" />
+                android:textSize="@dimen/font_MainActivity_small" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/MainActivity_marginStartRow">
+            android:layout_height="match_parent">
 
             <com.example.raulm.tetris.ButoAmbFont
                 android:id="@+id/player2Destruccio"
@@ -59,7 +58,16 @@
                 android:textAlignment="center"
                 android:background="@android:color/transparent"
                 android:text="@string/player2Destruccio"
-                android:textSize="@dimen/font_MainActivity" />
+                android:textSize="@dimen/font_MainActivity_small" />
+
+            <com.example.raulm.tetris.ButoAmbFont
+                android:id="@+id/llistarPuntuacions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:background="@android:color/transparent"
+                android:text="@string/llistarPuntuacions"
+                android:textSize="@dimen/font_MainActivity_small" />
         </TableRow>
     </TableLayout>
 

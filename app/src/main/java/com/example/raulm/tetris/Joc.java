@@ -21,6 +21,7 @@ public class Joc extends Activity{
         setContentView(R.layout.layoutjoc);
 
         vistaJoc = (VistaJoc) findViewById(R.id.VistaJoc);
+        vistaJoc.setActivity(this);
     }
 
     @Override

@@ -20,11 +20,12 @@ public class TetrisObject{
 
     private List<Figura> figuresEnPantalla;
     private int alturaPantalla, ampladaPantalla;
-    private double velocitat = 0.199d;
+    private double velocitat = 0.6d;
     private Figura figuraActual;
     private FiguraFactory figuraFactory;
     //Modificar per linia feta
     private int puntuacio;
+    private boolean acabat = false;
 
     public TetrisObject(View view){
         figuresEnPantalla = new ArrayList<Figura>();
@@ -41,6 +42,7 @@ public class TetrisObject{
         figuraActual.setCentreX((Cuadro.TAMANY_QUADRAT/2 + Cuadro.TAMANY_QUADRAT*5 - Math.round(figuraActual.getMaxAmplada()/2)*Cuadro.TAMANY_QUADRAT)); //10 cuadros en pantalla per fila
         figuraActual.setCentreY(figuraActual.getAltura()/2);
         figuraActual.setIncY(this.velocitat);
+        colocarFigura(figuraActual);
     }
 
     public List<Figura> getFigures(){
@@ -177,5 +179,35 @@ public class TetrisObject{
     public void activarTurbo(){
         //Llevat perque se me descoloquen es cuadros
         figuraActual.setIncY(0.8d);
+    }
+
+    public boolean getAcabat(){
+        return acabat;
+    }
+
+    public void setAcabat(){
+        this.acabat = true;
+    }
+
+
+    public boolean colisioEnterra(Figura f){
+        //Si fa contacte amb enterra o amb una altre figura aturar
+        return f.colisioCentreYInferior(getAlturaPantalla());
+    }
+
+    public void colocarFigura(Figura f){
+        int figuressize = getFigures().size();
+        for(int x = 0; x < figuressize; x++){
+            Figura fig = getFigures().get(x);
+            while(f.getCentreY()+f.getAltura()/2 > fig.getCentreY()-fig.getAltura()/2){
+                f.setCentreY(f.getCentreY()-Cuadro.TAMANY_QUADRAT);
+            }
+        }
+
+
+    }
+
+    public boolean tocaAdaltSaPantalla(Figura f){
+        return f.colisioCentreYSuperior(0);
     }
 }

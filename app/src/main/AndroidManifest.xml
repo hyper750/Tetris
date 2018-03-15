@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +26,8 @@
         <activity android:name=".JocMultijugadorDestruccio" android:hardwareAccelerated="false" android:screenOrientation="portrait"/>
         <service android:name=".MusicaFondu"/>
         <activity android:name=".Preferencies" android:theme="@style/pref"/>
+        <activity android:name=".ActivitatGuardar" android:theme="@style/styleGuardarPuntuacio"/>
+        <activity android:name=".ActivitatPuntuacions"/>
     </application>
 
 </manifest>
