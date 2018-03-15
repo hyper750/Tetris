@@ -20,7 +20,7 @@ public class TetrisObject{
 
     private List<Figura> figuresEnPantalla;
     private int alturaPantalla, ampladaPantalla;
-    private double velocitat = 0.6d;
+    private double velocitat = 0.199d;
     private Figura figuraActual;
     private FiguraFactory figuraFactory;
     //Modificar per linia feta
