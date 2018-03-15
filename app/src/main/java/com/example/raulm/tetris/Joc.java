@@ -35,7 +35,7 @@ public class Joc extends Activity{
         super.onResume();
         vistaJoc.getFil().reanudar();
         //Per si pitj home i torn entrar estarà a sa mateixa activitat però sa musica aturada, te que seguir
-        MainActivity.seleccioMusica.iniciarMusica(MainActivity.seleccioMusica.musicaActivable());
+        SeleccioMusica.getInstance(this).iniciarMusica(SeleccioMusica.getInstance(this).musicaActivable());
     }
 
     @Override

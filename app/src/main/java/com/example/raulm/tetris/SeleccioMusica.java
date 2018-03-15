@@ -14,7 +14,9 @@ public class SeleccioMusica {
     private Activity activity;
     private int id = -1;
 
-    public SeleccioMusica(Activity activity){
+    private static SeleccioMusica _musica;
+
+    private SeleccioMusica(Activity activity){
         this.activity = activity;
     }
 
@@ -61,5 +63,13 @@ public class SeleccioMusica {
     public void aturar(){
         this.id = -1;
         activity.stopService(new Intent(activity, MusicaFondu.class));
+    }
+
+    public static SeleccioMusica getInstance(Activity activity){
+        if(_musica == null){
+            _musica = new SeleccioMusica(activity);
+        }
+
+        return _musica;
     }
 }

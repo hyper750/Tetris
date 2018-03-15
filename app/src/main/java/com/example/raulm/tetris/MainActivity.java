@@ -15,10 +15,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-
-
     private HomeListener listener;
-    public static SeleccioMusica seleccioMusica;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +68,10 @@ public class MainActivity extends Activity {
         listener.setOnHomePressedListener(new HomeListener.onHomeListener() {
             @Override
             public void onHomePress() {
-                seleccioMusica.aturar();
+                SeleccioMusica.getInstance(MainActivity.this).aturar();
             }
         });
 
-        seleccioMusica = new SeleccioMusica(this);
     }
 
     private void llancarJoc(){
@@ -101,7 +97,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume(){
         super.onResume();
-        seleccioMusica.iniciarMusica(seleccioMusica.musicaActivable());
+        SeleccioMusica.getInstance(this).iniciarMusica(SeleccioMusica.getInstance(this).musicaActivable());
         listener.iniciar();
     }
 
@@ -110,7 +106,7 @@ public class MainActivity extends Activity {
     protected void onDestroy(){
         super.onDestroy();
         //Atur es servei rellenant temps musica
-        seleccioMusica.aturar();
+        SeleccioMusica.getInstance(this).aturar();
         //No aturar es listener a onStop, perque si no estaria a s'activitat de joc i quan minimitzes no s'aturaria sa musica
         listener.aturar();
     }

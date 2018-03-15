@@ -34,8 +34,8 @@ public class FragmentPreferencies extends PreferenceFragment {
                 int nouValor = Integer.parseInt((String)newValue);
                 if(nouValor != id) {
                     id = nouValor;
-                    MainActivity.seleccioMusica.aturar();
-                    MainActivity.seleccioMusica.iniciarMusica(nouValor);
+                    SeleccioMusica.getInstance(getActivity()).aturar();
+                    SeleccioMusica.getInstance(getActivity()).iniciarMusica(nouValor);
                 }
                 return true;
             }
@@ -49,10 +49,10 @@ public class FragmentPreferencies extends PreferenceFragment {
                 if(activada != activat){
                     activat = activada;
                     if(activada){
-                        MainActivity.seleccioMusica.iniciarMusica(true);
+                        SeleccioMusica.getInstance(getActivity()).iniciarMusica(true);
                     }
                     else{
-                        MainActivity.seleccioMusica.aturar();
+                        SeleccioMusica.getInstance(getActivity()).aturar();
                     }
                 }
                 return true;
