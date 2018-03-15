@@ -50,7 +50,7 @@ public class Puntuacio {
 
     @Override
     public String toString() {
-        SimpleDateFormat sf = new SimpleDateFormat("dd/mm/yyyy");
+        SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
         Date d = new Date(this.data);
         return nom + " " + punts + " " + sf.format(d);
     }

@@ -120,7 +120,7 @@ public class VistaJoc extends View {
                     girarEsquerra = false;
                     //Desactivat perque me descoloca ses figures un poc per sa velocitat
                     //Tindria que cercar es temps de periode de procesa i sa velocitat de que du
-                    //tetris.activarTurbo();
+                    tetris.activarTurbo();
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -137,7 +137,7 @@ public class VistaJoc extends View {
                         tetris.getFiguraActual().girarEsquerra();
                     }
                 }
-                //tetris.restaurarVelocitat();
+                tetris.restaurarVelocitat();
                 break;
         }
         ditAnteriorX = x;
