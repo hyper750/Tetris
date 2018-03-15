@@ -32,6 +32,7 @@ public class VistaJoc extends View {
     private boolean rotar = false;
     private boolean girarDreta = false;
     private boolean girarEsquerra = false;
+    private boolean turbo = false;
     private String scoreIdioma = "";
 
     //Camp puntuacio
@@ -99,6 +100,10 @@ public class VistaJoc extends View {
                 float dy = y - ditAnteriorY;
                 float diferenciaX = Math.abs(x - ditAnteriorX);
                 float diferenciaY = Math.abs(y - ditAnteriorY);
+                //Si esta en turbo no fer res
+                if(turbo){
+                    break;
+                }
                 if(diferenciaX > 3) {
                     if (dx > 0) {
                         //tetris.getFiguraActual().moureDreta();
@@ -121,6 +126,7 @@ public class VistaJoc extends View {
                     //Desactivat perque me descoloca ses figures un poc per sa velocitat
                     //Tindria que cercar es temps de periode de procesa i sa velocitat de que du
                     tetris.activarTurbo();
+                    turbo = true;
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -137,7 +143,10 @@ public class VistaJoc extends View {
                         tetris.getFiguraActual().girarEsquerra();
                     }
                 }
-                tetris.restaurarVelocitat();
+                else if(turbo){
+                    tetris.restaurarVelocitat();
+                    turbo = false;
+                }
                 break;
         }
         ditAnteriorX = x;
