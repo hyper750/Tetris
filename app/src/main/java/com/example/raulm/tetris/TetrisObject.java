@@ -178,7 +178,7 @@ public class TetrisObject{
 
     public void activarTurbo(){
         //Llevat perque se me descoloquen es cuadros
-        figuraActual.setIncY(0.8d);
+        figuraActual.setIncY(this.velocitat * 1.2);
     }
 
     public boolean getAcabat(){

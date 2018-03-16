@@ -12,6 +12,6 @@ public class JocMultijugador extends Joc {
     public void onCreate(Bundle saved){
         super.onCreate(saved);
         setContentView(R.layout.layoutjoc);
-        //Layout amb dues pantalles, es teu tetris i es de s'enemic i vegent es pesos que envies
+        //Contra temps
     }
 }

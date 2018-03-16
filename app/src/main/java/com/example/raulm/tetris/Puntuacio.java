@@ -1,5 +1,7 @@
 package com.example.raulm.tetris;
 
+import android.os.StrictMode;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,17 +50,14 @@ public class Puntuacio {
         this.data = data;
     }
 
-    @Override
-    public String toString() {
+    public String getDataFormat(){
         SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
         Date d = new Date(this.data);
-        return nom + " " + punts + " " + sf.format(d);
+        return sf.format(d);
     }
 
-    public static List<Puntuacio> exemple(){
-        List<Puntuacio> puntuacios = new ArrayList<>();
-        puntuacios.add(new Puntuacio(1000, "Raulsito", System.currentTimeMillis()));
-        puntuacios.add(new Puntuacio(500, "Raulsito", System.currentTimeMillis()));
-        return puntuacios;
+    @Override
+    public String toString() {
+        return punts + " " + nom + " " + getDataFormat();
     }
 }

@@ -12,5 +12,6 @@ public class JocMultijugadorDestruccio extends Joc {
     protected void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.layoutjoc);
+        //Rebent es pesos de s'altre que juga
     }
 }
