@@ -12,7 +12,6 @@ import java.util.List;
 
 public class TetrisObject{
     public static final int MAXIM_CUADROS_PER_FILA = 10;
-    private static final double TOLERANCIA_ENTRE_FILES = 5;
     private static final int PUNTUACIO_PER_FILA = 100;
     //Per exemple cada 500 augmenta 0.1d de velocitat
     private static final int AUGMENTAR_VELOCITAT_CADA_PUNTUACIO = 500;
@@ -153,19 +152,21 @@ public class TetrisObject{
         int numFigures = getFigures().size();
         int incremental = figuraActual.getCentreY();
         Linia[] result = new Linia[figuraActual.getAlturaArray()];
-        for(int p = 0; p < figuraActual.getAlturaArray(); p++) {
+        for(int p = 0; p < result.length; p++) {
             //Contar de sa figura actual ses linies
             result[p] = new Linia();
             result[p].centreY = incremental;
-            result[p].numeroCuadros = figuraActual.getNumeroCentreY(incremental, TOLERANCIA_ENTRE_FILES);
+            result[p].numeroCuadros = figuraActual.getNumeroCentreY(incremental);
 
 
             //Mir totes ses files de totes ses figures
             for(int k = 0; k < numFigures; k++){
                 Figura f = getFigures().get(k);
-                result[p].numeroCuadros += f.getNumeroCentreY(incremental, TOLERANCIA_ENTRE_FILES);
+                result[p].numeroCuadros += f.getNumeroCentreY(incremental);
             }
-            //Log.d("Numero cuadros", "Cuadros per linia " + result[p].numeroCuadros);
+            if(result[p].numeroCuadros > MAXIM_CUADROS_PER_FILA) {
+                Log.d("Numero cuadros", "Cuadros per linia a " + result[p].centreY + " hi ha " + result[p].numeroCuadros);
+            }
             incremental += Cuadro.TAMANY_QUADRAT;
         }
         return result;
@@ -178,7 +179,7 @@ public class TetrisObject{
 
     public void activarTurbo(){
         //Llevat perque se me descoloquen es cuadros
-        figuraActual.setIncY(this.velocitat * 1.2);
+        figuraActual.setIncY(this.velocitat * 2d);
     }
 
     public boolean getAcabat(){

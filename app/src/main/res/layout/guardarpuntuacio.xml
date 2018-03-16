@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:id="@+id/guardarPuntuacio"
     android:layout_height="match_parent">
 
     <TextView
@@ -16,7 +15,7 @@
         android:id="@+id/nom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/nomPuntuacio"/>
+        android:hint="@string/nomPuntuacioHint"/>
     
     <Button
         android:id="@+id/buttoGuardarPuntuacio"

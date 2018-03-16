@@ -76,12 +76,15 @@ public abstract class Figura implements Cloneable{
         return imatge.length;
     }
 
-    public int getNumeroCentreY(int centreY, double tolerancia){
+    public int getNumeroCentreY(int centreY){
         int cont = 0;
         for(int x = 0; x < imatge.length; x++){
             for(int y = 0; y < imatge[x].length; y++){
                 int centreYCuadro = imatge[x][y].getCentreY();
-                if(centreYCuadro >= centreY * (1-tolerancia/100) && centreYCuadro <= centreY * (1+tolerancia/100)){
+                /*if(centreYCuadro >= centreY * (1-tolerancia/100) && centreYCuadro <= centreY * (1+tolerancia/100)){
+                    cont++;
+                }*/
+                if((centreYCuadro+imatge[x][y].getAltura()/2)*0.98 >= centreY && (centreYCuadro-imatge[x][y].getAltura()/2)*1.02 <= centreY){
                     cont++;
                 }
             }

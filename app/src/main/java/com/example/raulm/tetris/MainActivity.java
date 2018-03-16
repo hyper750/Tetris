@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
         });
 
         Button player2Destruccio = (Button)findViewById(R.id.player2Destruccio);
-        player2.setOnClickListener(new View.OnClickListener() {
+        player2Destruccio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 llancarJocMultijugadorDestruccio();
@@ -82,11 +82,13 @@ public class MainActivity extends Activity {
     private void llancarJocMultijugador(){
         Intent i = new Intent(this, JocMultijugador.class);
         startActivity(i);
+        //Toast.makeText(this, "Mode temps incomplert", Toast.LENGTH_SHORT).show();
     }
 
     private void llancarJocMultijugadorDestruccio(){
         Intent i = new Intent(this, JocMultijugadorDestruccio.class);
         startActivity(i);
+        //Toast.makeText(this, "Mode destrucció incomplert", Toast.LENGTH_SHORT).show();
     }
 
     private void llancarOpcions(){

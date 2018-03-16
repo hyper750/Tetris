@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 public class JocMultijugadorDestruccio extends Joc {
     @Override
-    protected void onCreate(Bundle bundle){
+    public void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.layoutjoc);
         //Rebent es pesos de s'altre que juga
