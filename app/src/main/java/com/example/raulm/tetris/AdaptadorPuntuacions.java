@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class AdaptadorPuntuacions extends FirebaseRecyclerAdapter<Puntuacio, Ada
     private Context context;
     private IconoFactory iconoFactory;
 
-    public AdaptadorPuntuacions(Context context, DatabaseReference reference){
+    public AdaptadorPuntuacions(Context context, Query reference){
         super(Puntuacio.class, R.layout.element_puntuacio, AdaptadorPuntuacions.ViewHolder.class, reference);
         inflador = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;

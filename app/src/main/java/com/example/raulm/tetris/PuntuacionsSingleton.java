@@ -23,7 +23,7 @@ public class PuntuacionsSingleton {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         database.setPersistenceEnabled(true);
         puntsReference = database.getReference().child(_PUNTS_NODE);
-        adaptador = new AdaptadorPuntuacions(context, puntsReference);
+        adaptador = new AdaptadorPuntuacions(context, puntsReference.orderByChild("punts"));
     }
 
     public DatabaseReference getPuntsReference(){
