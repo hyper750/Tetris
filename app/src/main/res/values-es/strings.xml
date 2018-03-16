@@ -4,7 +4,7 @@
     <string name="player1">1 JUGADOR</string>
     <string name="player2">CONTRARRELOJ</string>
     <string name="player2Destruccio">DESTRUCCIÓN</string>
-    <string name="llistarPuntuacions">PUNTUACIONS</string>
+    <string name="llistarPuntuacions">PUNTUACIONES</string>
     <string name="puntuacio">Puntuación:</string>
 
     <string name="preferencies_musicaActivada">Reproducir música</string>
