@@ -201,6 +201,8 @@ public class VistaJoc extends View {
         }
     }
 
+
+
     private void acabar(){
         tetris.setAcabat();
         fil.aturar();
@@ -250,6 +252,7 @@ public class VistaJoc extends View {
             }
         }
     }
+
 
     private void setPuntuacio(int puntuacio){
         this.puntuacio.setText(scoreIdioma + " " + puntuacio);

@@ -81,14 +81,12 @@ public abstract class Figura implements Cloneable{
         for(int x = 0; x < imatge.length; x++){
             for(int y = 0; y < imatge[x].length; y++){
                 int centreYCuadro = imatge[x][y].getCentreY();
-                /*if(centreYCuadro >= centreY * (1-tolerancia/100) && centreYCuadro <= centreY * (1+tolerancia/100)){
-                    cont++;
-                }*/
-                if((centreYCuadro+imatge[x][y].getAltura()/2)*0.98 >= centreY && (centreYCuadro-imatge[x][y].getAltura()/2)*1.02 <= centreY){
+                if(!(imatge[x][y] instanceof CuadroNull) && centreY == centreYCuadro){
                     cont++;
                 }
             }
         }
+
         return cont;
     }
 
@@ -117,10 +115,22 @@ public abstract class Figura implements Cloneable{
         return false;
     }
 
+    public boolean totsNull(){
+        for(int x = 0; x < imatge.length; x++){
+            for(int y = 0; y < imatge[x].length; y++){
+                if(!(imatge[x][y] instanceof CuadroNull)){
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
     public void llevarCuadros(int centreY){
         for(int x = 0; x < imatge.length; x++){
             for(int y = 0; y < imatge[x].length; y++){
-                if(imatge[x][y].getCentreY() == centreY){
+                if(centreY == imatge[x][y].getCentreY()){
                     imatge[x][y] = new CuadroNull();
                 }
             }

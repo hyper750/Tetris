@@ -15,7 +15,7 @@ public class TetrisObject{
     private static final int PUNTUACIO_PER_FILA = 100;
     //Per exemple cada 500 augmenta 0.1d de velocitat
     private static final int AUGMENTAR_VELOCITAT_CADA_PUNTUACIO = 500;
-    private static final double AUGMENT_DE_VELOCITAT = 0.01d;
+    private static final double AUGMENT_DE_VELOCITAT = 0.005d;
 
     private List<Figura> figuresEnPantalla;
     private int alturaPantalla, ampladaPantalla;
@@ -111,10 +111,11 @@ public class TetrisObject{
     }
 
     public void liniesCompletes(){
-        int numFigures = getFigures().size();
         Linia[] linies = contarLinies();
+        int numFigures = getFigures().size();
         for(int x = 0; x < linies.length; x++){
 
+            //Log.d("Numero cuadros", "Cuadros per linia a " + linies[x].centreY + " hi ha " + linies[x].numeroCuadros);
             if(linies[x].numeroCuadros == MAXIM_CUADROS_PER_FILA){
                 puntuacio += PUNTUACIO_PER_FILA;
                 //Augmentar velocitat modul de sa constant
@@ -130,7 +131,16 @@ public class TetrisObject{
                     Figura f = getFigures().get(p);
                     f.llevarCuadros(linies[x].centreY);
                 }
-
+                //Mirar si tots es cuadros son null llevar sa figura
+                for(int l = 0; l < numFigures; l++){
+                    Figura a = getFigures().get(l);
+                    if(a.totsNull()){
+                        getFigures().remove(l);
+                        //Calcular de nou sa mida, perque he llevat una figura
+                        numFigures = getFigures().size();
+                        l--;
+                    }
+                }
 
                 //No només necessit baixar ses figures que els hi he llevat es cuadros si no també a totes ses altres
                 //Fer corre totes ses figures que hi hagi per damunt
@@ -164,9 +174,10 @@ public class TetrisObject{
                 Figura f = getFigures().get(k);
                 result[p].numeroCuadros += f.getNumeroCentreY(incremental);
             }
-            if(result[p].numeroCuadros > MAXIM_CUADROS_PER_FILA) {
+
+            /*if(result[p].numeroCuadros > MAXIM_CUADROS_PER_FILA) {
                 Log.d("Numero cuadros", "Cuadros per linia a " + result[p].centreY + " hi ha " + result[p].numeroCuadros);
-            }
+            }*/
             incremental += Cuadro.TAMANY_QUADRAT;
         }
         return result;
