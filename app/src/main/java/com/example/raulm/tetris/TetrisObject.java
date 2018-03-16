@@ -132,6 +132,7 @@ public class TetrisObject{
                     f.llevarCuadros(linies[x].centreY);
                 }
                 //Mirar si tots es cuadros son null llevar sa figura
+                //Es tanca avegades aqui
                 for(int l = 0; l < numFigures; l++){
                     Figura a = getFigures().get(l);
                     if(a.totsNull()){
