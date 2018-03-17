@@ -15,7 +15,8 @@ public class TetrisObject{
     private static final int PUNTUACIO_PER_FILA = 100;
     //Per exemple cada 500 augmenta 0.1d de velocitat
     private static final int AUGMENTAR_VELOCITAT_CADA_PUNTUACIO = 500;
-    private static final double AUGMENT_DE_VELOCITAT = 0.005d;
+    private static final double AUGMENT_DE_VELOCITAT = 0.025d;
+    private static final double FACTOR_TURBO = 2.5d;
 
     private List<Figura> figuresEnPantalla;
     private int alturaPantalla, ampladaPantalla;
@@ -191,7 +192,7 @@ public class TetrisObject{
 
     public void activarTurbo(){
         //Llevat perque se me descoloquen es cuadros
-        figuraActual.setIncY(this.velocitat * 2d);
+        figuraActual.setIncY(this.velocitat * FACTOR_TURBO);
     }
 
     public boolean getAcabat(){
