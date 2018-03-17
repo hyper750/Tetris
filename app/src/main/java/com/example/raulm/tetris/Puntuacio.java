@@ -50,7 +50,7 @@ public class Puntuacio {
         this.data = data;
     }
 
-    public String getDataFormat(){
+    private String getDataFormat(){
         SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
         Date d = new Date(this.data);
         return sf.format(d);

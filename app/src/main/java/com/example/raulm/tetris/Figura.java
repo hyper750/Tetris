@@ -72,6 +72,44 @@ public abstract class Figura implements Cloneable{
         return centreY;
     }
 
+    public void colocarSenseAtravesar(Figura f){
+        //Colcoar this figura perque no atravesi f
+        for(int x = 0; x < imatge.length; x++){
+            for(int y = 0; y < imatge[x].length; y++){
+                //Per cada cuadro de this figura
+                ICuadro thisCuad = imatge[x][y];
+                if(!(thisCuad instanceof CuadroNull)) {
+                    for (int i = 0; i < f.imatge.length; i++) {
+                        for (int o = 0; o < f.imatge[i].length; o++) {
+                            ICuadro fCuad = f.imatge[i][o];
+                            //Mirar si està atravesada
+                            if (!(fCuad instanceof CuadroNull) && thisCuad.getCentreX() == fCuad.getCentreX()) {
+                                //Si estan a ses mateixes x pero atravesades, colocar
+                                while ((thisCuad.getCentreY() - thisCuad.getAltura() / 2 < fCuad.getCentreY() - fCuad.getAltura() / 2 &&
+                                        thisCuad.getCentreY() + thisCuad.getAltura() / 2 > fCuad.getCentreY() - fCuad.getAltura() / 2)
+                                        ) {
+                                    setCentreY(centreY - 1);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void senseAtravesarBordeInferior(int senseAtravesarY){
+        for(int x = 0; x < imatge.length; x++){
+            for(int y = 0; y < imatge[x].length; y++){
+                ICuadro cuad = imatge[x][y];
+                //Si es borde infeior atravessa
+                while(cuad.getCentreY() + cuad.getAltura()/2 > senseAtravesarY){
+                    setCentreY(getCentreY() - 1);
+                }
+            }
+        }
+    }
+
     public int getAlturaArray(){
         return imatge.length;
     }
@@ -285,6 +323,25 @@ public abstract class Figura implements Cloneable{
     public int getAltura() {
         return this.imatge.length*Cuadro.TAMANY_QUADRAT;
     }
+
+    public int getAlturaSenseNull(){
+        int res = 0;
+        int cont = 0;
+        for(int x = 0; x < imatge.length; x++){
+            for(int y = 0; y < imatge[x].length; y++){
+                if(!(imatge[y][x] instanceof CuadroNull)){
+                    cont++;
+                }
+            }
+
+            if(cont > res){
+                res = cont;
+            }
+            cont = 0;
+        }
+        return res;
+    }
+
 
     public boolean colisio(Figura f) {
         //Mir si tots es cuadros meus colisionen amb algun d'una altre figura

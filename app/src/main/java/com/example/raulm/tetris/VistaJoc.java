@@ -188,14 +188,15 @@ public class VistaJoc extends View {
             }
 
             //Pot estar colisionant per una altre figura o quan incrementes sa posicio amb enterra
-            if (factual.getIncY() == 0d) {
-                if(!tetris.getAcabat()) {
-                    tetris.liniesCompletes();
-                    tetris.random();
-                    //Si colisiona amb adalt acaba es joc
-                    if(tetris.tocaAdaltSaPantalla(factual)){
-                        acabar();
-                    }
+            if (factual.getIncY() == 0d && !tetris.getAcabat()) {
+                //Colocar figura perque no es surti un poc de sa pantalla o estigui dins una altre figura
+                tetris.colocarFiguraSenseAtravesarEnterra(tetris.getFiguraActual());
+                tetris.colocarFiguresSenseAtravesar(tetris.getFiguraActual());
+                tetris.liniesCompletes();
+                tetris.random();
+                //Si colisiona amb adalt acaba es joc
+                if(tetris.tocaAdaltSaPantalla(factual)){
+                    acabar();
                 }
             }
         }

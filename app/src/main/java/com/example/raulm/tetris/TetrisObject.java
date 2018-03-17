@@ -19,7 +19,7 @@ public class TetrisObject{
 
     private List<Figura> figuresEnPantalla;
     private int alturaPantalla, ampladaPantalla;
-    private double velocitat = 0.199d;
+    private double velocitat = 0.22d;
     private Figura figuraActual;
     private FiguraFactory figuraFactory;
     //Modificar per linia feta
@@ -41,7 +41,7 @@ public class TetrisObject{
         figuraActual.setCentreX((Cuadro.TAMANY_QUADRAT/2 + Cuadro.TAMANY_QUADRAT*5 - Math.round(figuraActual.getMaxAmplada()/2)*Cuadro.TAMANY_QUADRAT)); //10 cuadros en pantalla per fila
         figuraActual.setCentreY(figuraActual.getAltura()/2);
         figuraActual.setIncY(this.velocitat);
-        colocarFigura(figuraActual);
+        colocarFiguraRandom(figuraActual);
     }
 
     public List<Figura> getFigures(){
@@ -208,7 +208,7 @@ public class TetrisObject{
         return f.colisioCentreYInferior(getAlturaPantalla());
     }
 
-    public void colocarFigura(Figura f){
+    private void colocarFiguraRandom(Figura f){
         int figuressize = getFigures().size();
         for(int x = 0; x < figuressize; x++){
             Figura fig = getFigures().get(x);
@@ -216,8 +216,19 @@ public class TetrisObject{
                 f.setCentreY(f.getCentreY()-Cuadro.TAMANY_QUADRAT);
             }
         }
+    }
 
+    public void colocarFiguresSenseAtravesar(Figura f){
+        int figuressize = getFigures().size();
+        for(int x = 0; x < figuressize; x++){
+            Figura fig = getFigures().get(x);
+            //Si es borde superior està més en dins que sa que cau
+            f.colocarSenseAtravesar(fig);
+        }
+    }
 
+    public void colocarFiguraSenseAtravesarEnterra(Figura f){
+        f.senseAtravesarBordeInferior(getAlturaPantalla());
     }
 
     public boolean tocaAdaltSaPantalla(Figura f){
